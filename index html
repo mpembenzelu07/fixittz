@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FixitTZ – Pata Fundi Haraka Tanzania | Plumbing, Umeme, Nyumba & Zaidi</title>
+  <meta name="description" content="Pata fundi wa kuaminika kwa maji, umeme, ujenzi na matengenezo ya nyumba Tanzania mzima. Bei poa, huduma ya haraka!"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    /* === RESET & BASE === */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Poppins',sans-serif; line-height:1.6; color:#333; background:#f9f9f9; }
+    a { text-decoration:none; }
+    img { max-width:100%; display:block; }
+
+    /* === NAVBAR === */
+    .navbar { background:#006400; padding:1rem 0; position:fixed; width:100%; top:0; z-index:1000; }
+    .nav-container { max-width:1200px; margin:0 auto; padding:0 1.5rem; display:flex; justify-content:space-between; align-items:center; }
+    .logo h1 { color:#fff; font-size:1.8rem; }
+    .nav-menu { display:flex; gap:2rem; list-style:none; }
+    .nav-menu a { color:#fff; font-weight:600; transition:color .3s; }
+    .nav-menu a:hover { color:#ffb000; }
+    .hamburger { display:none; cursor:pointer; }
+    .hamburger span { width:28px; height:3px; background:#fff; margin:5px 0; transition:.3s; display:block; }
+
+    /* === HERO === */
+    .hero { background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1581092580496-3d829e08b837?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat; 
+             height:100vh; display:flex; align-items:center; justify-content:center; text-align:center; color:#fff; padding-top:80px; }
+    .hero h1 { font-size:3.5rem; margin-bottom:1rem; }
+    .hero p { font-size:1.3rem; max-width:700px; margin:0 auto 2rem; }
+    .cta { background:#ffb000; color:#000; padding:1rem 2.5rem; font-size:1.2rem; font-weight:700; border:none; border-radius:50px; cursor:pointer; transition:.3s; }
+    .cta:hover { background:#ffca3a; }
+
+    /* === SECTIONS === */
+    section { padding:5rem 1.5rem; max-width:1200px; margin:0 auto; }
+    h2 { text-align:center; font-size:2.8rem; color:#006400; margin-bottom:3rem; }
+    .services-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:2rem; }
+    .card { background:#fff; padding:2rem; border-radius:12px; box-shadow:0 6px 15px rgba(0,0,0,0.1); text-align:center; transition:transform .3s; }
+    .card:hover { transform:translateY(-10px); }
+    .card h3 { color:#ffb000; margin:1rem 0; font-size:1.5rem; }
+
+    .about { background:#f0f8f0; text-align:center; }
+    .contact form { max-width:600px; margin:0 auto; display:grid; gap:1rem; }
+    .contact input, .contact textarea { padding:1rem; border:1px solid #ccc; border-radius:8px; font-family:inherit; }
+    .contact button { background:#006400; color:#fff; padding:1rem; border:none; border-radius:8px; font-size:1.1rem; cursor:pointer; }
+    .contact button:hover { background:#004d00; }
+
+    footer { background:#222; color:#fff; text-align:center; padding:2.5rem; }
+    footer a { color:#ffb000; }
+
+    /* === MOBILE === */
+    @media (max-width:768px) {
+      .hamburger { display:block; }
+      .nav-menu { position:fixed; left:-100%; top:70px; flex-direction:column; background:#006400; width:100%; text-align:center; transition:.3s; padding:2rem 0; }
+      .nav-menu.active { left:0; }
+      .hero h1 { font-size:2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo"><h1>FixitTZ</h1></div>
+      <ul class="nav-menu">
+        <li><a href="#home">Nyumbani</a></li>
+        <li><a href="#services">Huduma</a></li>
+        <li><a href="#about">Kuhusu</a></li>
+        <li><a href="#contact">Wasiliana</a></li>
+      </ul>
+      <div class="hamburger"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <div>
+      <h1>Pata Fundi Wako Haraka!</h1>
+      <p>Huduma za maji, umeme, ujenzi na matengenezo ya nyumba Tanzania mzima. Bei nafuu • Haraka • Wateja zaidi ya 5,000 wameridhika!</p>
+      <button class="cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Book Sasa</button>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <h2>Huduma Zetu</h2>
+    <div class="services-grid">
+      <div class="card"><h3>Fundi Maji</h3><p>Bomba, sinki, choo – tunarekebisha yote haraka.</p></div>
+      <div class="card"><h3>Fundi Umeme</h3><p>Wiring, paneli, solar – salama na wenye leseni.</p></div>
+      <div class="card"><h3>Ujenzi & Matengenezo</h3><p>Rangi, kuezeka, kuni – nyumba yako iwe kama mpya.</p></div>
+      <div class="card"><h3>Fundi Gari (Mobile)</h3><p>Mabadiliko ya matairi, tune-up – tunakuja popote.</p></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about">
+    <h2>Kuhusu FixitTZ</h2>
+    <p>Tumeunganisha wateja na mafundi zaidi ya 1,200 Tanzania nzima – Dar es Salaam, Arusha, Mwanza, Dodoma, Zanzibar na zaidi. Tunakupa bei halisi mapema, hakuna gharama za ziada.</p>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <h2>Tuma Ombi Lako</h2>
+    <form id="contactForm">
+      <input type="text" placeholder="Jina lako" required />
+      <input type="tel" placeholder="Namba ya simu (+255)" required />
+      <input type="text" placeholder="Mkoa / Wilaya" required />
+      <textarea rows="5" placeholder="Eleza tatizo lako..." required></textarea>
+      <button type="submit">Tuma Ombi</button>
+    </form>
+    <p style="text-align:center; margin-top:2rem;">
+      <strong>Simu:</strong> +255 768 000 111 • <strong>Email:</strong> info@fixittz.co.tz
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 FixitTZ – Made with ❤️ in Tanzania • <a href="#">Sera ya Faragha</a></p>
+  </footer>
+
+  <script>
+    // Mobile menu
+    document.querySelector('.hamburger').addEventListener('click', () => {
+      document.querySelector('.nav-menu').classList.toggle('active');
+    });
+
+    // Form submission (simple alert + WhatsApp redirect – perfect for TZ)
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const phone = this[1].value.trim();
+      const msg = encodeURIComponent(`Habari! Nataka huduma ya \( {this[3].value} - \){this[2].value}`);
+      window.open(`https://wa.me/255768000111?text=${msg}`, '_blank');
+      alert('Asante! Ombi lako limetumwa kwa WhatsApp. Tutakujibu mara moja!');
+      this.reset();
+    });
+  </script>
+</body>
+</html>
