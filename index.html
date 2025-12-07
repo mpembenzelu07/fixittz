@@ -614,4 +614,156 @@
             </div>
             
             <div class="contact-item">
+              <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+              <div>
+                <h4>Ofisi Zetu</h4>
+                <p>Dar es Salaam: S.L.P 12345, Mikocheni</p>
+                <p>Arusha: S.L.P 5678, Njiro</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+        
+        <div class="contact-form">
+          <form id="contactForm">
+            <input type="text" placeholder="Jina Kamili" required />
+            <input type="tel" placeholder="Namba Ya Simu (+255)" required />
+            <input type="email" placeholder="Barua Pepe (Hiari)" />
+            <select required>
+              <option value="" disabled selected>Chagua Aina Ya Huduma</option>
+              <option value="plumbing">Fundi Maji</option>
+              <option value="electrician">Fundi Umeme</option>
+              <option value="construction">Ujenzi & Matengenezo</option>
+              <option value="car">Fundi Gari</option>
+              <option value="other">Nyingine</option>
+            </select>
+            <input type="text" placeholder="Eneo (Mkoa/Wilaya)" required />
+            <textarea rows="5" placeholder="Eleza tatizo lako kwa kina..." required></textarea>
+            <button type="submit">
+              <i class="fas fa-paper-plane"></i> Tuma Ombi Lako
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <h2>Fixit<span style="color: #ffb000">TZ</span></h2>
+          <p>Muunganisho bora wa mafundi na wateja nchini Tanzania. Huduma bora, bei nafuu, na wafanyakazi wenye uzoefu.</p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-links">
+          <h3>Viungo Muhimu</h3>
+          <ul>
+            <li><a href="#home">Nyumbani</a></li>
+            <li><a href="#services">Huduma Zetu</a></li>
+            <li><a href="#about">Kuhusu Sisi</a></li>
+            <li><a href="#contact">Wasiliana Nasi</a></li>
+            <li><a href="#">Waongozi Wetu</a></li>
+            <li><a href="#">Fanya Bidhaa Zetu</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-contact">
+          <h3>Mawasiliano</h3>
+          <p><i class="fas fa-phone-alt"></i> +255 768 000 111</p>
+          <p><i class="fas fa-envelope"></i> info@fixittz.co.tz</p>
+          <p><i class="fas fa-map-marker-alt"></i> Mikocheni, Dar es Salaam</p>
+          <p><i class="fas fa-clock"></i> Jumamosi - Ijumaa: 8:00 asubuhi - 8:00 jioni</p>
+          <p><i class="fas fa-clock"></i> Jumapili: 9:00 asubuhi - 4:00 jioni</p>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>© 2025 FixitTZ – Imeundwa kwa Upendo Tanzania • <a href="#">Sera ya Faragha</a> • <a href="#">Vigezo na Masharti</a></p>
+        <p style="margin-top: 0.5rem; font-size: 0.85rem;">Namba ya usajili: 123456789 | TIN: 123-456-789</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navMenu.classList.toggle('active');
+    });
+    
+    // Close menu when clicking a link
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+      });
+    });
+    
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+    
+    // Form submission with WhatsApp integration
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get form values
+      const name = this[0].value.trim();
+      const phone = this[1].value.trim();
+      const service = this[3].value;
+      const location = this[4].value.trim();
+      const problem = this[5].value.trim();
+      
+      // Service mapping
+      const serviceMap = {
+        'plumbing': 'Fundi Maji',
+        'electrician': 'Fundi Umeme',
+        'construction': 'Ujenzi & Matengenezo',
+        'car': 'Fundi Gari',
+        'other': 'Huduma Nyingine'
+      };
+      
+      const serviceName = serviceMap[service] || 'Huduma';
+      
+      // Create WhatsApp message
+      const message = `Habari! Mimi ni ${name}. Nataka huduma ya ${serviceName} katika eneo la ${location}. Tatizo ni: ${problem}. Namba yangu ya simu ni: ${phone}.`;
+      const encodedMessage = encodeURIComponent(message);
+      
+      // Open WhatsApp
+      window.open(`https://wa.me/255768000111?text=${encodedMessage}`, '_blank');
+      
+      // Show success message
+      alert('Asante sana! Ombi lako limetumwa kwa mafundi wetu kupitia WhatsApp. Tutakujibu ndani ya dakika 15!');
+      
+      // Reset form
+      this.reset();
+    });
+  </script>
+</body>
+</html>
+```
          
