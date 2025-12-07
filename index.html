@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FixitTZ – Pata Fundi Haraka Tanzania | Plumbing, Umeme, Nyumba & Zaidi</title>
+  <meta name="description" content="Pata fundi wa kuaminika kwa maji, umeme, ujenzi na matengenezo ya nyumba Tanzania mzima. Bei poa, huduma ya haraka!"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* === RESET & BASE === */
+    :root {
+      --primary-green: #006400;
+      --secondary-green: #0a8c0a;
+      --accent-yellow: #ffb000;
+      --light-yellow: #ffedcc;
+      --light-gray: #f8f9fa;
+      --medium-gray: #e9ecef;
+      --dark-gray: #333;
+      --white: #ffffff;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --radius: 12px;
+      --transition: all 0.3s ease;
+    }
+    
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Poppins', sans-serif; line-height:1.7; color:var(--dark-gray); background:var(--light-gray); overflow-x: hidden; }
+    a { text-decoration:none; transition: var(--transition); }
+    img { max-width:100%; display:block; }
+    ul { list-style: none; }
+    
+    /* === CONTAINERS === */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+    .section-padding { padding: 6rem 1.5rem; }
+    
+    /* === TYPOGRAPHY === */
+    h1, h2, h3, h4 { font-weight: 700; line-height: 1.2; color: var(--primary-green); }
+    h1 { font-size: 3.5rem; margin-bottom: 1.5rem; }
+    h2 { font-size: 2.8rem; text-align: center; margin-bottom: 1rem; position: relative; }
+    h2:after {
+      content: '';
+      position: absolute;
+      width: 100px;
+      height: 4px;
+      background: var(--accent-yellow);
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+    h3 { font-size: 1.8rem; margin-bottom: 1rem; }
+    p { font-size: 1.1rem; margin-bottom: 1.5rem; color: #555; }
+    .section-subtitle { text-align: center; font-size: 1.2rem; max-width: 700px; margin: 0 auto 4rem; color: #666; }
+    
+    /* === NAVBAR === */
+    .navbar { 
+      background: var(--primary-green); 
+      padding: 1.2rem 0; 
+      position: fixed; 
+      width: 100%; 
+      top: 0; 
+      z-index: 1000;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+    }
+    .navbar.scrolled { padding: 0.8rem 0; }
+    .nav-container { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+    }
+    .logo { display: flex; align-items: center; }
+    .logo h1 { 
+      color: var(--white); 
+      font-size: 2rem; 
+      font-weight: 700; 
+      letter-spacing: -0.5px;
+    }
+    .logo span { color: var(--accent-yellow); }
+    .nav-menu { display: flex; gap: 2.5rem; }
+    .nav-menu a { 
+      color: var(--white); 
+      font-weight: 600; 
+      font-size: 1.1rem;
+      position: relative;
+    }
+    .nav-menu a:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: var(--accent-yellow);
+      bottom: -5px;
+      left: 0;
+      transition: var(--transition);
+    }
+    .nav-menu a:hover { color: var(--accent-yellow); }
+    .nav-menu a:hover:after { width: 100%; }
+    .cta-nav { 
+      background: var(--accent-yellow); 
+      color: var(--primary-green); 
+      padding: 0.7rem 1.5rem; 
+      border-radius: 50px; 
+      font-weight: 600;
+      margin-left: 1rem;
+    }
+    .cta-nav:hover { 
+      background: var(--white); 
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    .hamburger { display: none; cursor: pointer; }
+    .hamburger span { 
+      width: 28px; 
+      height: 3px; 
+      background: var(--white); 
+      margin: 5px 0; 
+      transition: .3s; 
+      display: block;
+      border-radius: 2px;
+    }
+    
+    /* === HERO === */
+    .hero { 
+      background: linear-gradient(rgba(0, 50, 0, 0.85), rgba(0, 50, 0, 0.8)), 
+                  url('https://images.unsplash.com/photo-1581092580496-3d829e08b837?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat fixed; 
+      height: 100vh; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      text-align: center; 
+      color: var(--white); 
+      padding-top: 80px;
+      position: relative;
+    }
+    .hero-content { max-width: 850px; padding: 2rem; }
+    .hero h1 { color: var(--white); font-size: 3.8rem; margin-bottom: 1.5rem; }
+    .hero p { 
+      font-size: 1.4rem; 
+      margin: 0 auto 3rem; 
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.8;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+    }
+    .stat-item {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 1.5rem 2rem;
+      border-radius: var(--radius);
+      min-width: 180px;
+    }
+    .stat-number { font-size: 2.5rem; font-weight: 700; color: var(--accent-yellow); }
+    .stat-label { font-size: 1rem; opacity: 0.9; }
+    
+    .cta { 
+      background: var(--accent-yellow); 
+      color: var(--primary-green); 
+      padding: 1.2rem 3rem; 
+      font-size: 1.3rem; 
+      font-weight: 700; 
+      border: none; 
+      border-radius: 50px; 
+      cursor: pointer; 
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    .cta:hover { 
+      background: var(--white); 
+      transform: translateY(-5px);
+      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25);
+    }
+    
+    /* === SECTIONS === */
+    .services { background: var(--white); }
+    .services-grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+      gap: 2.5rem; 
+      margin-top: 3rem;
+    }
+    .card { 
+      background: var(--white); 
+      padding: 2.5rem 2rem; 
+      border-radius: var(--radius); 
+      box-shadow: var(--shadow); 
+      text-align: center; 
+      transition: var(--transition);
+      border-top: 5px solid var(--accent-yellow);
+      position: relative;
+      overflow: hidden;
+    }
+    .card:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--primary-green);
+      transform: translateX(-100%);
+      transition: var(--transition);
+    }
+    .card:hover:before { transform: translateX(0); }
+    .card:hover { 
+      transform: translateY(-15px); 
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    }
+    .card-icon {
+      background: var(--light-yellow);
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      color: var(--primary-green);
+      font-size: 2rem;
+    }
+    .card h3 { color: var(--primary-green); margin: 1rem 0; font-size: 1.6rem; }
+    .card p { font-size: 1rem; color: #666; }
+    
+    /* === ABOUT === */
+    .about { 
+      background: linear-gradient(135deg, var(--light-gray) 0%, var(--medium-gray) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .about:before {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: rgba(0, 100, 0, 0.05);
+      top: -100px;
+      right: -100px;
+    }
+    .about:after {
+      content: '';
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: rgba(255, 176, 0, 0.05);
+      bottom: -50px;
+      left: -50px;
+    }
+    .about-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .about-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+    .feature-item {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+    .feature-icon { 
+      color: var(--secondary-green); 
+      font-size: 2.5rem; 
+      margin-bottom: 1rem;
+    }
+    
+    /* === CONTACT === */
+    .contact { background: var(--white); }
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .contact-info { padding-right: 2rem; }
+    .contact-details { margin-top: 2rem; }
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+      gap: 1rem;
+    }
+    .contact-icon {
+      background: var(--light-yellow);
+      color: var(--primary-green);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .contact-form { 
+      background: var(--light-gray); 
+      padding: 3rem; 
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .contact form { display:grid; gap:1.2rem; }
+    .contact input, .contact textarea, .contact select { 
+      padding:1.2rem; 
+      border:1px solid #ddd; 
+      border-radius:8px; 
+      font-family:inherit; 
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    .contact input:focus, .contact textarea:focus, .contact select:focus {
+      outline: none;
+      border-color: var(--accent-yellow);
+      box-shadow: 0 0 0 3px rgba(255, 176, 0, 0.2);
+    }
+    .contact button { 
+      background: var(--primary-green); 
+      color: var(--white); 
+      padding:1.2rem; 
+      border:none; 
+      border-radius:8px; 
+      font-size:1.2rem; 
+      font-weight: 600;
+      cursor:pointer; 
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .contact button:hover { 
+      background: var(--secondary-green); 
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 100, 0, 0.2);
+    }
+    
+    /* === FOOTER === */
+    footer { 
+      background: var(--primary-green); 
+      color: var(--white); 
+      padding: 4rem 0 2rem;
+    }
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer-logo h2 { 
+      color: var(--white); 
+      font-size: 2rem;
+      text-align: left;
+    }
+    .footer-logo h2:after { display: none; }
+    .footer-logo p { color: rgba(255, 255, 255, 0.8); margin-top: 1rem; }
+    .footer-links h3, .footer-contact h3 { 
+      color: var(--accent-yellow); 
+      font-size: 1.3rem; 
+      margin-bottom: 1.5rem;
+    }
+    .footer-links ul li { margin-bottom: 0.8rem; }
+    .footer-links a { color: rgba(255, 255, 255, 0.8); }
+    .footer-links a:hover { color: var(--accent-yellow); padding-left: 5px; }
+    .social-icons { display: flex; gap: 1rem; margin-top: 1.5rem; }
+    .social-icons a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: var(--white);
+      font-size: 1.2rem;
+    }
+    .social-icons a:hover { background: var(--accent-yellow); color: var(--primary-green); }
+    .copyright { 
+      text-align: center; 
+      padding-top: 2rem; 
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.95rem;
+    }
+    .copyright a { color: var(--accent-yellow); }
+    
+    /* === MOBILE RESPONSIVE === */
+    @media (max-width: 992px) {
+      .contact-container { grid-template-columns: 1fr; gap: 3rem; }
+      .contact-info { padding-right: 0; }
+    }
+    
+    @media (max-width: 768px) {
+      h1 { font-size: 2.8rem; }
+      h2 { font-size: 2.2rem; }
+      .section-padding { padding: 4rem 1.5rem; }
+      
+      .hamburger { display: block; z-index: 1001; }
+      .nav-menu { 
+        position: fixed; 
+        left: -100%; 
+        top: 0; 
+        flex-direction: column; 
+        background: var(--primary-green); 
+        width: 100%; 
+        height: 100vh;
+        text-align: center; 
+        transition: 0.4s; 
+        padding: 8rem 2rem 2rem;
+        justify-content: flex-start;
+        gap: 2rem;
+        box-shadow: none;
+      }
+      .nav-menu.active { left: 0; }
+      .cta-nav { margin: 1rem 0 0; display: inline-block; }
+      
+      .hero h1 { font-size: 2.8rem; }
+      .hero p { font-size: 1.2rem; }
+      .hero-stats { gap: 1.5rem; }
+      .stat-item { min-width: 140px; padding: 1.2rem 1.5rem; }
+      .stat-number { font-size: 2rem; }
+      
+      .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+      .hamburger.active span:nth-child(2) { opacity: 0; }
+      .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -8px); }
+    }
+    
+    @media (max-width: 480px) {
+      h1 { font-size: 2.3rem; }
+      h2 { font-size: 1.9rem; }
+      .hero h1 { font-size: 2.2rem; }
+      .hero p { font-size: 1.1rem; }
+      .cta { padding: 1rem 2rem; font-size: 1.1rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .contact-form { padding: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <div class="logo">
+        <h1>Fixit<span>TZ</span></h1>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="#home">Nyumbani</a></li>
+        <li><a href="#services">Huduma</a></li>
+        <li><a href="#about">Kuhusu Sisi</a></li>
+        <li><a href="#contact">Wasiliana Nasi</a></li>
+        <a href="#contact" class="cta-nav">Pata Huduma Sasa</a>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section id="home" class="hero">
+    <div class="container hero-content">
+      <h1>Pata Fundi Wa Kuaminika Haraka!</h1>
+      <p>Muunganisho wa mafundi waliohitimu na wenye uzoefu Tanzania nzima. Huduma za maji, umeme, ujenzi na matengenezo ya nyumba na ofisi. Bei nafuu na uhakika wa kazi bora.</p>
+      <button class="cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+        <i class="fas fa-tools"></i> Omba Huduma Sasa
+      </button>
+      
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-number">5,000+</div>
+          <div class="stat-label">Wateja Walioridhika</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">1,200+</div>
+          <div class="stat-label">Mafundi Waliosajiliwa</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">24/7</div>
+          <div class="stat-label">Huduma Ya Dharura</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">90%</div>
+          <div class="stat-label">Wateja Wanarudi</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES SECTION -->
+  <section id="services" class="services section-padding">
+    <div class="container">
+      <h2>Huduma Zetu</h2>
+      <p class="section-subtitle">Tunatoa huduma za matengenezo na ujenzi katika maeneo mbalimbali kwa wateja wetu Tanzania nzima</p>
+      
+      <div class="services-grid">
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-faucet"></i>
+          </div>
+          <h3>Fundi Maji</h3>
+          <p>Matengenezo ya mifumo ya maji, bomba, choo, bafu, tanki na mitaro. Huduma ya haraka ya dharura.</p>
+          <p><strong>Maeneo:</strong> Dar, Arusha, Mwanza, Dodoma, Mbeya</p>
+        </div>
+        
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <h3>Fundi Umeme</h3>
+          <p>Usanifu wa umeme, uwekaji wa paneli, mifumo ya solar, taa na vifaa vya umeme. Fundi walio na leseni.</p>
+          <p><strong>Maeneo:</strong> Zanzibar, Tanga, Morogoro, Iringa</p>
+        </div>
+        
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-home"></i>
+          </div>
+          <h3>Ujenzi & Matengenezo</h3>
+          <p>Ukarabati wa nyumba na majengo, rangi, uashi, uwekaji wa dari, sakafu na matengenezo ya jengo.</p>
+          <p><strong>Maeneo:</strong> Kigoma, Tabora, Singida, Shinyanga</p>
+        </div>
+        
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-car"></i>
+          </div>
+          <h3>Fundi Gari (Mobile)</h3>
+          <p>Huduma ya matengenezo ya gari ugani, mabadiliko ya matairi, service na ukarabati wa haraka popote ulipo.</p>
+          <p><strong>Maeneo:</strong> Pwani, Lindi, Mtwara, Rukwa</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section id="about" class="about section-padding">
+    <div class="container">
+      <h2>Kuhusu FixitTZ</h2>
+      <p class="section-subtitle">Tunaunganisha wateja na mafundi wenye uzoefu katika nchi nzima kwa huduma bora na ya haraka</p>
+      
+      <div class="about-content">
+        <p>Tumeanzishwa kwa lengo la kutatua changamoto ya kupata mafundi wa kuaminika nchini Tanzania. Kupitia mfumo wetu wa kisasa, tunawaunganisha wateja na mafundi walio na sifa na uzoefu unaohitajika kwa ajili ya kazi husika.</p>
+        <p>FixitTZ inafanya kazi katika mikoa yote ya Tanzania - kutoka Dar es Salaam, Arusha, Mwanza, Dodoma, Zanzibar hadi maeneo ya kijijini. Tunakupa bei halisi mapema, hakuna gharama za ziada, na uhakika wa kazi bora.</p>
+        
+        <div class="about-features">
+          <div class="feature-item">
+            <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+            <h3>Huduma Ya Dhima</h3>
+            <p>Kazi zote zina dhamana ya siku 90 baada ya ukabaji</p>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon"><i class="fas fa-clock"></i></div>
+            <h3>Haraka Na Ufanisi</h3>
+            <p>Mafundi hufika ndani ya masaa 2 kwa maeneo ya mijini</p>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon"><i class="fas fa-handshake"></i></div>
+            <h3>Bei Nafuu</h3>
+            <p>Lipa kwa kazi iliyokamilika tu, hakuna malipo ya ziada</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section id="contact" class="contact section-padding">
+    <div class="container">
+      <h2>Wasiliana Nasi</h2>
+      <p class="section-subtitle">Tuma ombi lako au wasiliana nasi moja kwa moja kupitia mawasiliano hapa chini</p>
+      
+      <div class="contact-container">
+        <div class="contact-info">
+          <h3>Tupigie Simu Au Tutumie Ujumbe</h3>
+          <p>Timu yetu iko tayari kukusikiliza na kukupa ushauri wa bure juu ya tatizo lako. Wasiliana nasi sasa hivi.</p>
+          
+          <div class="contact-details">
+            <div class="contact-item">
+              <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+              <div>
+                <h4>Namba Za Simu</h4>
+                <p>+255 768 000 111 (WhatsApp & Simu)</p>
+                <p>+255 222 123 456 (Ofisi)</p>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+              <div>
+                <h4>Barua Pepe</h4>
+                <p>info@fixittz.co.tz</p>
+                <p>support@fixittz.co.tz</p>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+         
