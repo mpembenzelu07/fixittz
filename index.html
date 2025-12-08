@@ -1,392 +1,1219 @@
 <!DOCTYPE html>
-<html lang="sw" class="scroll-smooth">
+<html lang="sw">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Pata nyumba bora Tanzania - Bedsitter, Chumba, Apartment Dar es Salaam, Arusha, Mwanza" />
-  <meta name="theme-color" content="#0d9488" />
-  <title>HouseLink - Nyumba Bora Tanzania</title>
-  <link rel="manifest" href="data:application/manifest+json,{\"name\":\"HouseLink\",\"short_name\":\"HouseLink\",\"start_url\":\".\",\"display\":\"standalone\",\"background_color\":\"#0d9488\",\"theme_color\":\"#0d9488\",\"icons\":[{\"src\":\"https://via.placeholder.com/192/0d9488/ffffff?text=HL\",\"sizes\":\"192x192\",\"type\":\"image/png\"},{\"src\":\"https://via.placeholder.com/512/0d9488/ffffff?text=HL\",\"sizes\":\"512x512\",\"type\":\"image/png\"}]}">
-  <link rel="icon" href="https://via.placeholder.com/64/0d9488/ffffff?text=HL" />
-  <link rel="apple-touch-icon" href="https://via.placeholder.com/180/0d9488/ffffff?text=HL" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FixitTZ – Sokoni la Mafundi Tanzania | Pata Fundi Haraka | Plumbing, Umeme, Ujenzi</title>
+  <meta name="description" content="Sokoni la mafundi wa kuaminika Tanzania. Ungana na fundi bora kwa huduma ya maji, umeme, ujenzi na matengenezo. Angalia ratings, bei, na upate huduma haraka!"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    .gradient-bg { background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%); }
-    .card-hover { transition: all 0.3s; }
-    .card-hover:hover { transform: translateY(-10px); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
-    .toast { animation: slideIn 0.4s ease-out; }
-    @keyframes slideIn { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; }}
-    .skeleton { background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: loading 1.5s infinite; }
-    @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; }}
-    .image-gallery { scrollbar-width: thin; scrollbar-color: #0d9488 #f1f1f1; }
-    .image-gallery::-webkit-scrollbar { height: 8px; }
-    .image-gallery::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
-    .image-gallery::-webkit-scrollbar-thumb { background: #0d9488; border-radius: 4px; }
+    /* === RESET & BASE === */
+    :root {
+      --primary-green: #006400;
+      --secondary-green: #0a8c0a;
+      --accent-yellow: #ffb000;
+      --light-yellow: #ffedcc;
+      --light-gray: #f8f9fa;
+      --medium-gray: #e9ecef;
+      --dark-gray: #333;
+      --white: #ffffff;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --radius: 12px;
+      --transition: all 0.3s ease;
+    }
+    
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Poppins', sans-serif; line-height:1.7; color:var(--dark-gray); background:var(--light-gray); overflow-x: hidden; }
+    a { text-decoration:none; transition: var(--transition); }
+    img { max-width:100%; display:block; border-radius: var(--radius); }
+    ul { list-style: none; }
+    
+    /* === LANGUAGE SWITCHER === */
+    .language-switcher {
+      position: fixed;
+      top: 100px;
+      right: 20px;
+      z-index: 999;
+      background: var(--white);
+      border-radius: 50px;
+      padding: 8px;
+      box-shadow: var(--shadow);
+      display: flex;
+      gap: 5px;
+    }
+    .lang-btn {
+      padding: 8px 15px;
+      border-radius: 50px;
+      background: transparent;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .lang-btn.active {
+      background: var(--primary-green);
+      color: var(--white);
+    }
+    .lang-btn:hover:not(.active) {
+      background: var(--medium-gray);
+    }
+    
+    /* === CONTAINERS === */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+    .section-padding { padding: 6rem 1.5rem; }
+    
+    /* === TYPOGRAPHY === */
+    h1, h2, h3, h4 { font-weight: 700; line-height: 1.2; color: var(--primary-green); }
+    h1 { font-size: 3.5rem; margin-bottom: 1.5rem; }
+    h2 { font-size: 2.8rem; text-align: center; margin-bottom: 1rem; position: relative; }
+    h2:after {
+      content: '';
+      position: absolute;
+      width: 100px;
+      height: 4px;
+      background: var(--accent-yellow);
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+    h3 { font-size: 1.8rem; margin-bottom: 1rem; }
+    p { font-size: 1.1rem; margin-bottom: 1.5rem; color: #555; }
+    .section-subtitle { text-align: center; font-size: 1.2rem; max-width: 700px; margin: 0 auto 4rem; color: #666; }
+    
+    /* === NAVBAR === */
+    .navbar { 
+      background: var(--primary-green); 
+      padding: 1.2rem 0; 
+      position: fixed; 
+      width: 100%; 
+      top: 0; 
+      z-index: 1000;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+    }
+    .navbar.scrolled { padding: 0.8rem 0; }
+    .nav-container { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+    }
+    .logo { display: flex; align-items: center; }
+    .logo h1 { 
+      color: var(--white); 
+      font-size: 2rem; 
+      font-weight: 700; 
+      letter-spacing: -0.5px;
+    }
+    .logo span { color: var(--accent-yellow); }
+    .nav-menu { display: flex; gap: 2.5rem; align-items: center; }
+    .nav-menu a { 
+      color: var(--white); 
+      font-weight: 600; 
+      font-size: 1.1rem;
+      position: relative;
+    }
+    .nav-menu a:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: var(--accent-yellow);
+      bottom: -5px;
+      left: 0;
+      transition: var(--transition);
+    }
+    .nav-menu a:hover { color: var(--accent-yellow); }
+    .nav-menu a:hover:after { width: 100%; }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .btn-login { 
+      color: var(--white); 
+      font-weight: 600;
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+    .btn-login:hover { 
+      background: rgba(255, 255, 255, 0.1); 
+      border-color: var(--accent-yellow);
+    }
+    .btn-register { 
+      background: var(--accent-yellow); 
+      color: var(--primary-green); 
+      padding: 0.7rem 1.5rem; 
+      border-radius: 50px; 
+      font-weight: 600;
+    }
+    .btn-register:hover { 
+      background: var(--white); 
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    .hamburger { display: none; cursor: pointer; }
+    .hamburger span { 
+      width: 28px; 
+      height: 3px; 
+      background: var(--white); 
+      margin: 5px 0; 
+      transition: .3s; 
+      display: block;
+      border-radius: 2px;
+    }
+    
+    /* === SEARCH BAR === */
+    .search-section {
+      background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
+      padding: 4rem 1.5rem;
+      margin-top: 80px;
+    }
+    .search-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--white);
+      padding: 2.5rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .search-title {
+      text-align: center;
+      color: var(--primary-green);
+      margin-bottom: 2rem;
+      font-size: 1.8rem;
+    }
+    .search-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .search-form input, .search-form select {
+      padding: 1rem 1.2rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+    .search-form button {
+      background: var(--accent-yellow);
+      color: var(--primary-green);
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .search-form button:hover {
+      background: #ffca3a;
+      transform: translateY(-3px);
+    }
+    .popular-searches {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .popular-tag {
+      background: var(--light-gray);
+      color: var(--primary-green);
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+    .popular-tag:hover {
+      background: var(--accent-yellow);
+      color: var(--primary-green);
+    }
+    
+    /* === HERO === */
+    .hero { 
+      background: linear-gradient(rgba(0, 50, 0, 0.85), rgba(0, 50, 0, 0.8)), 
+                  url('https://images.unsplash.com/photo-1581092580496-3d829e08b837?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat; 
+      padding: 8rem 1.5rem 6rem;
+      text-align: center; 
+      color: var(--white);
+    }
+    .hero-content { max-width: 850px; margin: 0 auto; }
+    .hero h1 { color: var(--white); font-size: 3.5rem; margin-bottom: 1.5rem; }
+    .hero p { 
+      font-size: 1.4rem; 
+      margin: 0 auto 3rem; 
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.8;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-top: 4rem;
+      flex-wrap: wrap;
+    }
+    .stat-item {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 1.5rem 2rem;
+      border-radius: var(--radius);
+      min-width: 180px;
+    }
+    .stat-number { font-size: 2.5rem; font-weight: 700; color: var(--accent-yellow); }
+    .stat-label { font-size: 1rem; opacity: 0.9; }
+    
+    .cta { 
+      background: var(--accent-yellow); 
+      color: var(--primary-green); 
+      padding: 1.2rem 3rem; 
+      font-size: 1.3rem; 
+      font-weight: 700; 
+      border: none; 
+      border-radius: 50px; 
+      cursor: pointer; 
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    .cta:hover { 
+      background: var(--white); 
+      transform: translateY(-5px);
+      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25);
+    }
+    
+    /* === PROVIDERS SECTION === */
+    .providers { background: var(--white); }
+    .providers-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .view-all {
+      color: var(--primary-green);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .providers-grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+      gap: 2.5rem; 
+    }
+    .provider-card { 
+      background: var(--white); 
+      border-radius: var(--radius); 
+      box-shadow: var(--shadow); 
+      transition: var(--transition);
+      overflow: hidden;
+      border: 1px solid var(--medium-gray);
+    }
+    .provider-card:hover { 
+      transform: translateY(-10px); 
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    }
+    .provider-img {
+      height: 200px;
+      width: 100%;
+      object-fit: cover;
+    }
+    .provider-info {
+      padding: 1.8rem;
+    }
+    .provider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    .provider-name h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.5rem;
+    }
+    .provider-rating {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: #ffb000;
+      font-weight: 600;
+    }
+    .provider-rating span {
+      color: #777;
+      font-size: 0.9rem;
+    }
+    .provider-services {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .service-tag {
+      background: var(--light-yellow);
+      color: var(--primary-green);
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    .provider-location {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #666;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+    }
+    .provider-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .provider-price {
+      font-weight: 700;
+      color: var(--primary-green);
+      font-size: 1.2rem;
+    }
+    .btn-book {
+      background: var(--primary-green);
+      color: var(--white);
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .btn-book:hover {
+      background: var(--secondary-green);
+      transform: translateY(-2px);
+    }
+    
+    /* === HOW IT WORKS === */
+    .how-it-works {
+      background: linear-gradient(135deg, var(--light-gray) 0%, var(--medium-gray) 100%);
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2.5rem;
+      margin-top: 3rem;
+    }
+    .step {
+      background: var(--white);
+      padding: 2.5rem 2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      text-align: center;
+      position: relative;
+    }
+    .step-number {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent-yellow);
+      color: var(--primary-green);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+    .step-icon {
+      font-size: 3rem;
+      color: var(--primary-green);
+      margin-bottom: 1.5rem;
+    }
+    
+    /* === REVIEWS === */
+    .reviews-slider {
+      max-width: 900px;
+      margin: 3rem auto 0;
+      position: relative;
+    }
+    .review-card {
+      background: var(--white);
+      padding: 2.5rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin: 0 1rem;
+    }
+    .review-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .review-avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .review-info h4 {
+      margin-bottom: 0.5rem;
+    }
+    .review-provider {
+      color: var(--secondary-green);
+      font-weight: 500;
+    }
+    .review-stars {
+      color: #ffb000;
+      margin-bottom: 1rem;
+    }
+    .review-text {
+      font-style: italic;
+      color: #555;
+      line-height: 1.8;
+    }
+    .slider-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .slider-btn {
+      background: var(--medium-gray);
+      color: var(--primary-green);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+    .slider-btn:hover {
+      background: var(--accent-yellow);
+    }
+    
+    /* === BECOME PROVIDER === */
+    .become-provider {
+      background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
+      color: var(--white);
+      text-align: center;
+    }
+    .become-provider h2,
+    .become-provider .section-subtitle {
+      color: var(--white);
+    }
+    .become-provider h2:after {
+      background: var(--accent-yellow);
+    }
+    .become-provider .section-subtitle {
+      color: rgba(255, 255, 255, 0.9);
+    }
+    .provider-benefits {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    .benefit {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: var(--radius);
+      backdrop-filter: blur(10px);
+    }
+    .benefit-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--accent-yellow);
+    }
+    
+    /* === FOOTER === */
+    footer { 
+      background: var(--primary-green); 
+      color: var(--white); 
+      padding: 4rem 0 2rem;
+    }
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer-logo h2 { 
+      color: var(--white); 
+      font-size: 2rem;
+      text-align: left;
+    }
+    .footer-logo h2:after { display: none; }
+    .footer-logo p { color: rgba(255, 255, 255, 0.8); margin-top: 1rem; }
+    .footer-links h3, .footer-contact h3 { 
+      color: var(--accent-yellow); 
+      font-size: 1.3rem; 
+      margin-bottom: 1.5rem;
+    }
+    .footer-links ul li { margin-bottom: 0.8rem; }
+    .footer-links a { color: rgba(255, 255, 255, 0.8); }
+    .footer-links a:hover { color: var(--accent-yellow); padding-left: 5px; }
+    .social-icons { display: flex; gap: 1rem; margin-top: 1.5rem; }
+    .social-icons a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: var(--white);
+      font-size: 1.2rem;
+    }
+    .social-icons a:hover { background: var(--accent-yellow); color: var(--primary-green); }
+    .copyright { 
+      text-align: center; 
+      padding-top: 2rem; 
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.95rem;
+    }
+    .copyright a { color: var(--accent-yellow); }
+    
+    /* === MOBILE RESPONSIVE === */
+    @media (max-width: 992px) {
+      .search-form {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      h1 { font-size: 2.8rem; }
+      h2 { font-size: 2.2rem; }
+      .section-padding { padding: 4rem 1.5rem; }
+      .language-switcher {
+        top: 90px;
+        right: 10px;
+      }
+      
+      .hamburger { display: block; z-index: 1001; }
+      .nav-menu { 
+        position: fixed; 
+        left: -100%; 
+        top: 0; 
+        flex-direction: column; 
+        background: var(--primary-green); 
+        width: 100%; 
+        height: 100vh;
+        text-align: center; 
+        transition: 0.4s; 
+        padding: 8rem 2rem 2rem;
+        justify-content: flex-start;
+        gap: 2rem;
+        box-shadow: none;
+      }
+      .nav-menu.active { left: 0; }
+      .nav-actions {
+        flex-direction: column;
+        width: 100%;
+      }
+      .btn-login, .btn-register {
+        width: 100%;
+        text-align: center;
+      }
+      
+      .hero h1 { font-size: 2.5rem; }
+      .hero p { font-size: 1.2rem; }
+      .hero-stats { gap: 1.5rem; }
+      .stat-item { min-width: 140px; padding: 1.2rem 1.5rem; }
+      .stat-number { font-size: 2rem; }
+      
+      .providers-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+      .hamburger.active span:nth-child(2) { opacity: 0; }
+      .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -8px); }
+    }
+    
+    @media (max-width: 480px) {
+      h1 { font-size: 2.3rem; }
+      h2 { font-size: 1.9rem; }
+      .hero h1 { font-size: 2rem; }
+      .hero p { font-size: 1.1rem; }
+      .cta { padding: 1rem 2rem; font-size: 1.1rem; }
+      .providers-grid { grid-template-columns: 1fr; }
+      .search-container { padding: 1.5rem; }
+    }
+    
+    /* === HIDDEN ENGLISH CONTENT === */
+    .english-content { display: none; }
   </style>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
-  <div id="root"></div>
+<body>
 
-  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-  <script src="https://unpkg.com/react-router-dom@5/umd/react-router-dom.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <!-- LANGUAGE SWITCHER -->
+  <div class="language-switcher">
+    <button class="lang-btn active" data-lang="sw">SW</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+  </div>
 
-  <script type="text/babel">
-    const { useState, useEffect, useContext, createContext } = React;
-    const { HashRouter, Route, Switch, Link, useParams, useHistory } = ReactRouterDOM;
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <div class="logo">
+        <h1>Fixit<span>TZ</span></h1>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="#home">Nyumbani</a></li>
+        <li><a href="#search">Tafuta Fundi</a></li>
+        <li><a href="#providers">Wafundi</a></li>
+        <li><a href="#how-it-works">Jinsi Inavyofanya Kazi</a></li>
+        <div class="nav-actions">
+          <a href="#" class="btn-login">Ingia</a>
+          <a href="#" class="btn-register">Jiandikishe (Fundi)</a>
+        </div>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
 
-    // Simple configuration
-    const CONFIG = {
-      LOCATIONS: ["Sinza","Ubungo","Mbezi","Tegeta","Masaki","Upanga","Kariakoo","Kinondoni","Mwenge","Posta"],
-      FILTER_TYPES: ["Bedsitter", "Single Room", "Apartment", "Studio", "Duplex", "House"],
-      AMENITIES: ["water", "security", "parking", "daladala", "student", "wifi", "generator", "furnished"]
-    };
+  <!-- SEARCH SECTION -->
+  <section id="search" class="search-section">
+    <div class="search-container">
+      <h3 class="search-title swahili-content">Tafuta Fundi Karibu Nawe</h3>
+      <h3 class="search-title english-content" style="display: none;">Find a Handyman Near You</h3>
+      
+      <form class="search-form">
+        <input type="text" placeholder="Hudua unayotaka..." class="swahili-content" required>
+        <input type="text" placeholder="Service you need..." class="english-content" style="display: none;" required>
+        
+        <select class="swahili-content">
+          <option value="">Chagua Aina Ya Huduma</option>
+          <option value="plumbing">Fundi Maji</option>
+          <option value="electrician">Fundi Umeme</option>
+          <option value="construction">Ujenzi & Matengenezo</option>
+          <option value="car">Fundi Gari</option>
+          <option value="painting">Upakaji Rangi</option>
+          <option value="carpentry">Seremala</option>
+          <option value="cleaning">Usafishaji</option>
+        </select>
+        <select class="english-content" style="display: none;">
+          <option value="">Select Service Type</option>
+          <option value="plumbing">Plumber</option>
+          <option value="electrician">Electrician</option>
+          <option value="construction">Construction & Repair</option>
+          <option value="car">Car Mechanic</option>
+          <option value="painting">Painter</option>
+          <option value="carpentry">Carpenter</option>
+          <option value="cleaning">Cleaning</option>
+        </select>
+        
+        <input type="text" placeholder="Eneo lako (Mkoa/Wilaya)" class="swahili-content" required>
+        <input type="text" placeholder="Your Location (Region/District)" class="english-content" style="display: none;" required>
+        
+        <button type="submit" class="swahili-content">
+          <i class="fas fa-search"></i> Tafuta Fundi
+        </button>
+        <button type="submit" class="english-content" style="display: none;">
+          <i class="fas fa-search"></i> Search Handyman
+        </button>
+      </form>
+      
+      <div class="popular-searches">
+        <span class="swahili-content" style="color: #666; font-size: 0.9rem;">Utafutaji Maarufu:</span>
+        <span class="english-content" style="color: #666; font-size: 0.9rem; display: none;">Popular Searches:</span>
+        <a href="#" class="popular-tag swahili-content">Fundi Maji Dar es Salaam</a>
+        <a href="#" class="popular-tag swahili-content">Fundi Umeme Arusha</a>
+        <a href="#" class="popular-tag swahili-content">Seremala Mwanza</a>
+        <a href="#" class="popular-tag english-content" style="display: none;">Plumber Dar es Salaam</a>
+        <a href="#" class="popular-tag english-content" style="display: none;">Electrician Arusha</a>
+        <a href="#" class="popular-tag english-content" style="display: none;">Carpenter Mwanza</a>
+      </div>
+    </div>
+  </section>
 
-    // Sample data
-    const SAMPLE_LISTINGS = [
+  <!-- HERO SECTION -->
+  <section id="home" class="hero section-padding">
+    <div class="container hero-content">
+      <h1 class="swahili-content">Sokoni la Mafundi Bora Tanzania</h1>
+      <h1 class="english-content" style="display: none;">Tanzania's Premier Handyman Marketplace</h1>
+      
+      <p class="swahili-content">Ungana na mafundi waliohitimu na wenye uzoefu katika mikoa yote ya Tanzania. Tafuta, linganisha ratings, na uchague fundi bora kwa mahitaji yako ya maji, umeme, ujenzi na matengenezo mengine.</p>
+      <p class="english-content" style="display: none;">Connect with qualified and experienced handymen across all regions of Tanzania. Search, compare ratings, and choose the best professional for your plumbing, electrical, construction and other repair needs.</p>
+      
+      <button class="cta swahili-content" onclick="document.getElementById('search').scrollIntoView({behavior:'smooth'})">
+        <i class="fas fa-search"></i> Anza Kutaftuta Sasa
+      </button>
+      <button class="cta english-content" style="display: none;" onclick="document.getElementById('search').scrollIntoView({behavior:'smooth'})">
+        <i class="fas fa-search"></i> Start Searching Now
+      </button>
+      
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-number">1,850+</div>
+          <div class="stat-label swahili-content">Wafundi Waliosajiliwa</div>
+          <div class="stat-label english-content" style="display: none;">Registered Handymen</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">24,500+</div>
+          <div class="stat-label swahili-content">Kazi Zilizokamilika</div>
+          <div class="stat-label english-content" style="display: none;">Jobs Completed</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">4.8</div>
+          <div class="stat-label swahili-content">Wastani wa Rating</div>
+          <div class="stat-label english-content" style="display: none;">Average Rating</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">120+</div>
+          <div class="stat-label swahili-content">Mikoa</div>
+          <div class="stat-label english-content" style="display: none;">Regions</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROVIDERS SECTION -->
+  <section id="providers" class="providers section-padding">
+    <div class="container">
+      <div class="providers-header">
+        <div>
+          <h2 class="swahili-content">Wafundi Wenye Rating Juu</h2>
+          <h2 class="english-content" style="display: none;">Top Rated Handymen</h2>
+          <p class="section-subtitle swahili-content">Wafundi bora wenye tathmini nzuri kutoka kwa wateza</p>
+          <p class="section-subtitle english-content" style="display: none;">Top handymen with excellent reviews from customers</p>
+        </div>
+        <a href="#" class="view-all swahili-content">
+          Angalia Wote <i class="fas fa-arrow-right"></i>
+        </a>
+        <a href="#" class="view-all english-content" style="display: none;">
+          View All <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+      
+      <div class="providers-grid" id="providersContainer">
+        <!-- Provider cards will be populated by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how-it-works" class="how-it-works section-padding">
+    <div class="container">
+      <h2 class="swahili-content">Jinsi Inavyofanya Kazi</h2>
+      <h2 class="english-content" style="display: none;">How It Works</h2>
+      <p class="section-subtitle swahili-content">Njia rahisi ya kupata mafundi wa kuaminika katika hatua 4 tu</p>
+      <p class="section-subtitle english-content" style="display: none;">Simple way to find reliable handymen in just 4 steps</p>
+      
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-icon"><i class="fas fa-search"></i></div>
+          <h3 class="swahili-content">Tafuta Fundi</h3>
+          <h3 class="english-content" style="display: none;">Search Handyman</h3>
+          <p class="swahili-content">Tafuta fundi kwa huduma unayohitaji na eneo lako</p>
+          <p class="english-content" style="display: none;">Search for a handyman by service and your location</p>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-icon"><i class="fas fa-list-ol"></i></div>
+          <h3 class="swahili-content">Linganisha na Kuchagua</h3>
+          <h3 class="english-content" style="display: none;">Compare & Choose</h3>
+          <p class="swahili-content">Angalia wasifu, ratings, bei na uchague fundi bora</p>
+          <p class="english-content" style="display: none;">Check profiles, ratings, prices and choose the best</p>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-icon"><i class="fas fa-calendar-check"></i></div>
+          <h3 class="swahili-content">Panga Muda</h3>
+          <h3 class="english-content" style="display: none;">Schedule Appointment</h3>
+          <p class="swahili-content">Panga muda wa kukutana na fundi kupitia mfumo wetu</p>
+          <p class="english-content" style="display: none;">Schedule a meeting time through our system</p>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-icon"><i class="fas fa-star"></i></div>
+          <h3 class="swahili-content">Toa Tathmini</h3>
+          <h3 class="english-content" style="display: none;">Leave Review</h3>
+          <p class="swahili-content">Baada ya kazi, toa rating na maoni kusaidia wateza wengine</p>
+          <p class="english-content" style="display: none;">After job completion, leave rating to help others</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews section-padding">
+    <div class="container">
+      <h2 class="swahili-content">Tathmini kutoka kwa Wateza</h2>
+      <h2 class="english-content" style="display: none;">Customer Reviews</h2>
+      <p class="section-subtitle swahili-content">Maaoni ya kweli kutoka kwa wateza walioridhika na huduma yetu</p>
+      <p class="section-subtitle english-content" style="display: none;">Real feedback from customers satisfied with our service</p>
+      
+      <div class="reviews-slider">
+        <div class="review-card">
+          <div class="review-header">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Customer" class="review-avatar">
+            <div class="review-info">
+              <h4 class="swahili-content">Juma Mohamed</h4>
+              <h4 class="english-content" style="display: none;">Juma Mohamed</h4>
+              <div class="review-provider swahili-content">Fundi Umeme - Arusha</div>
+              <div class="review-provider english-content" style="display: none;">Electrician - Arusha</div>
+            </div>
+          </div>
+          <div class="review-stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="review-text swahili-content">"Nilipata fundi umeme mwenye ujuzi kupitia FixitTZ. Alifika kwa wakati, alifanya kazi kwa uangalifu na aliniambia kila kitu alichokifanya. Bei ilikuwa sawa kabisa. Nitawatumia tena."</p>
+          <p class="review-text english-content" style="display: none;">"I found a skilled electrician through FixitTZ. He arrived on time, worked carefully and explained everything he did. The price was very fair. I will use them again."</p>
+        </div>
+        
+        <div class="slider-controls">
+          <button class="slider-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+          <button class="slider-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BECOME A PROVIDER -->
+  <section id="become-provider" class="become-provider section-padding">
+    <div class="container">
+      <h2 class="swahili-content">Kuwa Fundi wa FixitTZ</h2>
+      <h2 class="english-content" style="display: none;">Become a FixitTZ Handyman</h2>
+      <p class="section-subtitle swahili-content">Jiunge na jukwaa letu na pata wateza zaidi popote ulipo Tanzania</p>
+      <p class="section-subtitle english-content" style="display: none;">Join our platform and get more customers anywhere in Tanzania</p>
+      
+      <div class="provider-benefits">
+        <div class="benefit">
+          <div class="benefit-icon"><i class="fas fa-users"></i></div>
+          <h3 class="swahili-content">Wateza Wengi</h3>
+          <h3 class="english-content" style="display: none;">More Customers</h3>
+          <p class="swahili-content">Pata wateza wapya kupitia jukwaa letu la mtandaoni</p>
+          <p class="english-content" style="display: none;">Get new customers through our online platform</p>
+        </div>
+        
+        <div class="benefit">
+          <div class="benefit-icon"><i class="fas fa-calendar-alt"></i></div>
+          <h3 class="swahili-content">Udhibiti wa Ratiba</h3>
+          <h3 class="english-content" style="display: none;">Schedule Control</h3>
+          <p class="swahili-content">Dhibiti ratiba yako mwenyewe na uchukue kazi unazopenda</p>
+          <p class="english-content" style="display: none;">Control your own schedule and take jobs you prefer</p>
+        </div>
+        
+        <div class="benefit">
+          <div class="benefit-icon"><i class="fas fa-shield-alt"></i></div>
+          <h3 class="swahili-content">Uaminifu</h3>
+          <h3 class="english-content" style="display: none;">Trust</h3>
+          <p class="swahili-content">Wateza wanakuamini zaidi kupitia ratings na tathmini zetu</p>
+          <p class="english-content" style="display: none;">Customers trust you more through our ratings & reviews</p>
+        </div>
+        
+        <div class="benefit">
+          <div class="benefit-icon"><i class="fas fa-money-bill-wave"></i></div>
+          <h3 class="swahili-content">Malipo Salama</h3>
+          <h3 class="english-content" style="display: none;">Secure Payments</h3>
+          <p class="swahili-content">Pokea malipo kwa urahisi kupitia mfumo wetu salama</p>
+          <p class="english-content" style="display: none;">Receive payments easily through our secure system</p>
+        </div>
+      </div>
+      
+      <button class="cta swahili-content" style="background: var(--accent-yellow); color: var(--primary-green);">
+        <i class="fas fa-user-plus"></i> Jiandikishe Sasa kama Fundi
+      </button>
+      <button class="cta english-content" style="display: none; background: var(--accent-yellow); color: var(--primary-green);">
+        <i class="fas fa-user-plus"></i> Register Now as Handyman
+      </button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <h2>Fixit<span style="color: #ffb000">TZ</span></h2>
+          <p class="swahili-content">Sokoni la mafundi Tanzania. Tunaunganisha wateza na wafundi wenye ujuzi katika mikoa yote.</p>
+          <p class="english-content" style="display: none;">Tanzania's handyman marketplace. We connect customers with skilled professionals across all regions.</p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-links">
+          <h3 class="swahili-content">Viungo Muhimu</h3>
+          <h3 class="english-content" style="display: none;">Quick Links</h3>
+          <ul>
+            <li><a href="#home" class="swahili-content">Nyumbani</a><a href="#home" class="english-content" style="display: none;">Home</a></li>
+            <li><a href="#search" class="swahili-content">Tafuta Fundi</a><a href="#search" class="english-content" style="display: none;">Find Handyman</a></li>
+            <li><a href="#providers" class="swahili-content">Wafundi</a><a href="#providers" class="english-content" style="display: none;">Handymen</a></li>
+            <li><a href="#how-it-works" class="swahili-content">Jinsi Inavyofanya Kazi</a><a href="#how-it-works" class="english-content" style="display: none;">How It Works</a></li>
+            <li><a href="#become-provider" class="swahili-content">Kuwa Fundi</a><a href="#become-provider" class="english-content" style="display: none;">Become Handyman</a></li>
+            <li><a href="#" class="swahili-content">Maswali Yanayoulizwa Mara Kwa Mara</a><a href="#" class="english-content" style="display: none;">FAQ</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-contact">
+          <h3 class="swahili-content">Mawasiliano</h3>
+          <h3 class="english-content" style="display: none;">Contact Us</h3>
+          <p><i class="fas fa-phone-alt"></i> +255 768 000 111</p>
+          <p><i class="fas fa-envelope"></i> info@fixittz.co.tz</p>
+          <p><i class="fas fa-map-marker-alt"></i> Mikocheni, Dar es Salaam</p>
+          <p class="swahili-content"><i class="fas fa-clock"></i> Jumamosi - Ijumaa: 8:00 asubuhi - 8:00 jioni</p>
+          <p class="english-content" style="display: none;"><i class="fas fa-clock"></i> Sat - Fri: 8:00 AM - 8:00 PM</p>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p class="swahili-content">© 2025 FixitTZ – Sokoni la Mafundi Tanzania • <a href="#">Sera ya Faragha</a> • <a href="#">Vigezo na Masharti</a></p>
+        <p class="english-content" style="display: none;">© 2025 FixitTZ – Tanzania Handyman Marketplace • <a href="#">Privacy Policy</a> • <a href="#">Terms & Conditions</a></p>
+        <p style="margin-top: 0.5rem; font-size: 0.85rem;">Namba ya usajili: 123456789 | TIN: 123-456-789</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Language Switching Functionality
+    const langButtons = document.querySelectorAll('.lang-btn');
+    const swahiliContent = document.querySelectorAll('.swahili-content');
+    const englishContent = document.querySelectorAll('.english-content');
+    
+    langButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Update active button
+        langButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        
+        const lang = button.getAttribute('data-lang');
+        
+        if (lang === 'en') {
+          // Switch to English
+          swahiliContent.forEach(el => el.style.display = 'none');
+          englishContent.forEach(el => el.style.display = 'block');
+          document.documentElement.lang = 'en';
+        } else {
+          // Switch to Swahili
+          swahiliContent.forEach(el => el.style.display = 'block');
+          englishContent.forEach(el => el.style.display = 'none');
+          document.documentElement.lang = 'sw';
+        }
+      });
+    });
+    
+    // Mobile menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navMenu.classList.toggle('active');
+    });
+    
+    // Close menu when clicking a link
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+      });
+    });
+    
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+    
+    // Providers Data - Marketplace Model
+    const providers = [
       {
         id: 1,
-        title: "Bedsitter Sinza",
-        location: "Sinza",
-        price: 135000,
-        type: "Bedsitter",
-        images: ["https://images.unsplash.com/photo-1560184897-ae75f418493e?auto=format&fit=crop&w=800&q=80"],
-        phone: "+255712345678",
-        whatsapp: "+255712345678",
-        description: "Bedsitter nzuri Sinza, maji 24/7, karibu na chuo kikuu",
-        views: 312,
-        featured: true,
-        verified: true,
-        water: true,
-        security: true,
-        createdAt: "2024-01-15T10:30:00Z"
+        name: "Juma Hassan",
+        service: "Fundi Maji",
+        rating: 4.9,
+        reviews: 127,
+        location: "Dar es Salaam",
+        price: "TZS 30,000+",
+        services: ["Bomba", "Choo", "Bafu", "Tanki"],
+        image: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074&auto=format&fit=crop"
       },
       {
         id: 2,
-        title: "Chumba cha Kisasa Mbezi",
-        location: "Mbezi",
-        price: 98000,
-        type: "Single Room",
-        images: ["https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80"],
-        phone: "+255765432109",
-        whatsapp: "+255765432109",
-        description: "Chumba kizuri Mbezi Beach, tiles zote, dirisha zuri",
-        views: 267,
-        featured: true,
-        urgent: true,
-        water: true,
-        security: true,
-        createdAt: "2024-01-10T14:20:00Z"
+        name: "Sarah Mwenda",
+        service: "Fundi Umeme",
+        rating: 4.8,
+        reviews: 89,
+        location: "Arusha",
+        price: "TZS 25,000+",
+        services: ["Wiring", "Solar", "Taa", "Paneli"],
+        image: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=2069&auto=format&fit=crop"
+      },
+      {
+        id: 3,
+        name: "Rajab Simba",
+        service: "Seremala",
+        rating: 4.7,
+        reviews: 64,
+        location: "Mwanza",
+        price: "TZS 40,000+",
+        services: ["Mbao", "Milango", "Madirisha", "Furniture"],
+        image: "https://images.unsplash.com/photo-1601409751314-6b62ea5d5e2d?q=80&w=2070&auto=format&fit=crop"
+      },
+      {
+        id: 4,
+        name: "Amina Juma",
+        service: "Upakaji Rangi",
+        rating: 4.6,
+        reviews: 42,
+        location: "Dodoma",
+        price: "TZS 35,000+",
+        services: ["Ndani", "Nje", "Ukuta", "Dari"],
+        image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=2070&auto=format&fit=crop"
+      },
+      {
+        id: 5,
+        name: "Michael Chuma",
+        service: "Fundi Gari",
+        rating: 4.9,
+        reviews: 156,
+        location: "Mbeya",
+        price: "TZS 50,000+",
+        services: ["Engine", "Matairi", "Brakes", "Service"],
+        image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=1974&auto=format&fit=crop"
+      },
+      {
+        id: 6,
+        name: "Zahara Kondo",
+        service: "Ujenzi",
+        rating: 4.5,
+        reviews: 38,
+        location: "Zanzibar",
+        price: "TZS 60,000+",
+        services: ["Kuezeka", "Sakafu", "Kuta", "Matengenezo"],
+        image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2070&auto=format&fit=crop"
       }
     ];
-
-    // Toast Context
-    const ToastContext = createContext();
     
-    const ToastProvider = ({ children }) => {
-      const [toasts, setToasts] = useState([]);
+    // Render Providers
+    function renderProviders() {
+      const container = document.getElementById('providersContainer');
+      container.innerHTML = '';
       
-      const push = (msg, opts = {}) => {
-        const id = Date.now();
-        setToasts(t => [...t, { id, msg, ...opts }]);
-        setTimeout(() => setToasts(t => t.filter(x => x.id !== id)), 3000);
-      };
-      
-      return (
-        <ToastContext.Provider value={{ push }}>
-          {children}
-          <div className="fixed bottom-4 right-4 z-50 space-y-2">
-            {toasts.map(t => (
-              <div key={t.id} className="bg-teal-600 text-white p-4 rounded-lg shadow-lg">
-                {t.msg}
+      providers.forEach(provider => {
+        const card = document.createElement('div');
+        card.className = 'provider-card';
+        card.innerHTML = `
+          <img src="${provider.image}" alt="${provider.name}" class="provider-img">
+          <div class="provider-info">
+            <div class="provider-header">
+              <div class="provider-name">
+                <h3>${provider.name}</h3>
+                <div class="swahili-content">${provider.service}</div>
+                <div class="english-content" style="display: none;">${provider.service === 'Fundi Maji' ? 'Plumber' : 
+                  provider.service === 'Fundi Umeme' ? 'Electrician' :
+                  provider.service === 'Seremala' ? 'Carpenter' :
+                  provider.service === 'Upakaji Rangi' ? 'Painter' :
+                  provider.service === 'Fundi Gari' ? 'Car Mechanic' :
+                  provider.service === 'Ujenzi' ? 'Construction' : provider.service}</div>
               </div>
-            ))}
+              <div class="provider-rating">
+                <i class="fas fa-star"></i> ${provider.rating}
+                <span>(${provider.reviews} <span class="swahili-content">tathmini</span><span class="english-content" style="display: none;">reviews</span>)</span>
+              </div>
+            </div>
+            
+            <div class="provider-services">
+              ${provider.services.map(service => `<span class="service-tag">${service}</span>`).join('')}
+            </div>
+            
+            <div class="provider-location">
+              <i class="fas fa-map-marker-alt"></i>
+              <span class="swahili-content">${provider.location}</span>
+              <span class="english-content" style="display: none;">${provider.location}</span>
+            </div>
+            
+            <div class="provider-footer">
+              <div class="provider-price">${provider.price}</div>
+              <a href="#" class="btn-book swahili-content">Panga Sasa</a>
+              <a href="#" class="btn-book english-content" style="display: none;">Book Now</a>
+            </div>
           </div>
-        </ToastContext.Provider>
-      );
-    };
-
-    const useToast = () => {
-      const context = useContext(ToastContext);
-      if (!context) {
-        return () => {};
+        `;
+        container.appendChild(card);
+      });
+    }
+    
+    // Initialize providers on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      renderProviders();
+      
+      // Initialize language display
+      swahiliContent.forEach(el => el.style.display = 'block');
+      englishContent.forEach(el => el.style.display = 'none');
+    });
+    
+    // Search form submission
+    document.querySelector('.search-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const service = this.querySelector('select').value;
+      const location = this.querySelector('input[type="text"]:nth-child(3)').value;
+      
+      if (!service || !location) {
+        alert(document.documentElement.lang === 'sw' ? 
+          'Tafadhali jaza huduma na eneo!' : 
+          'Please fill in service and location!');
+        return;
       }
-      return context.push;
-    };
-
-    // Main App Component
-    const App = () => {
-      const [listings, setListings] = useState(SAMPLE_LISTINGS);
-      const [darkMode, setDarkMode] = useState(false);
-      const [language, setLanguage] = useState('sw');
-      const toast = useToast();
       
-      // Translations
-      const translations = {
-        sw: {
-          appName: "HouseLink",
-          search: "Tafuta nyumba...",
-          listings: "Orodha Zote",
-          upload: "Weka Tangazo",
-          favorites: "Vipendwa"
-        },
-        en: {
-          appName: "HouseLink",
-          search: "Search homes...",
-          listings: "All Listings",
-          upload: "Post Listing",
-          favorites: "Favorites"
-        }
-      };
-      
-      const t = translations[language];
-      
-      // Toggle dark mode
-      useEffect(() => {
-        if (darkMode) {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
-      }, [darkMode]);
-      
-      return (
-        <div className="min-h-screen">
-          {/* Navbar */}
-          <nav className="gradient-bg text-white sticky top-0 z-50">
-            <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-              <Link to="/" className="text-2xl font-bold">
-                <i className="fas fa-home mr-2"></i>
-                HouseLink
-              </Link>
-              
-              <div className="flex items-center gap-4">
-                <Link to="/listings" className="hover:underline">{t.listings}</Link>
-                <Link to="/upload" className="bg-white text-teal-600 px-4 py-2 rounded-full font-bold">
-                  <i className="fas fa-plus mr-2"></i> {t.upload}
-                </Link>
-                <button onClick={() => setDarkMode(!darkMode)} className="p-2">
-                  <i className={darkMode ? "fas fa-sun" : "fas fa-moon"}></i>
-                </button>
-                <button onClick={() => setLanguage(lang => lang === 'sw' ? 'en' : 'sw')} className="px-3 py-1 bg-white/10 rounded">
-                  {language.toUpperCase()}
-                </button>
-              </div>
-            </div>
-          </nav>
-          
-          {/* Main Content */}
-          <Switch>
-            <Route exact path="/">
-              <div className="text-center py-20">
-                <h1 className="text-4xl font-bold mb-6">Karibu HouseLink</h1>
-                <p className="text-xl mb-8">Pata nyumba bora Tanzania</p>
-                <Link to="/listings" className="bg-teal-600 text-white px-8 py-3 rounded-full text-lg font-bold">
-                  Anza Kutafuta <i className="fas fa-arrow-right ml-2"></i>
-                </Link>
-              </div>
-            </Route>
-            
-            <Route exact path="/listings">
-              <div className="max-w-7xl mx-auto p-4">
-                <h1 className="text-3xl font-bold mb-6">{t.listings}</h1>
-                
-                {/* Search Bar */}
-                <div className="mb-8">
-                  <div className="relative">
-                    <input
-                      type="text"
-                      placeholder={t.search}
-                      className="w-full p-4 pl-12 border rounded-lg dark:bg-gray-800 dark:border-gray-700"
-                    />
-                    <i className="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                  </div>
-                </div>
-                
-                {/* Listings Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {listings.map(listing => (
-                    <div key={listing.id} className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
-                      <div className="relative h-48">
-                        <img 
-                          src={listing.images[0]} 
-                          alt={listing.title}
-                          className="w-full h-full object-cover"
-                        />
-                        {listing.verified && (
-                          <div className="absolute top-2 left-2 bg-blue-600 text-white px-2 py-1 rounded text-xs">
-                            Verified
-                          </div>
-                        )}
-                      </div>
-                      
-                      <div className="p-4">
-                        <h3 className="font-bold text-lg">{listing.title}</h3>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm">
-                          <i className="fas fa-map-marker-alt mr-1"></i> {listing.location}
-                        </p>
-                        
-                        <div className="flex justify-between items-center mt-4">
-                          <span className="text-xl font-bold text-orange-500">
-                            {listing.price.toLocaleString()} TZS
-                          </span>
-                          <Link 
-                            to={`/listing/${listing.id}`}
-                            className="text-teal-600 hover:text-teal-700 font-bold"
-                          >
-                            Angalia <i className="fas fa-arrow-right ml-1"></i>
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </Route>
-            
-            <Route exact path="/listing/:id">
-              {() => {
-                const { id } = useParams();
-                const listing = listings.find(l => l.id === parseInt(id));
-                
-                if (!listing) {
-                  return (
-                    <div className="text-center py-20">
-                      <h1 className="text-2xl font-bold">Tangazo halipatikani</h1>
-                      <Link to="/listings" className="text-teal-600 mt-4 inline-block">
-                        Rudi kwenye orodha
-                      </Link>
-                    </div>
-                  );
-                }
-                
-                return (
-                  <div className="max-w-4xl mx-auto p-4">
-                    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
-                      <div className="relative h-64">
-                        <img 
-                          src={listing.images[0]} 
-                          alt={listing.title}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      
-                      <div className="p-6">
-                        <h1 className="text-3xl font-bold mb-2">{listing.title}</h1>
-                        <div className="flex items-center text-gray-600 dark:text-gray-400 mb-4">
-                          <i className="fas fa-map-marker-alt mr-2"></i>
-                          {listing.location}
-                        </div>
-                        
-                        <div className="text-4xl font-bold text-orange-500 mb-6">
-                          {listing.price.toLocaleString()} TZS
-                        </div>
-                        
-                        <p className="text-gray-700 dark:text-gray-300 mb-6">
-                          {listing.description}
-                        </p>
-                        
-                        <div className="flex gap-4">
-                          <a 
-                            href={`https://wa.me/${listing.whatsapp}`}
-                            target="_blank"
-                            className="flex-1 bg-green-600 text-white py-3 rounded-lg text-center font-bold"
-                          >
-                            <i className="fab fa-whatsapp mr-2"></i> WhatsApp
-                          </a>
-                          <a 
-                            href={`tel:${listing.phone}`}
-                            className="flex-1 bg-teal-600 text-white py-3 rounded-lg text-center font-bold"
-                          >
-                            <i className="fas fa-phone mr-2"></i> Simu
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              }}
-            </Route>
-            
-            <Route exact path="/upload">
-              <div className="max-w-2xl mx-auto p-4">
-                <h1 className="text-3xl font-bold mb-6">Weka Tangazo Jipya</h1>
-                
-                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block mb-2 font-bold">Kichwa cha Tangazo</label>
-                      <input 
-                        type="text" 
-                        className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600"
-                        placeholder="Mf: Bedsitter nzuri Sinza"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block mb-2 font-bold">Bei (TZS)</label>
-                      <input 
-                        type="number" 
-                        className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600"
-                        placeholder="135000"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block mb-2 font-bold">Eneo</label>
-                      <select className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600">
-                        <option value="">Chagua eneo</option>
-                        {CONFIG.LOCATIONS.map(loc => (
-                          <option key={loc} value={loc}>{loc}</option>
-                        ))}
-                      </select>
-                    </div>
-                    
-                    <button 
-                      onClick={() => toast("Tangazo limewekwa kikamilifu!")}
-                      className="w-full bg-teal-600 text-white py-3 rounded-lg font-bold text-lg"
-                    >
-                      Chapisha Tangazo
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </Route>
-          </Switch>
-          
-          {/* Footer */}
-          <footer className="bg-gray-800 text-white mt-20 p-8">
-            <div className="max-w-7xl mx-auto text-center">
-              <p className="text-lg font-bold mb-4">HouseLink Tanzania</p>
-              <p className="text-gray-400">© 2024. Haki zote zimehifadhiwa.</p>
-            </div>
-          </footer>
-          
-          {/* Scroll to top */}
-          <button 
-            onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
-            className="fixed bottom-8 right-8 bg-teal-600 text-white p-3 rounded-full shadow-lg"
-          >
-            <i className="fas fa-chevron-up"></i>
-          </button>
-        </div>
-      );
-    };
-
-    // Root Component
-    const Root = () => (
-      <ToastProvider>
-        <HashRouter>
-          <App />
-        </HashRouter>
-      </ToastProvider>
-    );
-
-    // Render
-    ReactDOM.render(<Root />, document.getElementById('root'));
+      // In a real app, this would filter providers
+      alert(document.documentElement.lang === 'sw' ?
+        `Utafutaji wa "${service}" katika "${location}" umefanywa. Tunaonyesha matokeo...` :
+        `Search for "${service}" in "${location}" completed. Showing results...`);
+    });
+    
+    // Booking functionality
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('btn-book') || e.target.parentElement.classList.contains('btn-book')) {
+        e.preventDefault();
+        const providerCard = e.target.closest('.provider-card');
+        const providerName = providerCard.querySelector('.provider-name h3').textContent;
+        const providerService = providerCard.querySelector('.provider-name div').textContent;
+        
+        alert(document.documentElement.lang === 'sw' ?
+          `Umepanga ${providerName} (${providerService}). Tutakutumia maelezo zaidi kupitia WhatsApp.` :
+          `You've booked ${providerName} (${providerService}). We'll send you more details via WhatsApp.`);
+      }
+    });
+    
+    // Registration for providers
+    document.querySelectorAll('.btn-register, .cta[style*="background: var(--accent-yellow)"]').forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.open('https://forms.gle/example', '_blank');
+      });
+    });
   </script>
 </body>
 </html>
