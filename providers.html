@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wafundi - FixitTZ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .providers-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(0, 100, 0, 0.9) 0%, rgba(10, 140, 10, 0.8) 100%),
+                        url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+            padding: 120px 0 4rem;
+        }
+        
+        .providers-hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+            color: var(--white);
+        }
+        
+        .providers-hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .providers-hero-content p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .filter-section {
+            padding: 4rem 0;
+            background: var(--white);
+        }
+        
+        .filter-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .filter-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .filter-form input,
+        .filter-form select {
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            background: var(--white);
+        }
+        
+        .filter-form button {
+            background: var(--gradient-primary);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            padding: 1rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+        
+        .filter-form button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 100, 0, 0.3);
+        }
+        
+        .providers-count {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--light-yellow);
+            border-radius: var(--radius);
+            border-left: 4px solid var(--accent-yellow);
+        }
+        
+        .providers-grid-large {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .provider-verified-badge {
+            background: var(--accent-yellow);
+            color: var(--primary-green);
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-left: 10px;
+        }
+        
+        .provider-experience {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 4rem;
+        }
+        
+        .pagination button {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--primary-green);
+            background: var(--white);
+            color: var(--primary-green);
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .pagination button.active {
+            background: var(--primary-green);
+            color: var(--white);
+        }
+        
+        .pagination button:hover:not(.active) {
+            background: var(--light-gray);
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Tabs -->
+    <div class="language-tabs">
+        <button class="lang-tab active" data-lang="sw">
+            <i class="fas fa-language"></i>
+            <span>SW</span>
+        </button>
+        <button class="lang-tab" data-lang="en">
+            <i class="fas fa-language"></i>
+            <span>EN</span>
+        </button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <h1>Fixit<span>TZ</span></h1>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">
+                    <i class="fas fa-home"></i>
+                    <span class="sw-content">Nyumbani</span>
+                    <span class="en-content">Home</span>
+                </a></li>
+                <li><a href="about.html">
+                    <i class="fas fa-info-circle"></i>
+                    <span class="sw-content">Kuhusu Sisi</span>
+                    <span class="en-content">About</span>
+                </a></li>
+                <li><a href="services.html">
+                    <i class="fas fa-tools"></i>
+                    <span class="sw-content">Huduma</span>
+                    <span class="en-content">Services</span>
+                </a></li>
+                <li><a href="providers.html" class="active">
+                    <i class="fas fa-users"></i>
+                    <span class="sw-content">Wafundi</span>
+                    <span class="en-content">Providers</span>
+                </a></li>
+                <li><a href="blog.html">
+                    <i class="fas fa-blog"></i>
+                    <span class="sw-content">Blog</span>
+                    <span class="en-content">Blog</span>
+                </a></li>
+                <li><a href="contact.html">
+                    <i class="fas fa-address-book"></i>
+                    <span class="sw-content">Mawasiliano</span>
+                    <span class="en-content">Contact</span>
+                </a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="#" class="btn-login">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span class="sw-content">Ingia</span>
+                    <span class="en-content">Login</span>
+                </a>
+                <a href="#" class="btn-register">
+                    <i class="fas fa-user-plus"></i>
+                    <span class="sw-content">Jiandikishe</span>
+                    <span class="en-content">Register</span>
+                </a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Providers Hero -->
+    <section class="providers-hero">
+        <div class="container providers-hero-content">
+            <!-- Swahili Content -->
+            <div class="language-content sw-content active">
+                <h1>Wafundi Wote</h1>
+                <p>Tafuta fundi bora kutoka kwa wafundi waliosajiliwa wote kwenye jukwaa letu</p>
+            </div>
+            
+            <!-- English Content -->
+            <div class="language-content en-content">
+                <h1>All Handymen</h1>
+                <p>Find the best handyman from all registered professionals on our platform</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="filter-container">
+                <!-- Swahili Content -->
+                <div class="language-content sw-content active">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--primary-green);">Chuja Wafundi</h3>
+                    <form class="filter-form">
+                        <input type="text" placeholder="Tafuta fundi...">
+                        <select>
+                            <option value="">Aina ya Huduma</option>
+                            <option value="plumbing">Fundi Maji</option>
+                            <option value="electrician">Fundi Umeme</option>
+                            <option value="construction">Ujenzi</option>
+                            <option value="carpentry">Seremala</option>
+                            <option value="painting">Upakaji Rangi</option>
+                            <option value="car">Fundi Gari</option>
+                        </select>
+                        <select>
+                            <option value="">Eneo</option>
+                            <option value="dar">Dar es Salaam</option>
+                            <option value="arusha">Arusha</option>
+                            <option value="mwanza">Mwanza</option>
+                            <option value="mbeya">Mbeya</option>
+                            <option value="dodoma">Dodoma</option>
+                            <option value="zanzibar">Zanzibar</option>
+                        </select>
+                        <select>
+                            <option value="">Rating</option>
+                            <option value="5">★ ★ ★ ★ ★ (5)</option>
+                            <option value="4">★ ★ ★ ★ (4+)</option>
+                            <option value="3">★ ★ ★ (3+)</option>
+                        </select>
+                        <button type="submit">
+                            <i class="fas fa-filter"></i> Chuja
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- English Content -->
+                <div class="language-content en-content">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--primary-green);">Filter Handymen</h3>
+                    <form class="filter-form">
+                        <input type="text" placeholder="Search handyman...">
+                        <select>
+                            <option value="">Service Type</option>
+                            <option value="plumbing">Plumber</option>
+                            <option value="electrician">Electrician</option>
+                            <option value="construction">Construction</option>
+                            <option value="carpentry">Carpenter</option>
+                            <option value="painting">Painter</option>
+                            <option value="car">Car Mechanic</option>
+                        </select>
+                        <select>
+                            <option value="">Location</option>
+                            <option value="dar">Dar es Salaam</option>
+                            <option value="arusha">Arusha</option>
+                            <option value="mwanza">Mwanza</option>
+                            <option value="mbeya">Mbeya</option>
+                            <option value="dodoma">Dodoma</option>
+                            <option value="zanzibar">Zanzibar</option>
+                        </select>
+                        <select>
+                            <option value="">Rating</option>
+                            <option value="5">★ ★ ★ ★ ★ (5)</option>
+                            <option value="4">★ ★ ★ ★ (4+)</option>
+                            <option value="3">★ ★ ★ (3+)</option>
+                        </select>
+                        <button type="submit">
+                            <i class="fas fa-filter"></i> Filter
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Providers Section -->
+    <section class="providers-section section-padding">
+        <div class="container">
+            <div class="providers-header">
+                <div class="section-header">
+                    <!-- Swahili Content -->
+                    <div class="language-content sw-content active">
+                        <h2 class="section-title">Wafundi Wote</h2>
+                        <p class="section-subtitle">Wafundi wote waliosajiliwa kwenye jukwaa letu</p>
+                    </div>
+                    
+                    <!-- English Content -->
+                    <div class="language-content en-content">
+                        <h2 class="section-title">All Handymen</h2>
+                        <p class="section-subtitle">All registered handymen on our platform</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Providers Count -->
+            <div class="providers-count">
+                <div class="sw-content">
+                    <h3><i class="fas fa-users"></i> Wafundi 1,850+ Waliosajiliwa</h3>
+                    <p>Tafuta fundi bora kutoka kwa wafundi wote waliosajiliwa katika mikoa yote ya Tanzania</p>
+                </div>
+                <div class="en-content">
+                    <h3><i class="fas fa-users"></i> 1,850+ Registered Handymen</h3>
+                    <p>Find the best handyman from all registered professionals across all regions of Tanzania</p>
+                </div>
+            </div>
+
+            <div class="providers-grid-large">
+                <!-- Provider 1 -->
+                <div class="provider-card">
+                    <div class="provider-badge">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="sw-content">Thibitishwa</span>
+                        <span class="en-content">Verified</span>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074&auto=format&fit=crop" alt="Fundi Maji" class="provider-img">
+                    <div class="provider-info">
+                        <div class="provider-header">
+                            <div class="provider-name">
+                                <h3>Juma Hassan</h3>
+                                <div class="provider-category sw-content">Fundi Maji</div>
+                                <div class="provider-category en-content">Plumber</div>
+                            </div>
+                            <div class="provider-rating">
+                                <i class="fas fa-star"></i> 4.9
+                                <span class="sw-content">(127)</span>
+                                <span class="en-content">(127)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="provider-services">
+                            <span class="service-tag">Bomba</span>
+                            <span class="service-tag">Choo</span>
+                            <span class="service-tag">Bafu</span>
+                            <span class="service-tag">Tanki</span>
+                        </div>
+                        
+                        <div class="provider-experience">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span class="sw-content">Dar es Salaam</span>
+                            <span class="en-content">Dar es Salaam</span>
+                            <span style="margin-left: auto;">
+                                <i class="fas fa-clock"></i>
+                                <span class="sw-content">5+ miaka uzoefu</span>
+                                <span class="en-content">5+ years experience</span>
+                            </span>
+                        </div>
+                        
+                        <p class="sw-content" style="margin: 1rem 0; color: #666; font-size: 0.95rem;">
+                            Fundi maji mwenye uzoefu wa miaka 5. Ana ujuzi wa matengenezo yote ya mifumo ya maji.
+                        </p>
+                        <p class="en-content" style="margin: 1rem 0; color: #666; font-size: 0.95rem;">
+                            Experienced plumber with 5 years of experience. Expert in all water system repairs.
+                        </p>
+                        
+                        <div class="provider-footer">
+                            <div class="provider-price">TZS 30,000+</div>
+                            <a href="#" class="btn-book">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span class="sw-content">Panga</span>
+                                <span class="en-content">Book</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Provider 2 -->
+                <div class="provider-card">
+                    <div class="provider-badge">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="sw-content">Thibitishwa</span>
+                        <span class="en-content">Verified</span>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=2069&auto=format&fit=crop" alt="Fundi Umeme" class="provider-img">
+                    <div class="provider-info">
+                        <div class="provider-header">
+                            <div class="provider-name">
+                                <h3>Sarah Mwenda</h3>
+                                <div class="provider-category sw-content">Fundi Umeme</div>
+                                <div class="provider-category en-content">Electrician</div>
+                            </div>
+                            <div class="provider-rating">
+                                <i class="fas fa-star"></i> 4.8
+                                <span class="sw-content">(89)</span>
+                                <span class="en-content">(89)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="provider-services">
+                            <span class="service-tag">Wiring</span>
+                            <span class="service-tag">Solar</span>
+                            <span class="service-tag">Taa</span>
+                            <span class="service-tag">Paneli</span>
+                        </div>
+                        
+                        <div class="provider-experience">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span class="sw-content">Arusha</span>
+                            <span class="en-content">Arusha</span>
+                            <span style="margin-left: auto;">
+                                <i class="fas fa-clock"></i>
+                                <span class="sw-content">3+ miaka uzoefu</span>
+                                <span class="en-content">3+ years experience</span>
+                            </span>
+                        </div>
+                        
+                        <p class="sw-content" style="margin: 1rem 0; color: #666; font-size: 0.95rem;">
+                            Fundi umeme mwenye ujuzi wa mifumo ya solar na umeme wa kawaida.
+                        </p>
+                        <p class="en-content" style="margin: 1rem 0; color: #666; font-size: 0.95rem;">
+                            Electrician skilled in solar systems and regular electrical work.
+                        </p>
+                        
+                        <div class="provider-footer">
+                            <div class="provider-price">TZS 25,000+</div>
+                            <a href="#" class="btn-book">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span class="sw-content">Panga</span>
+                                <span class="en-content">Book</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Provider 3 -->
+                <div class="provider-card">
+                    <div class="provider-badge">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="sw-content">Thibitishwa</span>
+                        <span class="en-content">Verified</span>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1601409751314-6b62ea5d5e2d?q=80&w=2070&auto=format&fit=crop" alt="Seremala" class="provider-img">
+                    <div class="provider-info">
+                        <div class="provider-header">
+                            <div class="provider-name">
+                                <h3>Rajab Simba</h3>
+                                <div class="provider-category sw-content">Seremala</div>
+                                <div class="provider-category en-content">Carpenter</div>
+                            </div>
+                            <div class="provider-rating">
+                                <i class="fas fa-star"></i> 4.7
+                                <span class="sw-content">(64)</span>
+                                <span class="en-content">(64)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="provider-services">
+                            <span class="service-tag">Mbao</span>
+                            <span class="service-tag">Milango</span>
+                            <span class="service-tag">Madirisha</span>
+                            <span class="service-tag">Furniture</span>
+                        </div>
+                        
+                        <div class="provider-experience">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span class="sw-content">Mwanza</span>
+                            <span class="en-content">Mwanza</span>
+                            <span style="margin-left: auto;">
+                                <i class="fas fa-clock"></i>
+                                <span class="sw-content">7+ miaka uzoefu</span>
+                                <span class="en-content">7+ years experience</span>
+                            </span>
+                        </div>
+                        
+                        <p class="sw-content" style="margin: 1rem 0; color: #666; font-size: 0.95rem;">
+                            Seremala mwenye ujuzi wa kutengeneza samani na ufungaji wa milango/madirisha.
+                        </p>
+                        <p class="en-content" style="margin: 1rem 0; color: #666; font-size: 0.95rem;">
+                            Carpenter skilled in furniture making and door/window installation.
+                        </p>
+                        
+                        <div class="provider-footer">
+                            <div class="provider-price">TZS 40,000+</div>
+                            <a href="#" class="btn-book">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span class="sw-content">Panga</span>
+                                <span class="en-content">Book</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add more providers as needed -->
+                <!-- Provider 4 -->
+                <div class="provider-card">
+                    <div class="provider-badge">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="sw-content">Thibitishwa</span>
+                        <span class="en-content">Verified</span>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=2070&auto=format&fit=crop" alt="Upakaji Rangi" class="provider-img">
+                    <div class="provider-info">
+                        <div class="provider-header">
+                            <div class="provider-name">
+                                <h3>Amina Juma</h3>
+                                <div class="provider-category sw-content">Upakaji Rangi</div>
+                                <div class="provider-category en-content">Painting</div>
+                            </div>
+                            <div class="provider-rating">
+                                <i class="fas fa-star"></i> 4.6
+                                <span class="sw-content">(42)</span>
+                                <span class="en-content">(42)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="provider-services">
+                            <span class="service-tag">Ndani</span>
+                            <span class="service-tag">Nje</span>
+                            <span class="service-tag">Ukuta</span>
+                            <span class="service-tag">Dari</span>
+                        </div>
+                        
+                        <div class="provider-experience">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span class="sw-content">Dodoma</span>
+                            <span class="en-content">Dodoma</span>
+                            <span style="margin-left: auto;">
+                                <i class="fas fa-clock"></i>
+                                <span class="sw-content">4+ miaka uzoefu</span>
+                                <span class="en-content">4+ years experience</span>
+                            </span>
+                        </div>
+                        
+                        <p class="sw-content" style="margin: 1rem 0; color: #666; font-size: 0.95rem;">
+                            Mtaalamu wa upakaji rangi wa ndani na nje. Ana ujuzi wa rangi mbalimbali.
+                        </p>
+                        <p class="en-content" style="margin: 1rem 0; color: #666; font-size: 0.95rem;">
+                            Expert in interior and exterior painting. Skilled in various paint types.
+                        </p>
+                        
+                        <div class="provider-footer">
+                            <div class="provider-price">TZS 35,000+</div>
+                            <a href="#" class="btn-book">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span class="sw-content">Panga</span>
+                                <span class="en-content">Book</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Provider 5 -->
+                <div class="provider-card">
+                    <div class="provider-badge">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="sw-content">Thibitishwa</span>
+                        <span class="en-content">Verified</span>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=1974&auto=format&fit=crop" alt="Fundi Gari" class="provider-img">
+                    <div class="provider-info">
+                        <div class="provider-header">
+                            <div class="provider-name">
+                                <h3>Michael Chuma</h3>
+                                <div class="provider-category sw-content">Fundi Gari</div>
+                                <div class="provider-category en-content">Car Mechanic</div>
+                            </div>
+                            <div class="provider-rating">
+                                <i class="fas fa-star"></i> 4.9
+                                <span class="sw-content">(156)</span>
+                                <span class="en-content">(156)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="provider-services">
+                            <span class="service-tag">Engine</span>
+                            <span class="service-tag">Matairi</span>
+                            <span class="service-tag">Brakes</span>
+                            <span class="service-tag">Service</span>
+                        </div>
+                        
+                        <div class="provider-experience">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span class="sw-content">Mbeya</span>
+                            <span class="en-content">Mbeya</span>
+                            <span style="margin-left: auto;">
+                                <i class="fas fa-clock"></i>
+                                <span class="sw-content">8+ miaka uzoefu</span>
+                                <span class="en-content">8+ years experience</span>
+                            </span>
+                        </div>
+                        
+                        <p class="sw-content" style="margin: 1rem 0; color: #666; font-size: 0.95rem;">
+                            Fundi gari mwenye uzoefu wa matengenezo ya injini na mifumo mbalimbali ya magari.
+                        </p>
+                        <p class="en-content" style="margin: 1rem 0; color: #666; font-size: 0.95rem;">
+                            Car mechanic experienced in engine repairs and various car systems.
+                        </p>
+                        
+                        <div class="provider-footer">
+                            <div class="provider-price">TZS 50,000+</div>
+                            <a href="#" class="btn-book">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span class="sw-content">Panga</span>
+                                <span class="en-content">Book</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Provider 6 -->
+                <div class="provider-card">
+                    <div class="provider-badge">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="sw-content">Thibitishwa</span>
+                        <span class="en-content">Verified</span>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2070&auto=format&fit=crop" alt="Ujenzi" class="provider-img">
+                    <div class="provider-info">
+                        <div class="provider-header">
+                            <div class="provider-name">
+                                <h3>Zahara Kondo</h3>
+                                <div class="provider-category sw-content">Ujenzi</div>
+                                <div class="provider-category en-content">Construction</div>
+                            </div>
+                            <div class="provider-rating">
+                                <i class="fas fa-star"></i> 4.5
+                                <span class="sw-content">(38)</span>
+                                <span class="en-content">(38)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="provider-services">
+                            <span class="service-tag">Kuezeka</span>
+                            <span class="service-tag">Sakafu</span>
+                            <span class="service-tag">Kuta</span>
+                            <span class="service-tag">Matengenezo</span>
+                        </div>
+                        
+                        <div class="provider-experience">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span class="sw-content">Zanzibar</span>
+                            <span class="en-content">Zanzibar</span>
+                            <span style="margin-left: auto;">
+                                <i class="fas fa-clock"></i>
+                                <span class="sw-content">6+ miaka uzoefu</span>
+                                <span class="en-content">6+ years experience</span>
+                            </span>
+                        </div>
+                        
+                        <p class="sw-content" style="margin: 1rem 0; color: #666; font-size: 0.95rem;">
+                            Mjenzi mwenye uzoefu wa ujenzi wa nyumba na matengenezo ya majengo.
+                        </p>
+                        <p class="en-content" style="margin: 1rem 0; color: #666; font-size: 0.95rem;">
+                            Construction expert with experience in house building and building repairs.
+                        </p>
+                        
+                        <div class="provider-footer">
+                            <div class="provider-price">TZS 60,000+</div>
+                            <a href="#" class="btn-book">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span class="sw-content">Panga</span>
+                                <span class="en-content">Book</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="active">1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>4</button>
+                <button>5</button>
+                <button>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Same as other pages) -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <h2>Fixit<span style="color: #ffb000">TZ</span></h2>
+                        <div class="language-content sw-content active">
+                            <p>Sokoni la mafundi Tanzania. Tunaunganisha wateza na wafundi wenye ujuzi katika mikoa yote.</p>
+                        </div>
+                        <div class="language-content en-content">
+                            <p>Tanzania's handyman marketplace. We connect customers with skilled professionals across all regions.</p>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <div class="language-content sw-content active">
+                        <h3>Viungo Muhimu</h3>
+                        <ul class="footer-links">
+                            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Nyumbani</a></li>
+                            <li><a href="about.html"><i class="fas fa-chevron-right"></i> Kuhusu Sisi</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Huduma</a></li>
+                            <li><a href="blog.html"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                            <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Mawasiliano</a></li>
+                        </ul>
+                    </div>
+                    <div class="language-content en-content">
+                        <h3>Quick Links</h3>
+                        <ul class="footer-links">
+                            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                            <li><a href="about.html"><i class="fas fa-chevron-right"></i> About</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Services</a></li>
+                            <li><a href="blog.html"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                            <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <div class="language-content sw-content active">
+                        <h3>Huduma</h3>
+                        <ul class="footer-links">
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Fundi Maji</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Fundi Umeme</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Ujenzi</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Seremala</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Upakaji Rangi</a></li>
+                        </ul>
+                    </div>
+                    <div class="language-content en-content">
+                        <h3>Services</h3>
+                        <ul class="footer-links">
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Plumbing</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Electrical</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Construction</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Carpentry</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Painting</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <div class="language-content sw-content active">
+                        <h3>Mawasiliano</h3>
+                        <div class="footer-contact">
+                            <p><i class="fas fa-map-marker-alt"></i> Mikocheni, Dar es Salaam</p>
+                            <p><i class="fas fa-phone-alt"></i> +255 768 000 111</p>
+                            <p><i class="fas fa-envelope"></i> info@fixittz.co.tz</p>
+                        </div>
+                    </div>
+                    <div class="language-content en-content">
+                        <h3>Contact</h3>
+                        <div class="footer-contact">
+                            <p><i class="fas fa-map-marker-alt"></i> Mikocheni, Dar es Salaam</p>
+                            <p><i class="fas fa-phone-alt"></i> +255 768 000 111</p>
+                            <p><i class="fas fa-envelope"></i> info@fixittz.co.tz</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="language-content sw-content active">
+                    <p>© 2025 FixitTZ – Sokoni la Mafundi Tanzania • <a href="#">Sera ya Faragha</a> • <a href="#">Vigezo na Masharti</a></p>
+                </div>
+                <div class="language-content en-content">
+                    <p>© 2025 FixitTZ – Tanzania Handyman Marketplace • <a href="#">Privacy Policy</a> • <a href="#">Terms & Conditions</a></p>
+                </div>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem;">Namba ya usajili: 123456789 | TIN: 123-456-789</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
