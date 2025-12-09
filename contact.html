@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mawasiliano - FixitTZ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .contact-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(0, 100, 0, 0.9) 0%, rgba(10, 140, 10, 0.8) 100%),
+                        url('https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+            padding: 120px 0 4rem;
+        }
+        
+        .contact-hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+            color: var(--white);
+        }
+        
+        .contact-hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-hero-content p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .contact-section {
+            padding: 6rem 0;
+            background: var(--white);
+        }
+        
+        .contact-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 4rem;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .contact-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: var(--radius);
+            border-left: 4px solid var(--primary-green);
+            transition: var(--transition);
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        
+        .contact-card h4 {
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .contact-card p {
+            color: #666;
+            line-height: 1.7;
+        }
+        
+        .contact-form {
+            background: #f8f9fa;
+            padding: 3rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary-green);
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(0, 100, 0, 0.1);
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .btn-submit {
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 100, 0, 0.3);
+        }
+        
+        .map-container {
+            margin-top: 4rem;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+        }
+        
+        .faq-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        }
+        
+        .faq-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: var(--white);
+            margin-bottom: 1rem;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .faq-question {
+            padding: 1.5rem;
+            background: var(--white);
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-green);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .faq-question:hover {
+            background: #f8f9fa;
+        }
+        
+        .faq-question.active {
+            background: #f8f9fa;
+        }
+        
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .faq-answer.active {
+            padding: 1.5rem;
+            max-height: 500px;
+        }
+        
+        .faq-answer p {
+            color: #666;
+            line-height: 1.7;
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Tabs -->
+    <div class="language-tabs">
+        <button class="lang-tab active" data-lang="sw">
+            <i class="fas fa-language"></i>
+            <span>SW</span>
+        </button>
+        <button class="lang-tab" data-lang="en">
+            <i class="fas fa-language"></i>
+            <span>EN</span>
+        </button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <h1>Fixit<span>TZ</span></h1>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">
+                    <i class="fas fa-home"></i>
+                    <span class="sw-content">Nyumbani</span>
+                    <span class="en-content">Home</span>
+                </a></li>
+                <li><a href="about.html">
+                    <i class="fas fa-info-circle"></i>
+                    <span class="sw-content">Kuhusu Sisi</span>
+                    <span class="en-content">About</span>
+                </a></li>
+                <li><a href="services.html">
+                    <i class="fas fa-tools"></i>
+                    <span class="sw-content">Huduma</span>
+                    <span class="en-content">Services</span>
+                </a></li>
+                <li><a href="providers.html">
+                    <i class="fas fa-users"></i>
+                    <span class="sw-content">Wafundi</span>
+                    <span class="en-content">Providers</span>
+                </a></li>
+                <li><a href="blog.html">
+                    <i class="fas fa-blog"></i>
+                    <span class="sw-content">Blog</span>
+                    <span class="en-content">Blog</span>
+                </a></li>
+                <li><a href="contact.html" class="active">
+                    <i class="fas fa-address-book"></i>
+                    <span class="sw-content">Mawasiliano</span>
+                    <span class="en-content">Contact</span>
+                </a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="#" class="btn-login">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span class="sw-content">Ingia</span>
+                    <span class="en-content">Login</span>
+                </a>
+                <a href="#" class="btn-register">
+                    <i class="fas fa-user-plus"></i>
+                    <span class="sw-content">Jiandikishe</span>
+                    <span class="en-content">Register</span>
+                </a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contact Hero -->
+    <section class="contact-hero">
+        <div class="container contact-hero-content">
+            <!-- Swahili Content -->
+            <div class="language-content sw-content active">
+                <h1>Mawasiliano</h1>
+                <p>Wasiliana nasi kwa maswali, maoni au usaidizi wowote</p>
+            </div>
+            
+            <!-- English Content -->
+            <div class="language-content en-content">
+                <h1>Contact Us</h1>
+                <p>Contact us for any questions, feedback or assistance</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <!-- Swahili Content -->
+                    <div class="language-content sw-content active">
+                        <div class="contact-card">
+                            <h4><i class="fas fa-map-marker-alt"></i> Eneo</h4>
+                            <p>Mikocheni, Dar es Salaam<br>Tanzania</p>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <h4><i class="fas fa-phone-alt"></i> Simu</h4>
+                            <p>+255 768 000 111<br>+255 689 123 456</p>
+                            <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--secondary-green);">
+                                <i class="fas fa-clock"></i> 24/7 Huduma ya Wateza
+                            </p>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <h4><i class="fas fa-envelope"></i> Barua Pepe</h4>
+                            <p>info@fixittz.co.tz<br>support@fixittz.co.tz</p>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <h4><i class="fas fa-clock"></i> Masaa ya Huduma</h4>
+                            <p>Jumamosi - Ijumaa: 8:00 asubuhi - 8:00 jioni<br>Jumapili: 9:00 asubuhi - 4:00 alasiri</p>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <h4><i class="fas fa-headset"></i> Huduma ya Wateza</h4>
+                            <p>Tunatoa usaidizi kwa wateza kwa:</p>
+                            <ul style="margin-top: 0.5rem; padding-left: 1.5rem; color: #666;">
+                                <li>Usaidizi wa kuteua fundi</li>
+                                <li>Masuala ya malipo</li>
+                                <li>Tathmini na maoni</li>
+                                <li>Maswali ya jumla</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- English Content -->
+                    <div class="language-content en-content">
+                        <div class="contact-card">
+                            <h4><i class="fas fa-map-marker-alt"></i> Location</h4>
+                            <p>Mikocheni, Dar es Salaam<br>Tanzania</p>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <h4><i class="fas fa-phone-alt"></i> Phone</h4>
+                            <p>+255 768 000 111<br>+255 689 123 456</p>
+                            <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--secondary-green);">
+                                <i class="fas fa-clock"></i> 24/7 Customer Service
+                            </p>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <h4><i class="fas fa-envelope"></i> Email</h4>
+                            <p>info@fixittz.co.tz<br>support@fixittz.co.tz</p>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <h4><i class="fas fa-clock"></i> Service Hours</h4>
+                            <p>Saturday - Friday: 8:00 AM - 8:00 PM<br>Sunday: 9:00 AM - 4:00 PM</p>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <h4><i class="fas fa-headset"></i> Customer Service</h4>
+                            <p>We provide support to customers for:</p>
+                            <ul style="margin-top: 0.5rem; padding-left: 1.5rem; color: #666;">
+                                <li>Help with selecting handymen</li>
+                                <li>Payment issues</li>
+                                <li>Ratings and feedback</li>
+                                <li>General questions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <!-- Swahili Content -->
+                    <div class="language-content sw-content active">
+                        <h3 style="margin-bottom: 2rem; color: var(--primary-green);">Tuma Ujumbe</h3>
+                        <form id="contactFormSw">
+                            <div class="form-group">
+                                <label for="name">Jina Kamili</label>
+                                <input type="text" id="name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Barua Pepe</label>
+                                <input type="email" id="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone">Namba ya Simu</label>
+                                <input type="tel" id="phone" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject">Mada</label>
+                                <select id="subject" required>
+                                    <option value="">Chagua Mada</option>
+                                    <option value="support">Usaidizi wa Kiufundi</option>
+                                    <option value="provider">Uandikishaji wa Fundi</option>
+                                    <option value="feedback">Maoni</option>
+                                    <option value="complaint">Lalamiko</option>
+                                    <option value="partnership">Ushirikiano</option>
+                                    <option value="other">Nyingine</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">Ujumbe</label>
+                                <textarea id="message" placeholder="Andika ujumbe wako hapa..." required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn-submit">
+                                Tuma Ujumbe
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <!-- English Content -->
+                    <div class="language-content en-content">
+                        <h3 style="margin-bottom: 2rem; color: var(--primary-green);">Send Message</h3>
+                        <form id="contactFormEn">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <select id="subject" required>
+                                    <option value="">Choose Subject</option>
+                                    <option value="support">Technical Support</option>
+                                    <option value="provider">Handyman Registration</option>
+                                    <option value="feedback">Feedback</option>
+                                    <option value="complaint">Complaint</option>
+                                    <option value="partnership">Partnership</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" placeholder="Write your message here..." required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn-submit">
+                                Send Message
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map Section -->
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3969.025944101246!2d39.25188997487747!3d-6.776576866255733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x185c4f5e8d5f3c01%3A0xd59a0af75e0183ff!2sMikocheni%2C%20Dar%20es%20Salaam%2C%20Tanzania!5e0!3m2!1sen!2s!4v1690815436784!5m2!1sen!2s" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <!-- Swahili Content -->
+                <div class="language-content sw-content active">
+                    <h2 class="section-title">Maswali Yanayoulizwa Mara Kwa Mara</h2>
+                    <p class="section-subtitle">Jibu la maswali yako ya kawaida kuhusu huduma yetu</p>
+                </div>
+                
+                <!-- English Content -->
+                <div class="language-content en-content">
+                    <h2 class="section-title">Frequently Asked Questions</h2>
+                    <p class="section-subtitle">Answers to your common questions about our service</p>
+                </div>
+            </div>
+
+            <div class="faq-container">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span class="sw-content">Ninawezaje kumtafuta fundi wa kuaminika?</span>
+                        <span class="en-content">How can I find a reliable handyman?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="sw-content">
+                            Unaweza kumtafuta fundi kwa kutumia sanduku la utafutaji kwenye ukurasa wetu wa nyumbani. Weka hudua unayohitaji, eneo lako, na utaona orodha ya wafundi wanaofanya kazi hiyo. Unaweza kusoma tathmini, kuona ratings, na kuangalia bei kabla ya kuchagua.
+                        </p>
+                        <p class="en-content">
+                            You can find a handyman using the search box on our homepage. Enter the service you need, your location, and you'll see a list of handymen who do that work. You can read reviews, see ratings, and check prices before choosing.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span class="sw-content">Bei za huduma zimedhamiriwaje?</span>
+                        <span class="en-content">How are service prices determined?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="sw-content">
+                            Wafundi wanaweka bei zao wenyewe kulingana na uzoefu wao, eneo la kazi, na ugumu wa kazi. Bei zinaonyeshwa kama "kutoka" (TZS 30,000+) na unaweza kujadili bei kamili na fundi kabla ya kukubaliana na kazi.
+                        </p>
+                        <p class="en-content">
+                            Handymen set their own prices based on their experience, job location, and job difficulty. Prices are shown as "from" (TZS 30,000+) and you can discuss the full price with the handyman before agreeing to the job.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span class="sw-content">Ninawezaje kulipa kwa huduma?</span>
+                        <span class="en-content">How can I pay for services?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="sw-content">
+                            Unaweza kulipa kupitia mfumo wetu salama kwa kutumia M-Pesa, Tigo Pesa, Airtel Money, au kadi ya benki. Unaweza pia kulipa mkononi kwa fundi baada ya kukubaliana na bei.
+                        </p>
+                        <p class="en-content">
+                            You can pay through our secure system using M-Pesa, Tigo Pesa, Airtel Money, or bank card. You can also pay cash to the handyman after agreeing on the price.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span class="sw-content">Ninawezaje kuwa fundi kwenye jukwaa lenu?</span>
+                        <span class="en-content">How can I become a handyman on your platform?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="sw-content">
+                            Bofya kitufe cha "Jiandikishe" kwenye menyu, jaza fomu ya usajili, na tuma hati zinazothibitisha ujuzi wako. Timu yetu itakukagua na kukukubali ndani ya siku 2 za kazi.
+                        </p>
+                        <p class="en-content">
+                            Click the "Register" button on the menu, fill out the registration form, and submit documents proving your skills. Our team will review and approve you within 2 working days.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 5 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span class="sw-content">Je, kuna udhamini wa kazi?</span>
+                        <span class="en-content">Is there a work warranty?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="sw-content">
+                            Ndiyo, wafundi wengi wanatoa udhamini wa kazi kwa muda fulani (kawaida siku 30). Udhamini husajiliwa kwenye mfumo wetu na unaweza kuufuatilia kupitia akaunti yako.
+                        </p>
+                        <p class="en-content">
+                            Yes, most handymen provide work warranty for a certain period (usually 30 days). The warranty is registered in our system and you can track it through your account.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 6 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span class="sw-content">Ninawezaje kutoa tathmini baada ya kazi?</span>
+                        <span class="en-content">How can I give a review after work?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="sw-content">
+                            Baada ya kazi kukamilika, utapokea barua pepe au ujumbe wa SMS yenye kiungo cha kutoa tathmini. Unaweza pia kuingia kwenye akaunti yako na kuona orodha ya kazi zilizokamilika na kutuma tathmini.
+                        </p>
+                        <p class="en-content">
+                            After work is completed, you will receive an email or SMS with a link to provide a review. You can also log into your account and see the list of completed jobs and submit a review.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <h2>Fixit<span style="color: #ffb000">TZ</span></h2>
+                        <div class="language-content sw-content active">
+                            <p>Sokoni la mafundi Tanzania. Tunaunganisha wateza na wafundi wenye ujuzi katika mikoa yote.</p>
+                        </div>
+                        <div class="language-content en-content">
+                            <p>Tanzania's handyman marketplace. We connect customers with skilled professionals across all regions.</p>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <div class="language-content sw-content active">
+                        <h3>Viungo Muhimu</h3>
+                        <ul class="footer-links">
+                            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Nyumbani</a></li>
+                            <li><a href="about.html"><i class="fas fa-chevron-right"></i> Kuhusu Sisi</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Huduma</a></li>
+                            <li><a href="blog.html"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                            <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Mawasiliano</a></li>
+                        </ul>
+                    </div>
+                    <div class="language-content en-content">
+                        <h3>Quick Links</h3>
+                        <ul class="footer-links">
+                            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                            <li><a href="about.html"><i class="fas fa-chevron-right"></i> About</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Services</a></li>
+                            <li><a href="blog.html"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                            <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <div class="language-content sw-content active">
+                        <h3>Huduma</h3>
+                        <ul class="footer-links">
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Fundi Maji</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Fundi Umeme</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Ujenzi</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Seremala</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Upakaji Rangi</a></li>
+                        </ul>
+                    </div>
+                    <div class="language-content en-content">
+                        <h3>Services</h3>
+                        <ul class="footer-links">
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Plumbing</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Electrical</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Construction</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Carpentry</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Painting</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <div class="language-content sw-content active">
+                        <h3>Mawasiliano</h3>
+                        <div class="footer-contact">
+                            <p><i class="fas fa-map-marker-alt"></i> Mikocheni, Dar es Salaam</p>
+                            <p><i class="fas fa-phone-alt"></i> +255 768 000 111</p>
+                            <p><i class="fas fa-envelope"></i> info@fixittz.co.tz</p>
+                        </div>
+                    </div>
+                    <div class="language-content en-content">
+                        <h3>Contact</h3>
+                        <div class="footer-contact">
+                            <p><i class="fas fa-map-marker-alt"></i> Mikocheni, Dar es Salaam</p>
+                            <p><i class="fas fa-phone-alt"></i> +255 768 000 111</p>
+                            <p><i class="fas fa-envelope"></i> info@fixittz.co.tz</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="language-content sw-content active">
+                    <p>© 2025 FixitTZ – Sokoni la Mafundi Tanzania • <a href="#">Sera ya Faragha</a> • <a href="#">Vigezo na Masharti</a></p>
+                </div>
+                <div class="language-content en-content">
+                    <p>© 2025 FixitTZ – Tanzania Handyman Marketplace • <a href="#">Privacy Policy</a> • <a href="#">Terms & Conditions</a></p>
+                </div>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem;">Namba ya usajili: 123456789 | TIN: 123-456-789</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // FAQ functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    const isActive = question.classList.contains('active');
+                    
+                    // Close all FAQ items
+                    faqQuestions.forEach(q => {
+                        q.classList.remove('active');
+                        q.nextElementSibling.classList.remove('active');
+                    });
+                    
+                    // Open clicked item if it wasn't active
+                    if (!isActive) {
+                        question.classList.add('active');
+                        answer.classList.add('active');
+                    }
+                });
+            });
+            
+            // Contact form submission
+            const contactFormSw = document.getElementById('contactFormSw');
+            const contactFormEn = document.getElementById('contactFormEn');
+            
+            if (contactFormSw) {
+                contactFormSw.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Asante! Ujumbe wako umepokelewa. Tutakujibu kwa muda mfupi.');
+                    this.reset();
+                });
+            }
+            
+            if (contactFormEn) {
+                contactFormEn.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Thank you! Your message has been received. We will respond shortly.');
+                    this.reset();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
