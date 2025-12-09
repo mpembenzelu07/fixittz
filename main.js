@@ -84,4 +84,51 @@ document.addEventListener('DOMContentLoaded', function() {
             const isSwahili = document.querySelector('.sw-content.active') !== null;
             
             if (isSwahili) {
-                alert('Umepanga fundi. Tutakutumia maelezo zaidi
+                alert('Umepanga fundi. Tutakutumia maelezo zaidi kupitia WhatsApp.');
+            } else {
+                alert('You have booked a handyman. We will send you more details via WhatsApp.');
+            }
+        }
+    });
+    
+    // Register Button
+    const registerBtn = document.querySelector('.btn-register');
+    if (registerBtn) {
+        registerBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const isSwahili = document.querySelector('.sw-content.active') !== null;
+            
+            if (isSwahili) {
+                alert('Umeelekezwa kwenye ukurasa wa usajili. Tafadhali jaza fomu.');
+            } else {
+                alert('You are being redirected to the registration page. Please fill out the form.');
+            }
+        });
+    }
+    
+    // Initialize Swiper for testimonials
+    if (typeof Swiper !== 'undefined') {
+        const testimonialSwiper = new Swiper('.swiper', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            loop: true,
+            breakpoints: {
+                768: {
+                    slidesPerView: 2,
+                }
+            }
+        });
+    }
+});
