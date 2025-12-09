@@ -6,151 +6,1009 @@
     <title>Wafundi - FixitTZ</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
     <style>
-        .providers-hero {
-            min-height: 60vh;
-            display: flex;
-            align-items: center;
-            background: linear-gradient(135deg, rgba(0, 100, 0, 0.9) 0%, rgba(10, 140, 10, 0.8) 100%),
-                        url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
-            padding: 120px 0 4rem;
+        /* Base Styles */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #f59e0b;
+            --secondary-dark: #d97706;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --success: #10b981;
+            --danger: #ef4444;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --radius: 8px;
+            --transition: all 0.3s ease;
         }
-        
-        .providers-hero-content {
-            max-width: 1400px;
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .section-header {
             text-align: center;
-            color: var(--white);
+            margin-bottom: 60px;
         }
-        
-        .providers-hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark);
         }
-        
-        .providers-hero-content p {
-            font-size: 1.3rem;
-            max-width: 800px;
-            margin: 0 auto;
-            color: rgba(255, 255, 255, 0.9);
+
+        .section-subtitle {
+            color: var(--gray);
+            font-size: 1.1rem;
         }
-        
-        .filter-section {
-            padding: 4rem 0;
-            background: var(--white);
+
+        /* Language Content */
+        .language-content {
+            display: none;
         }
-        
-        .filter-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: #f8f9fa;
-            padding: 2rem;
-            border-radius: var(--radius);
+
+        .language-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .en-content {
+            display: none;
+        }
+
+        .sw-content.active ~ .en-content {
+            display: none;
+        }
+
+        /* Language Tabs */
+        .language-tabs {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+            background: white;
+            border-radius: 50px;
+            padding: 5px;
             box-shadow: var(--shadow);
         }
-        
+
+        .lang-tab {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: transparent;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--gray);
+            font-weight: 600;
+        }
+
+        .lang-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: white;
+            box-shadow: var(--shadow);
+            z-index: 999;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            text-decoration: none;
+            color: var(--dark);
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .nav-menu a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-login,
+        .btn-register {
+            text-decoration: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .btn-login {
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-login:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-register {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-register:hover {
+            background: var(--primary-dark);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--dark);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        /* Providers Hero */
+        .providers-hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.9) 0%, rgba(29, 78, 216, 0.8) 100%), 
+                        url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+            padding: 120px 0 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .providers-hero::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(to top, var(--light), transparent);
+            z-index: 1;
+        }
+
+        .providers-hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .providers-hero-content h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .providers-hero-content p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .hero-stat {
+            text-align: center;
+            color: white;
+        }
+
+        .hero-stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .hero-stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            padding: 4rem 0;
+            background: white;
+            position: relative;
+            z-index: 2;
+            margin-top: -50px;
+            border-radius: 20px 20px 0 0;
+            box-shadow: var(--shadow);
+        }
+
+        .filter-container {
+            background: white;
+            padding: 3rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .filter-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .filter-header h2 {
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .filter-header p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
         .filter-form {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1.5rem;
+            margin-bottom: 2rem;
         }
-        
-        .filter-form input,
-        .filter-form select {
+
+        .filter-group {
+            position: relative;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .filter-input {
+            width: 100%;
             padding: 1rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-family: inherit;
+            border: 2px solid var(--gray-light);
+            border-radius: var(--radius);
+            font-family: 'Poppins', sans-serif;
             font-size: 1rem;
-            background: var(--white);
+            transition: var(--transition);
+            background: white;
         }
-        
-        .filter-form button {
-            background: var(--gradient-primary);
-            color: var(--white);
+
+        .filter-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .filter-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: white;
             border: none;
-            border-radius: 8px;
-            padding: 1rem;
+            border-radius: var(--radius);
             font-weight: 600;
             font-size: 1.1rem;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
             transition: var(--transition);
+            grid-column: 1 / -1;
+            margin-top: 1rem;
         }
-        
-        .filter-form button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 100, 0, 0.3);
+
+        .filter-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
         }
-        
-        .providers-count {
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: var(--light-yellow);
-            border-radius: var(--radius);
-            border-left: 4px solid var(--accent-yellow);
-        }
-        
-        .providers-grid-large {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 3rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        .provider-verified-badge {
-            background: var(--accent-yellow);
-            color: var(--primary-green);
-            padding: 0.3rem 1rem;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            margin-left: 10px;
-        }
-        
-        .provider-experience {
+
+        .quick-filters {
             display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #666;
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-        }
-        
-        .pagination {
-            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
             justify-content: center;
-            gap: 0.5rem;
-            margin-top: 4rem;
+            margin-top: 2rem;
         }
-        
-        .pagination button {
-            width: 40px;
-            height: 40px;
-            border: 2px solid var(--primary-green);
-            background: var(--white);
-            color: var(--primary-green);
-            border-radius: 8px;
+
+        .quick-filter {
+            padding: 0.6rem 1.5rem;
+            background: var(--light);
+            color: var(--dark);
+            border: 2px solid var(--gray-light);
+            border-radius: 50px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .quick-filter:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Providers Grid */
+        .providers-grid-section {
+            padding: 6rem 0;
+            background: var(--light);
+        }
+
+        .providers-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .results-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .results-count {
+            font-size: 1.2rem;
             font-weight: 600;
+            color: var(--dark);
+        }
+
+        .results-count span {
+            color: var(--primary);
+        }
+
+        .sort-options {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .sort-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .sort-select {
+            padding: 0.6rem 1.2rem;
+            border: 2px solid var(--gray-light);
+            border-radius: var(--radius);
+            font-family: 'Poppins', sans-serif;
+            background: white;
             cursor: pointer;
             transition: var(--transition);
         }
-        
-        .pagination button.active {
-            background: var(--primary-green);
-            color: var(--white);
+
+        .sort-select:focus {
+            outline: none;
+            border-color: var(--primary);
         }
-        
-        .pagination button:hover:not(.active) {
-            background: var(--light-gray);
+
+        .providers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .provider-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            border: 1px solid var(--gray-light);
+        }
+
+        .provider-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .provider-featured {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--secondary);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .provider-img-container {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .provider-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .provider-card:hover .provider-img {
+            transform: scale(1.1);
+        }
+
+        .provider-verified-badge {
+            position: absolute;
+            bottom: -15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: var(--shadow);
+            z-index: 2;
+        }
+
+        .provider-info {
+            padding: 2rem;
+            position: relative;
+        }
+
+        .provider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .provider-name h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .provider-category {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            background: rgba(37, 99, 235, 0.1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            display: inline-block;
+        }
+
+        .provider-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: #ffb800;
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .provider-expertise {
+            margin-bottom: 1.5rem;
+        }
+
+        .provider-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .skill-tag {
+            padding: 0.3rem 0.8rem;
+            background: var(--light);
+            color: var(--dark);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .skill-tag:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .provider-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1.5rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--gray-light);
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .meta-item i {
+            color: var(--primary);
+        }
+
+        .provider-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .provider-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .price-note {
+            font-size: 0.8rem;
+            color: var(--gray);
+            display: block;
+            margin-top: 0.2rem;
+        }
+
+        .btn-book {
+            padding: 0.8rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .btn-book:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 4rem;
+        }
+
+        .pagination button {
+            width: 45px;
+            height: 45px;
+            border: 2px solid var(--gray-light);
+            background: white;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .pagination button:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .pagination button.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* View Toggle */
+        .view-toggle {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: auto;
+        }
+
+        .view-btn {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--gray-light);
+            background: white;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--gray);
+        }
+
+        .view-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .view-btn:hover:not(.active) {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* CTA Section */
+        .become-provider {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-align: center;
+        }
+
+        .become-provider-content h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .become-provider-content p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            opacity: 0.95;
+        }
+
+        .btn-provider {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem 3rem;
+            background: var(--secondary);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .btn-provider:hover {
+            background: var(--secondary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo p {
+            color: #94a3b8;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: #334155;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .footer-contact p {
+            color: #94a3b8;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+        }
+
+        .footer-bottom a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-bottom a:hover {
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .providers-hero-content h1 {
+                font-size: 3rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .providers-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                flex-direction: column;
+                background: white;
+                width: 100%;
+                padding: 2rem;
+                box-shadow: var(--shadow);
+                transition: var(--transition);
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(6px, 6px);
+            }
+            
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(6px, -6px);
+            }
+            
+            .providers-hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .providers-hero-content p {
+                font-size: 1.1rem;
+            }
+            
+            .filter-container {
+                padding: 2rem;
+            }
+            
+            .providers-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .view-toggle {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+            
+            .become-provider-content h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .section-padding {
+                padding: 60px 0;
+            }
+            
+            .filter-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-stats {
+                gap: 2rem;
+            }
+            
+            .hero-stat-number {
+                font-size: 2rem;
+            }
+            
+            .provider-meta {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+            
+            .pagination button {
+                width: 40px;
+                height: 40px;
+            }
         }
     </style>
 </head>
@@ -231,13 +1089,49 @@
             <!-- Swahili Content -->
             <div class="language-content sw-content active">
                 <h1>Wafundi Wote</h1>
-                <p>Tafuta fundi bora kutoka kwa wafundi waliosajiliwa wote kwenye jukwaa letu</p>
+                <p>Pata fundi bora kutoka kwa wafundi 2,000+ waliohitimu na wenye uzoefu kutoka mikoa yote ya Tanzania</p>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="hero-stat-number">2,000+</span>
+                        <span class="hero-stat-label">Wafundi</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-number">15+</span>
+                        <span class="hero-stat-label">Aina za Huduma</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-number">4.8</span>
+                        <span class="hero-stat-label">Wastani wa Rating</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-number">25+</span>
+                        <span class="hero-stat-label">Mikoa</span>
+                    </div>
+                </div>
             </div>
             
             <!-- English Content -->
             <div class="language-content en-content">
                 <h1>All Handymen</h1>
-                <p>Find the best handyman from all registered professionals on our platform</p>
+                <p>Find the best handyman from 2,000+ certified and experienced professionals from all regions of Tanzania</p>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="hero-stat-number">2,000+</span>
+                        <span class="hero-stat-label">Handymen</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-number">15+</span>
+                        <span class="hero-stat-label">Service Types</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-number">4.8</span>
+                        <span class="hero-stat-label">Avg Rating</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-number">25+</span>
+                        <span class="hero-stat-label">Regions</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -246,119 +1140,146 @@
     <section class="filter-section">
         <div class="container">
             <div class="filter-container">
-                <!-- Swahili Content -->
-                <div class="language-content sw-content active">
-                    <h3 style="margin-bottom: 1.5rem; color: var(--primary-green);">Chuja Wafundi</h3>
-                    <form class="filter-form">
-                        <input type="text" placeholder="Tafuta fundi...">
-                        <select>
-                            <option value="">Aina ya Huduma</option>
-                            <option value="plumbing">Fundi Maji</option>
-                            <option value="electrician">Fundi Umeme</option>
-                            <option value="construction">Ujenzi</option>
-                            <option value="carpentry">Seremala</option>
-                            <option value="painting">Upakaji Rangi</option>
-                            <option value="car">Fundi Gari</option>
-                        </select>
-                        <select>
-                            <option value="">Eneo</option>
-                            <option value="dar">Dar es Salaam</option>
-                            <option value="arusha">Arusha</option>
-                            <option value="mwanza">Mwanza</option>
-                            <option value="mbeya">Mbeya</option>
-                            <option value="dodoma">Dodoma</option>
-                            <option value="zanzibar">Zanzibar</option>
-                        </select>
-                        <select>
-                            <option value="">Rating</option>
-                            <option value="5">★ ★ ★ ★ ★ (5)</option>
-                            <option value="4">★ ★ ★ ★ (4+)</option>
-                            <option value="3">★ ★ ★ (3+)</option>
-                        </select>
-                        <button type="submit">
-                            <i class="fas fa-filter"></i> Chuja
-                        </button>
-                    </form>
+                <div class="filter-header">
+                    <!-- Swahili Content -->
+                    <div class="language-content sw-content active">
+                        <h2>Tafuta Fundi Bora</h2>
+                        <p>Chuja wafundi kwa huduma, eneo, rating, na bei ili kupata fundi kamili kwa mahitaji yako</p>
+                    </div>
+                    
+                    <!-- English Content -->
+                    <div class="language-content en-content">
+                        <h2>Find the Best Handyman</h2>
+                        <p>Filter handymen by service, location, rating, and price to find the perfect match for your needs</p>
+                    </div>
                 </div>
-                
-                <!-- English Content -->
-                <div class="language-content en-content">
-                    <h3 style="margin-bottom: 1.5rem; color: var(--primary-green);">Filter Handymen</h3>
-                    <form class="filter-form">
-                        <input type="text" placeholder="Search handyman...">
-                        <select>
-                            <option value="">Service Type</option>
-                            <option value="plumbing">Plumber</option>
-                            <option value="electrician">Electrician</option>
-                            <option value="construction">Construction</option>
-                            <option value="carpentry">Carpenter</option>
-                            <option value="painting">Painter</option>
-                            <option value="car">Car Mechanic</option>
+
+                <form class="filter-form">
+                    <div class="filter-group">
+                        <label for="search" class="sw-content">Tafuta Fundi</label>
+                        <label for="search" class="en-content">Search Handyman</label>
+                        <input type="text" id="search" class="filter-input sw-content" placeholder="Jina la fundi au ujuzi...">
+                        <input type="text" id="search" class="filter-input en-content" placeholder="Handyman name or skill...">
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="service" class="sw-content">Aina ya Huduma</label>
+                        <label for="service" class="en-content">Service Type</label>
+                        <select id="service" class="filter-input">
+                            <option value="" class="sw-content">Chagua Huduma Zote</option>
+                            <option value="plumbing" class="sw-content">Fundi Maji</option>
+                            <option value="electrician" class="sw-content">Fundi Umeme</option>
+                            <option value="construction" class="sw-content">Ujenzi</option>
+                            <option value="carpentry" class="sw-content">Seremala</option>
+                            <option value="painting" class="sw-content">Upakaji Rangi</option>
+                            <option value="car" class="sw-content">Fundi Gari</option>
                         </select>
-                        <select>
-                            <option value="">Location</option>
-                            <option value="dar">Dar es Salaam</option>
-                            <option value="arusha">Arusha</option>
-                            <option value="mwanza">Mwanza</option>
-                            <option value="mbeya">Mbeya</option>
-                            <option value="dodoma">Dodoma</option>
-                            <option value="zanzibar">Zanzibar</option>
+                        <select id="service" class="filter-input">
+                            <option value="" class="en-content">All Services</option>
+                            <option value="plumbing" class="en-content">Plumber</option>
+                            <option value="electrician" class="en-content">Electrician</option>
+                            <option value="construction" class="en-content">Construction</option>
+                            <option value="carpentry" class="en-content">Carpenter</option>
+                            <option value="painting" class="en-content">Painter</option>
+                            <option value="car" class="en-content">Car Mechanic</option>
                         </select>
-                        <select>
-                            <option value="">Rating</option>
-                            <option value="5">★ ★ ★ ★ ★ (5)</option>
-                            <option value="4">★ ★ ★ ★ (4+)</option>
-                            <option value="3">★ ★ ★ (3+)</option>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="location" class="sw-content">Eneo</label>
+                        <label for="location" class="en-content">Location</label>
+                        <select id="location" class="filter-input">
+                            <option value="" class="sw-content">Mikoa Yote</option>
+                            <option value="dar" class="sw-content">Dar es Salaam</option>
+                            <option value="arusha" class="sw-content">Arusha</option>
+                            <option value="mwanza" class="sw-content">Mwanza</option>
+                            <option value="mbeya" class="sw-content">Mbeya</option>
+                            <option value="dodoma" class="sw-content">Dodoma</option>
+                            <option value="zanzibar" class="sw-content">Zanzibar</option>
+                            <option value="tanga" class="sw-content">Tanga</option>
                         </select>
-                        <button type="submit">
-                            <i class="fas fa-filter"></i> Filter
-                        </button>
-                    </form>
+                        <select id="location" class="filter-input">
+                            <option value="" class="en-content">All Regions</option>
+                            <option value="dar" class="en-content">Dar es Salaam</option>
+                            <option value="arusha" class="en-content">Arusha</option>
+                            <option value="mwanza" class="en-content">Mwanza</option>
+                            <option value="mbeya" class="en-content">Mbeya</option>
+                            <option value="dodoma" class="en-content">Dodoma</option>
+                            <option value="zanzibar" class="en-content">Zanzibar</option>
+                            <option value="tanga" class="en-content">Tanga</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="filter-button">
+                        <i class="fas fa-search"></i>
+                        <span class="sw-content">Tafuta Wafundi</span>
+                        <span class="en-content">Search Handymen</span>
+                    </button>
+                </form>
+
+                <div class="quick-filters">
+                    <button class="quick-filter sw-content">★ Rating ya Juu</button>
+                    <button class="quick-filter sw-content">🚗 Fundi Gari</button>
+                    <button class="quick-filter sw-content">⚡ Fundi Umeme</button>
+                    <button class="quick-filter sw-content">💧 Fundi Maji</button>
+                    <button class="quick-filter sw-content">🏠 Ujenzi</button>
+                    
+                    <button class="quick-filter en-content">★ Top Rated</button>
+                    <button class="quick-filter en-content">🚗 Car Mechanic</button>
+                    <button class="quick-filter en-content">⚡ Electrician</button>
+                    <button class="quick-filter en-content">💧 Plumber</button>
+                    <button class="quick-filter en-content">🏠 Construction</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Providers Section -->
-    <section class="providers-section section-padding">
+    <!-- Providers Grid -->
+    <section class="providers-grid-section">
         <div class="container">
             <div class="providers-header">
-                <div class="section-header">
-                    <!-- Swahili Content -->
-                    <div class="language-content sw-content active">
-                        <h2 class="section-title">Wafundi Wote</h2>
-                        <p class="section-subtitle">Wafundi wote waliosajiliwa kwenye jukwaa letu</p>
+                <div class="results-info">
+                    <div class="results-count sw-content">
+                        <span>1,852</span> Wafundi Wamepatikana
                     </div>
-                    
-                    <!-- English Content -->
-                    <div class="language-content en-content">
-                        <h2 class="section-title">All Handymen</h2>
-                        <p class="section-subtitle">All registered handymen on our platform</p>
+                    <div class="results-count en-content">
+                        <span>1,852</span> Handymen Found
                     </div>
+                </div>
+                
+                <div class="sort-options">
+                    <span class="sort-label sw-content">Panga kwa:</span>
+                    <span class="sort-label en-content">Sort by:</span>
+                    <select class="sort-select">
+                        <option value="rating" class="sw-content">Rating ya Juu</option>
+                        <option value="price-low" class="sw-content">Bei ya Chini</option>
+                        <option value="price-high" class="sw-content">Bei ya Juu</option>
+                        <option value="experience" class="sw-content">Uzoefu</option>
+                        <option value="reviews" class="sw-content">Tathmini Nyingi</option>
+                    </select>
+                </div>
+                
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="grid">
+                        <i class="fas fa-th-large"></i>
+                    </button>
+                    <button class="view-btn" data-view="list">
+                        <i class="fas fa-list"></i>
+                    </button>
                 </div>
             </div>
 
-            <!-- Providers Count -->
-            <div class="providers-count">
-                <div class="sw-content">
-                    <h3><i class="fas fa-users"></i> Wafundi 1,850+ Waliosajiliwa</h3>
-                    <p>Tafuta fundi bora kutoka kwa wafundi wote waliosajiliwa katika mikoa yote ya Tanzania</p>
-                </div>
-                <div class="en-content">
-                    <h3><i class="fas fa-users"></i> 1,850+ Registered Handymen</h3>
-                    <p>Find the best handyman from all registered professionals across all regions of Tanzania</p>
-                </div>
-            </div>
-
-            <div class="providers-grid-large">
+            <div class="providers-grid">
                 <!-- Provider 1 -->
                 <div class="provider-card">
-                    <div class="provider-badge">
-                        <i class="fas fa-check-circle"></i>
-                        <span class="sw-content">Thibitishwa</span>
-                        <span class="en-content">Verified</span>
+                    <div class="provider-featured sw-content">VIPENDO</div>
+                    <div class="provider-featured en-content">POPULAR</div>
+                    <div class="provider-img-container">
+                        <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074&auto=format&fit=crop" alt="Fundi Maji" class="provider-img">
+                        <div class="provider-verified-badge">
+                            <i class="fas fa-check"></i>
+                        </div>
                     </div>
-                    <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074&auto=format&fit=crop" alt="Fundi Maji" class="provider-img">
                     <div class="provider-info">
                         <div class="provider-header">
                             <div class="provider-name">
@@ -368,38 +1289,44 @@
                             </div>
                             <div class="provider-rating">
                                 <i class="fas fa-star"></i> 4.9
-                                <span class="sw-content">(127)</span>
-                                <span class="en-content">(127)</span>
                             </div>
                         </div>
                         
-                        <div class="provider-services">
-                            <span class="service-tag">Bomba</span>
-                            <span class="service-tag">Choo</span>
-                            <span class="service-tag">Bafu</span>
-                            <span class="service-tag">Tanki</span>
+                        <div class="provider-expertise">
+                            <div class="provider-skills">
+                                <span class="skill-tag">Bomba</span>
+                                <span class="skill-tag">Choo</span>
+                                <span class="skill-tag">Bafu</span>
+                                <span class="skill-tag">Tanki</span>
+                                <span class="skill-tag">Mifumo ya Maji</span>
+                            </div>
                         </div>
                         
-                        <div class="provider-experience">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span class="sw-content">Dar es Salaam</span>
-                            <span class="en-content">Dar es Salaam</span>
-                            <span style="margin-left: auto;">
+                        <div class="provider-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span class="sw-content">Dar es Salaam</span>
+                                <span class="en-content">Dar es Salaam</span>
+                            </div>
+                            <div class="meta-item">
                                 <i class="fas fa-clock"></i>
-                                <span class="sw-content">5+ miaka uzoefu</span>
-                                <span class="en-content">5+ years experience</span>
-                            </span>
+                                <span class="sw-content">5+ Miaka</span>
+                                <span class="en-content">5+ Years</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-briefcase"></i>
+                                <span class="sw-content">127 Kazi</span>
+                                <span class="en-content">127 Jobs</span>
+                            </div>
                         </div>
-                        
-                        <p class="sw-content" style="margin: 1rem 0; color: #666; font-size: 0.95rem;">
-                            Fundi maji mwenye uzoefu wa miaka 5. Ana ujuzi wa matengenezo yote ya mifumo ya maji.
-                        </p>
-                        <p class="en-content" style="margin: 1rem 0; color: #666; font-size: 0.95rem;">
-                            Experienced plumber with 5 years of experience. Expert in all water system repairs.
-                        </p>
                         
                         <div class="provider-footer">
-                            <div class="provider-price">TZS 30,000+</div>
+                            <div class="provider-price">
+                                <span class="sw-content">Kuanzia TZS 30,000</span>
+                                <span class="en-content">From TZS 30,000</span>
+                                <span class="price-note sw-content">kwa kazi ndogo</span>
+                                <span class="price-note en-content">for small job</span>
+                            </div>
                             <a href="#" class="btn-book">
                                 <i class="fas fa-calendar-alt"></i>
                                 <span class="sw-content">Panga</span>
@@ -411,12 +1338,12 @@
 
                 <!-- Provider 2 -->
                 <div class="provider-card">
-                    <div class="provider-badge">
-                        <i class="fas fa-check-circle"></i>
-                        <span class="sw-content">Thibitishwa</span>
-                        <span class="en-content">Verified</span>
+                    <div class="provider-img-container">
+                        <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=2069&auto=format&fit=crop" alt="Fundi Umeme" class="provider-img">
+                        <div class="provider-verified-badge">
+                            <i class="fas fa-check"></i>
+                        </div>
                     </div>
-                    <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=2069&auto=format&fit=crop" alt="Fundi Umeme" class="provider-img">
                     <div class="provider-info">
                         <div class="provider-header">
                             <div class="provider-name">
@@ -426,38 +1353,44 @@
                             </div>
                             <div class="provider-rating">
                                 <i class="fas fa-star"></i> 4.8
-                                <span class="sw-content">(89)</span>
-                                <span class="en-content">(89)</span>
                             </div>
                         </div>
                         
-                        <div class="provider-services">
-                            <span class="service-tag">Wiring</span>
-                            <span class="service-tag">Solar</span>
-                            <span class="service-tag">Taa</span>
-                            <span class="service-tag">Paneli</span>
+                        <div class="provider-expertise">
+                            <div class="provider-skills">
+                                <span class="skill-tag">Wiring</span>
+                                <span class="skill-tag">Solar</span>
+                                <span class="skill-tag">Taa</span>
+                                <span class="skill-tag">Paneli</span>
+                                <span class="skill-tag">Mifumo</span>
+                            </div>
                         </div>
                         
-                        <div class="provider-experience">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span class="sw-content">Arusha</span>
-                            <span class="en-content">Arusha</span>
-                            <span style="margin-left: auto;">
+                        <div class="provider-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span class="sw-content">Arusha</span>
+                                <span class="en-content">Arusha</span>
+                            </div>
+                            <div class="meta-item">
                                 <i class="fas fa-clock"></i>
-                                <span class="sw-content">3+ miaka uzoefu</span>
-                                <span class="en-content">3+ years experience</span>
-                            </span>
+                                <span class="sw-content">3+ Miaka</span>
+                                <span class="en-content">3+ Years</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-briefcase"></i>
+                                <span class="sw-content">89 Kazi</span>
+                                <span class="en-content">89 Jobs</span>
+                            </div>
                         </div>
-                        
-                        <p class="sw-content" style="margin: 1rem 0; color: #666; font-size: 0.95rem;">
-                            Fundi umeme mwenye ujuzi wa mifumo ya solar na umeme wa kawaida.
-                        </p>
-                        <p class="en-content" style="margin: 1rem 0; color: #666; font-size: 0.95rem;">
-                            Electrician skilled in solar systems and regular electrical work.
-                        </p>
                         
                         <div class="provider-footer">
-                            <div class="provider-price">TZS 25,000+</div>
+                            <div class="provider-price">
+                                <span class="sw-content">Kuanzia TZS 25,000</span>
+                                <span class="en-content">From TZS 25,000</span>
+                                <span class="price-note sw-content">kwa wiring</span>
+                                <span class="price-note en-content">for wiring</span>
+                            </div>
                             <a href="#" class="btn-book">
                                 <i class="fas fa-calendar-alt"></i>
                                 <span class="sw-content">Panga</span>
@@ -469,12 +1402,12 @@
 
                 <!-- Provider 3 -->
                 <div class="provider-card">
-                    <div class="provider-badge">
-                        <i class="fas fa-check-circle"></i>
-                        <span class="sw-content">Thibitishwa</span>
-                        <span class="en-content">Verified</span>
+                    <div class="provider-img-container">
+                        <img src="https://images.unsplash.com/photo-1601409751314-6b62ea5d5e2d?q=80&w=2070&auto=format&fit=crop" alt="Seremala" class="provider-img">
+                        <div class="provider-verified-badge">
+                            <i class="fas fa-check"></i>
+                        </div>
                     </div>
-                    <img src="https://images.unsplash.com/photo-1601409751314-6b62ea5d5e2d?q=80&w=2070&auto=format&fit=crop" alt="Seremala" class="provider-img">
                     <div class="provider-info">
                         <div class="provider-header">
                             <div class="provider-name">
@@ -484,38 +1417,44 @@
                             </div>
                             <div class="provider-rating">
                                 <i class="fas fa-star"></i> 4.7
-                                <span class="sw-content">(64)</span>
-                                <span class="en-content">(64)</span>
                             </div>
                         </div>
                         
-                        <div class="provider-services">
-                            <span class="service-tag">Mbao</span>
-                            <span class="service-tag">Milango</span>
-                            <span class="service-tag">Madirisha</span>
-                            <span class="service-tag">Furniture</span>
+                        <div class="provider-expertise">
+                            <div class="provider-skills">
+                                <span class="skill-tag">Mbao</span>
+                                <span class="skill-tag">Milango</span>
+                                <span class="skill-tag">Madirisha</span>
+                                <span class="skill-tag">Furniture</span>
+                                <span class="skill-tag">Kabati</span>
+                            </div>
                         </div>
                         
-                        <div class="provider-experience">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span class="sw-content">Mwanza</span>
-                            <span class="en-content">Mwanza</span>
-                            <span style="margin-left: auto;">
+                        <div class="provider-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span class="sw-content">Mwanza</span>
+                                <span class="en-content">Mwanza</span>
+                            </div>
+                            <div class="meta-item">
                                 <i class="fas fa-clock"></i>
-                                <span class="sw-content">7+ miaka uzoefu</span>
-                                <span class="en-content">7+ years experience</span>
-                            </span>
+                                <span class="sw-content">7+ Miaka</span>
+                                <span class="en-content">7+ Years</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-briefcase"></i>
+                                <span class="sw-content">64 Kazi</span>
+                                <span class="en-content">64 Jobs</span>
+                            </div>
                         </div>
-                        
-                        <p class="sw-content" style="margin: 1rem 0; color: #666; font-size: 0.95rem;">
-                            Seremala mwenye ujuzi wa kutengeneza samani na ufungaji wa milango/madirisha.
-                        </p>
-                        <p class="en-content" style="margin: 1rem 0; color: #666; font-size: 0.95rem;">
-                            Carpenter skilled in furniture making and door/window installation.
-                        </p>
                         
                         <div class="provider-footer">
-                            <div class="provider-price">TZS 40,000+</div>
+                            <div class="provider-price">
+                                <span class="sw-content">Kuanzia TZS 40,000</span>
+                                <span class="en-content">From TZS 40,000</span>
+                                <span class="price-note sw-content">kwa samani</span>
+                                <span class="price-note en-content">for furniture</span>
+                            </div>
                             <a href="#" class="btn-book">
                                 <i class="fas fa-calendar-alt"></i>
                                 <span class="sw-content">Panga</span>
@@ -525,56 +1464,63 @@
                     </div>
                 </div>
 
-                <!-- Add more providers as needed -->
                 <!-- Provider 4 -->
                 <div class="provider-card">
-                    <div class="provider-badge">
-                        <i class="fas fa-check-circle"></i>
-                        <span class="sw-content">Thibitishwa</span>
-                        <span class="en-content">Verified</span>
+                    <div class="provider-featured sw-content">VIPENDO</div>
+                    <div class="provider-featured en-content">POPULAR</div>
+                    <div class="provider-img-container">
+                        <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=1974&auto=format&fit=crop" alt="Fundi Gari" class="provider-img">
+                        <div class="provider-verified-badge">
+                            <i class="fas fa-check"></i>
+                        </div>
                     </div>
-                    <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=2070&auto=format&fit=crop" alt="Upakaji Rangi" class="provider-img">
                     <div class="provider-info">
                         <div class="provider-header">
                             <div class="provider-name">
-                                <h3>Amina Juma</h3>
-                                <div class="provider-category sw-content">Upakaji Rangi</div>
-                                <div class="provider-category en-content">Painting</div>
+                                <h3>Michael Chuma</h3>
+                                <div class="provider-category sw-content">Fundi Gari</div>
+                                <div class="provider-category en-content">Car Mechanic</div>
                             </div>
                             <div class="provider-rating">
-                                <i class="fas fa-star"></i> 4.6
-                                <span class="sw-content">(42)</span>
-                                <span class="en-content">(42)</span>
+                                <i class="fas fa-star"></i> 4.9
                             </div>
                         </div>
                         
-                        <div class="provider-services">
-                            <span class="service-tag">Ndani</span>
-                            <span class="service-tag">Nje</span>
-                            <span class="service-tag">Ukuta</span>
-                            <span class="service-tag">Dari</span>
+                        <div class="provider-expertise">
+                            <div class="provider-skills">
+                                <span class="skill-tag">Engine</span>
+                                <span class="skill-tag">Matairi</span>
+                                <span class="skill-tag">Brakes</span>
+                                <span class="skill-tag">Service</span>
+                                <span class="skill-tag">AC</span>
+                            </div>
                         </div>
                         
-                        <div class="provider-experience">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span class="sw-content">Dodoma</span>
-                            <span class="en-content">Dodoma</span>
-                            <span style="margin-left: auto;">
+                        <div class="provider-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span class="sw-content">Mbeya</span>
+                                <span class="en-content">Mbeya</span>
+                            </div>
+                            <div class="meta-item">
                                 <i class="fas fa-clock"></i>
-                                <span class="sw-content">4+ miaka uzoefu</span>
-                                <span class="en-content">4+ years experience</span>
-                            </span>
+                                <span class="sw-content">8+ Miaka</span>
+                                <span class="en-content">8+ Years</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-briefcase"></i>
+                                <span class="sw-content">156 Kazi</span>
+                                <span class="en-content">156 Jobs</span>
+                            </div>
                         </div>
-                        
-                        <p class="sw-content" style="margin: 1rem 0; color: #666; font-size: 0.95rem;">
-                            Mtaalamu wa upakaji rangi wa ndani na nje. Ana ujuzi wa rangi mbalimbali.
-                        </p>
-                        <p class="en-content" style="margin: 1rem 0; color: #666; font-size: 0.95rem;">
-                            Expert in interior and exterior painting. Skilled in various paint types.
-                        </p>
                         
                         <div class="provider-footer">
-                            <div class="provider-price">TZS 35,000+</div>
+                            <div class="provider-price">
+                                <span class="sw-content">Kuanzia TZS 45,000</span>
+                                <span class="en-content">From TZS 45,000</span>
+                                <span class="price-note sw-content">kwa service</span>
+                                <span class="price-note en-content">for service</span>
+                            </div>
                             <a href="#" class="btn-book">
                                 <i class="fas fa-calendar-alt"></i>
                                 <span class="sw-content">Panga</span>
@@ -586,53 +1532,59 @@
 
                 <!-- Provider 5 -->
                 <div class="provider-card">
-                    <div class="provider-badge">
-                        <i class="fas fa-check-circle"></i>
-                        <span class="sw-content">Thibitishwa</span>
-                        <span class="en-content">Verified</span>
+                    <div class="provider-img-container">
+                        <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=2070&auto=format&fit=crop" alt="Upakaji Rangi" class="provider-img">
+                        <div class="provider-verified-badge">
+                            <i class="fas fa-check"></i>
+                        </div>
                     </div>
-                    <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=1974&auto=format&fit=crop" alt="Fundi Gari" class="provider-img">
                     <div class="provider-info">
                         <div class="provider-header">
                             <div class="provider-name">
-                                <h3>Michael Chuma</h3>
-                                <div class="provider-category sw-content">Fundi Gari</div>
-                                <div class="provider-category en-content">Car Mechanic</div>
+                                <h3>Amina Juma</h3>
+                                <div class="provider-category sw-content">Upakaji Rangi</div>
+                                <div class="provider-category en-content">Painter</div>
                             </div>
                             <div class="provider-rating">
-                                <i class="fas fa-star"></i> 4.9
-                                <span class="sw-content">(156)</span>
-                                <span class="en-content">(156)</span>
+                                <i class="fas fa-star"></i> 4.6
                             </div>
                         </div>
                         
-                        <div class="provider-services">
-                            <span class="service-tag">Engine</span>
-                            <span class="service-tag">Matairi</span>
-                            <span class="service-tag">Brakes</span>
-                            <span class="service-tag">Service</span>
+                        <div class="provider-expertise">
+                            <div class="provider-skills">
+                                <span class="skill-tag">Ndani</span>
+                                <span class="skill-tag">Nje</span>
+                                <span class="skill-tag">Ukuta</span>
+                                <span class="skill-tag">Dari</span>
+                                <span class="skill-tag">Urembo</span>
+                            </div>
                         </div>
                         
-                        <div class="provider-experience">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span class="sw-content">Mbeya</span>
-                            <span class="en-content">Mbeya</span>
-                            <span style="margin-left: auto;">
+                        <div class="provider-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span class="sw-content">Dodoma</span>
+                                <span class="en-content">Dodoma</span>
+                            </div>
+                            <div class="meta-item">
                                 <i class="fas fa-clock"></i>
-                                <span class="sw-content">8+ miaka uzoefu</span>
-                                <span class="en-content">8+ years experience</span>
-                            </span>
+                                <span class="sw-content">4+ Miaka</span>
+                                <span class="en-content">4+ Years</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-briefcase"></i>
+                                <span class="sw-content">42 Kazi</span>
+                                <span class="en-content">42 Jobs</span>
+                            </div>
                         </div>
-                        
-                        <p class="sw-content" style="margin: 1rem 0; color: #666; font-size: 0.95rem;">
-                            Fundi gari mwenye uzoefu wa matengenezo ya injini na mifumo mbalimbali ya magari.
-                        </p>
-                        <p class="en-content" style="margin: 1rem 0; color: #666; font-size: 0.95rem;">
-                            Car mechanic experienced in engine repairs and various car systems.
-                        </p>
                         
                         <div class="provider-footer">
-                            <div class="provider-price">TZS 50,000+</div>
+                            <div class="provider-price">
+                                <span class="sw-content">Kuanzia TZS 35,000</span>
+                                <span class="en-content">From TZS 35,000</span>
+                                <span class="price-note sw-content">kwa chumba</span>
+                                <span class="price-note en-content">per room</span>
+                            </div>
                             <a href="#" class="btn-book">
                                 <i class="fas fa-calendar-alt"></i>
                                 <span class="sw-content">Panga</span>
@@ -644,12 +1596,12 @@
 
                 <!-- Provider 6 -->
                 <div class="provider-card">
-                    <div class="provider-badge">
-                        <i class="fas fa-check-circle"></i>
-                        <span class="sw-content">Thibitishwa</span>
-                        <span class="en-content">Verified</span>
+                    <div class="provider-img-container">
+                        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2070&auto=format&fit=crop" alt="Ujenzi" class="provider-img">
+                        <div class="provider-verified-badge">
+                            <i class="fas fa-check"></i>
+                        </div>
                     </div>
-                    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2070&auto=format&fit=crop" alt="Ujenzi" class="provider-img">
                     <div class="provider-info">
                         <div class="provider-header">
                             <div class="provider-name">
@@ -659,38 +1611,44 @@
                             </div>
                             <div class="provider-rating">
                                 <i class="fas fa-star"></i> 4.5
-                                <span class="sw-content">(38)</span>
-                                <span class="en-content">(38)</span>
                             </div>
                         </div>
                         
-                        <div class="provider-services">
-                            <span class="service-tag">Kuezeka</span>
-                            <span class="service-tag">Sakafu</span>
-                            <span class="service-tag">Kuta</span>
-                            <span class="service-tag">Matengenezo</span>
+                        <div class="provider-expertise">
+                            <div class="provider-skills">
+                                <span class="skill-tag">Kuezeka</span>
+                                <span class="skill-tag">Sakafu</span>
+                                <span class="skill-tag">Kuta</span>
+                                <span class="skill-tag">Matengenezo</span>
+                                <span class="skill-tag">Vikuta</span>
+                            </div>
                         </div>
                         
-                        <div class="provider-experience">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span class="sw-content">Zanzibar</span>
-                            <span class="en-content">Zanzibar</span>
-                            <span style="margin-left: auto;">
+                        <div class="provider-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span class="sw-content">Zanzibar</span>
+                                <span class="en-content">Zanzibar</span>
+                            </div>
+                            <div class="meta-item">
                                 <i class="fas fa-clock"></i>
-                                <span class="sw-content">6+ miaka uzoefu</span>
-                                <span class="en-content">6+ years experience</span>
-                            </span>
+                                <span class="sw-content">6+ Miaka</span>
+                                <span class="en-content">6+ Years</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-briefcase"></i>
+                                <span class="sw-content">38 Kazi</span>
+                                <span class="en-content">38 Jobs</span>
+                            </div>
                         </div>
-                        
-                        <p class="sw-content" style="margin: 1rem 0; color: #666; font-size: 0.95rem;">
-                            Mjenzi mwenye uzoefu wa ujenzi wa nyumba na matengenezo ya majengo.
-                        </p>
-                        <p class="en-content" style="margin: 1rem 0; color: #666; font-size: 0.95rem;">
-                            Construction expert with experience in house building and building repairs.
-                        </p>
                         
                         <div class="provider-footer">
-                            <div class="provider-price">TZS 60,000+</div>
+                            <div class="provider-price">
+                                <span class="sw-content">Kuanzia TZS 60,000</span>
+                                <span class="en-content">From TZS 60,000</span>
+                                <span class="price-note sw-content">kwa mradi</span>
+                                <span class="price-note en-content">per project</span>
+                            </div>
                             <a href="#" class="btn-book">
                                 <i class="fas fa-calendar-alt"></i>
                                 <span class="sw-content">Panga</span>
@@ -703,6 +1661,9 @@
 
             <!-- Pagination -->
             <div class="pagination">
+                <button disabled>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
                 <button class="active">1</button>
                 <button>2</button>
                 <button>3</button>
@@ -715,13 +1676,38 @@
         </div>
     </section>
 
-    <!-- Footer (Same as other pages) -->
+    <!-- Become a Provider -->
+    <section class="become-provider">
+        <div class="container become-provider-content">
+            <!-- Swahili Content -->
+            <div class="language-content sw-content active">
+                <h2>Kuwa Fundi Kwenye Jukwaa Letu</h2>
+                <p>Jiunge na wafundi 2,000+ wanaopata wateza kila siku. Sajili sasa na ukuze biashara yako ya ufundi.</p>
+                <a href="#" class="btn-provider">
+                    <i class="fas fa-user-plus"></i>
+                    Jiandikishe kama Fundi
+                </a>
+            </div>
+            
+            <!-- English Content -->
+            <div class="language-content en-content">
+                <h2>Become a Handyman on Our Platform</h2>
+                <p>Join 2,000+ handymen getting customers every day. Register now and grow your handyman business.</p>
+                <a href="#" class="btn-provider">
+                    <i class="fas fa-user-plus"></i>
+                    Register as Handyman
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
                     <div class="footer-logo">
-                        <h2>Fixit<span style="color: #ffb000">TZ</span></h2>
+                        <h2>Fixit<span style="color: #f59e0b">TZ</span></h2>
                         <div class="language-content sw-content active">
                             <p>Sokoni la mafundi Tanzania. Tunaunganisha wateza na wafundi wenye ujuzi katika mikoa yote.</p>
                         </div>
@@ -816,6 +1802,176 @@
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
+    <script>
+        // Language Switching
+        document.addEventListener('DOMContentLoaded', function() {
+            const langTabs = document.querySelectorAll('.lang-tab');
+            
+            langTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const lang = this.dataset.lang;
+                    
+                    // Update active tab
+                    langTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show selected language content
+                    document.querySelectorAll('.sw-content').forEach(el => {
+                        el.style.display = lang === 'sw' ? 'block' : 'none';
+                    });
+                    document.querySelectorAll('.en-content').forEach(el => {
+                        el.style.display = lang === 'en' ? 'block' : 'none';
+                    });
+                    
+                    // Update language content sections
+                    document.querySelectorAll('.language-content').forEach(el => {
+                        el.classList.remove('active');
+                    });
+                    document.querySelectorAll(`.${lang}-content`).forEach(el => {
+                        el.classList.add('active');
+                    });
+                });
+            });
+            
+            // Mobile Navigation
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            hamburger.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking on link
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                });
+            });
+            
+            // Filter Form Submission
+            const filterForm = document.querySelector('.filter-form');
+            filterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const lang = document.querySelector('.lang-tab.active').dataset.lang;
+                
+                if(lang === 'sw') {
+                    alert('Inachuja wafundi...');
+                } else {
+                    alert('Filtering handymen...');
+                }
+            });
+            
+            // Quick Filters
+            document.querySelectorAll('.quick-filter').forEach(filter => {
+                filter.addEventListener('click', function() {
+                    const lang = document.querySelector('.lang-tab.active').dataset.lang;
+                    const filterText = this.textContent;
+                    
+                    if(lang === 'sw') {
+                        alert(`Inachuja wafundi: ${filterText}`);
+                    } else {
+                        alert(`Filtering by: ${filterText}`);
+                    }
+                    
+                    // Reset other filters
+                    document.querySelectorAll('.quick-filter').forEach(f => {
+                        f.style.background = '';
+                        f.style.color = '';
+                        f.style.borderColor = '';
+                    });
+                    
+                    // Highlight selected filter
+                    this.style.background = 'var(--primary)';
+                    this.style.color = 'white';
+                    this.style.borderColor = 'var(--primary)';
+                });
+            });
+            
+            // Sort Options
+            const sortSelect = document.querySelector('.sort-select');
+            sortSelect.addEventListener('change', function() {
+                const lang = document.querySelector('.lang-tab.active').dataset.lang;
+                const sortBy = this.value;
+                
+                if(lang === 'sw') {
+                    alert(`Inapanga wafundi kwa: ${this.options[this.selectedIndex].text}`);
+                } else {
+                    alert(`Sorting handymen by: ${this.options[this.selectedIndex].text}`);
+                }
+            });
+            
+            // View Toggle
+            const viewButtons = document.querySelectorAll('.view-btn');
+            viewButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const view = this.dataset.view;
+                    
+                    // Update active button
+                    viewButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update grid view (simulate)
+                    const providersGrid = document.querySelector('.providers-grid');
+                    if(view === 'list') {
+                        providersGrid.style.gridTemplateColumns = '1fr';
+                    } else {
+                        providersGrid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(350px, 1fr))';
+                    }
+                });
+            });
+            
+            // Pagination
+            document.querySelectorAll('.pagination button:not(:disabled)').forEach(button => {
+                button.addEventListener('click', function() {
+                    if(this.classList.contains('active')) return;
+                    
+                    const lang = document.querySelector('.lang-tab.active').dataset.lang;
+                    
+                    // Update active page
+                    document.querySelectorAll('.pagination button').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    
+                    if(!this.querySelector('i')) {
+                        this.classList.add('active');
+                        
+                        if(lang === 'sw') {
+                            alert('Inapakia ukurasa mwingine...');
+                        } else {
+                            alert('Loading another page...');
+                        }
+                    }
+                });
+            });
+            
+            // Book Handyman
+            document.querySelectorAll('.btn-book').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const lang = document.querySelector('.lang-tab.active').dataset.lang;
+                    
+                    if(lang === 'sw') {
+                        alert('Inakuongoza kwenye ukurasa wa kupanga fundi...');
+                    } else {
+                        alert('Redirecting to booking page...');
+                    }
+                });
+            });
+            
+            // Become Provider Button
+            document.querySelector('.btn-provider').addEventListener('click', function(e) {
+                e.preventDefault();
+                const lang = document.querySelector('.lang-tab.active').dataset.lang;
+                
+                if(lang === 'sw') {
+                    alert('Inakuongoza kwenye ukurasa wa usajili wa fundi...');
+                } else {
+                    alert('Redirecting to handyman registration page...');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
