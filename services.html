@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huduma - FixitTZ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .services-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(0, 100, 0, 0.9) 0%, rgba(10, 140, 10, 0.8) 100%),
+                        url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+            padding: 120px 0 4rem;
+        }
+        
+        .services-hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+            color: var(--white);
+        }
+        
+        .services-hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .services-hero-content p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .service-detail-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 3rem;
+            border: 1px solid #f0f0f0;
+            transition: var(--transition);
+        }
+        
+        .service-detail-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .service-detail-header {
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 3rem;
+            text-align: center;
+        }
+        
+        .service-detail-header i {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .service-detail-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .service-detail-content {
+            padding: 3rem;
+        }
+        
+        .service-price {
+            background: var(--light-yellow);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--accent-yellow);
+        }
+        
+        .price-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        
+        .price-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+        
+        .service-process {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .process-step {
+            text-align: center;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: var(--radius);
+        }
+        
+        .process-step i {
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Tabs -->
+    <div class="language-tabs">
+        <button class="lang-tab active" data-lang="sw">
+            <i class="fas fa-language"></i>
+            <span>SW</span>
+        </button>
+        <button class="lang-tab" data-lang="en">
+            <i class="fas fa-language"></i>
+            <span>EN</span>
+        </button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <h1>Fixit<span>TZ</span></h1>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">
+                    <i class="fas fa-home"></i>
+                    <span class="sw-content">Nyumbani</span>
+                    <span class="en-content">Home</span>
+                </a></li>
+                <li><a href="about.html">
+                    <i class="fas fa-info-circle"></i>
+                    <span class="sw-content">Kuhusu Sisi</span>
+                    <span class="en-content">About</span>
+                </a></li>
+                <li><a href="services.html" class="active">
+                    <i class="fas fa-tools"></i>
+                    <span class="sw-content">Huduma</span>
+                    <span class="en-content">Services</span>
+                </a></li>
+                <li><a href="providers.html">
+                    <i class="fas fa-users"></i>
+                    <span class="sw-content">Wafundi</span>
+                    <span class="en-content">Providers</span>
+                </a></li>
+                <li><a href="blog.html">
+                    <i class="fas fa-blog"></i>
+                    <span class="sw-content">Blog</span>
+                    <span class="en-content">Blog</span>
+                </a></li>
+                <li><a href="contact.html">
+                    <i class="fas fa-address-book"></i>
+                    <span class="sw-content">Mawasiliano</span>
+                    <span class="en-content">Contact</span>
+                </a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="#" class="btn-login">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span class="sw-content">Ingia</span>
+                    <span class="en-content">Login</span>
+                </a>
+                <a href="#" class="btn-register">
+                    <i class="fas fa-user-plus"></i>
+                    <span class="sw-content">Jiandikishe</span>
+                    <span class="en-content">Register</span>
+                </a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Services Hero -->
+    <section class="services-hero">
+        <div class="container services-hero-content">
+            <!-- Swahili Content -->
+            <div class="language-content sw-content active">
+                <h1>Huduma Zetu Zote</h1>
+                <p>Huduma zote za matengenezo na ujenzi zinazopatikana kupitia jukwaa letu</p>
+            </div>
+            
+            <!-- English Content -->
+            <div class="language-content en-content">
+                <h1>All Our Services</h1>
+                <p>All repair and construction services available through our platform</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section section-padding">
+        <div class="container">
+            <div class="section-header">
+                <!-- Swahili Content -->
+                <div class="language-content sw-content active">
+                    <h2 class="section-title">Aina Zote za Huduma</h2>
+                    <p class="section-subtitle">Chagua kutoka kwa huduma zetu zote za matengenezo na ujenzi</p>
+                </div>
+                
+                <!-- English Content -->
+                <div class="language-content en-content">
+                    <h2 class="section-title">All Service Types</h2>
+                    <p class="section-subtitle">Choose from all our repair and construction services</p>
+                </div>
+            </div>
+
+            <!-- Plumbing Service -->
+            <div class="service-detail-card">
+                <div class="service-detail-header">
+                    <i class="fas fa-faucet"></i>
+                    <h2 class="sw-content">Fundi Maji</h2>
+                    <h2 class="en-content">Plumbing</h2>
+                    <p class="sw-content">Huduma kamili za matengenezo ya mifumo ya maji</p>
+                    <p class="en-content">Complete water system repair services</p>
+                </div>
+                <div class="service-detail-content">
+                    <div class="service-price">
+                        <div class="price-label sw-content">Bei Kuanzia</div>
+                        <div class="price-label en-content">Starting From</div>
+                        <div class="price-value">TZS 20,000</div>
+                    </div>
+                    
+                    <div class="sw-content">
+                        <h3>Kuhusu Huduma</h3>
+                        <p>Tunatoa huduma kamili za matengenezo ya mifumo ya maji kwa nyumba na biashara. Huduma zetu zinajumuisha:</p>
+                        <ul class="service-features">
+                            <li>Ufungaji na matengenezo ya bomba</li>
+                            <li>Kutengeneza vyoo na bafu</li>
+                            <li>Usafishaji wa mifumo ya maji</li>
+                            <li>Ufungaji wa vyombo vya maji</li>
+                            <li>Ukaguzi wa mifumo ya maji</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="en-content">
+                        <h3>About the Service</h3>
+                        <p>We provide complete water system repair services for homes and businesses. Our services include:</p>
+                        <ul class="service-features">
+                            <li>Pipe installation and repair</li>
+                            <li>Toilet and bathroom repair</li>
+                            <li>Water system cleaning</li>
+                            <li>Water fixture installation</li>
+                            <li>Water system inspection</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="service-process">
+                        <div class="process-step">
+                            <i class="fas fa-search"></i>
+                            <h4 class="sw-content">Ukaguzi</h4>
+                            <h4 class="en-content">Inspection</h4>
+                            <p class="sw-content">Tunakagua tatizo kwa kina</p>
+                            <p class="en-content">We inspect the problem thoroughly</p>
+                        </div>
+                        <div class="process-step">
+                            <i class="fas fa-tools"></i>
+                            <h4 class="sw-content">Matengenezo</h4>
+                            <h4 class="en-content">Repair</h4>
+                            <p class="sw-content">Tunarekebisha tatizo kwa ujuzi</p>
+                            <p class="en-content">We fix the problem professionally</p>
+                        </div>
+                        <div class="process-step">
+                            <i class="fas fa-check-circle"></i>
+                            <h4 class="sw-content">Uthibitisho</h4>
+                            <h4 class="en-content">Verification</h4>
+                            <p class="sw-content">Tunahakikisha kazi imekamilika</p>
+                            <p class="en-content">We ensure work is completed</p>
+                        </div>
+                    </div>
+                    
+                    <a href="contact.html" class="btn-primary">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span class="sw-content">Omba Huduma Sasa</span>
+                        <span class="en-content">Request Service Now</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Electrical Service -->
+            <div class="service-detail-card">
+                <div class="service-detail-header">
+                    <i class="fas fa-bolt"></i>
+                    <h2 class="sw-content">Fundi Umeme</h2>
+                    <h2 class="en-content">Electrical</h2>
+                    <p class="sw-content">Huduma za umeme salama na za kisasa</p>
+                    <p class="en-content">Safe and modern electrical services</p>
+                </div>
+                <div class="service-detail-content">
+                    <div class="service-price">
+                        <div class="price-label sw-content">Bei Kuanzia</div>
+                        <div class="price-label en-content">Starting From</div>
+                        <div class="price-value">TZS 25,000</div>
+                    </div>
+                    
+                    <div class="sw-content">
+                        <h3>Kuhusu Huduma</h3>
+                        <p>Wafundi wetu wa umeme wana ujuzi wa kufanya kazi kwenye mifumo yote ya umeme, ikiwa ni pamoja na:</p>
+                        <ul class="service-features">
+                            <li>Ufungaji wa wiring mpya</li>
+                            <li>Matengenezo ya taa na swichi</li>
+                            <li>Ufungaji wa mifumo ya solar</li>
+                            <li>Ukaguzi wa usalama wa umeme</li>
+                            <li>Ufungaji wa chuma cha kuzuia umeme</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="en-content">
+                        <h3>About the Service</h3>
+                        <p>Our electricians have expertise in working on all electrical systems, including:</p>
+                        <ul class="service-features">
+                            <li>New wiring installation</li>
+                            <li>Light and switch repairs</li>
+                            <li>Solar system installation</li>
+                            <li>Electrical safety inspection</li>
+                            <li>Lightning rod installation</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="service-process">
+                        <div class="process-step">
+                            <i class="fas fa-shield-alt"></i>
+                            <h4 class="sw-content">Usalama</h4>
+                            <h4 class="en-content">Safety</h4>
+                            <p class="sw-content">Tunazingatia usalama kabisa</p>
+                            <p class="en-content">We prioritize safety first</p>
+                        </div>
+                        <div class="process-step">
+                            <i class="fas fa-cogs"></i>
+                            <h4 class="sw-content">Ufundi</h4>
+                            <h4 class="en-content">Expertise</h4>
+                            <p class="sw-content">Tunatumia ujuzi wa kisasa</p>
+                            <p class="en-content">We use modern expertise</p>
+                        </div>
+                        <div class="process-step">
+                            <i class="fas fa-certificate"></i>
+                            <h4 class="sw-content">Udhamini</h4>
+                            <h4 class="en-content">Warranty</h4>
+                            <p class="sw-content">Kazi zetu zina udhamini</p>
+                            <p class="en-content">Our work has warranty</p>
+                        </div>
+                    </div>
+                    
+                    <a href="contact.html" class="btn-primary">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span class="sw-content">Omba Huduma Sasa</span>
+                        <span class="en-content">Request Service Now</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- More services would follow the same pattern -->
+            <!-- Construction Service -->
+            <div class="service-detail-card">
+                <div class="service-detail-header">
+                    <i class="fas fa-hammer"></i>
+                    <h2 class="sw-content">Ujenzi na Ukarabati</h2>
+                    <h2 class="en-content">Construction & Repair</h2>
+                    <p class="sw-content">Ujenzi bora na ukarabati wa majengo</p>
+                    <p class="en-content">Quality construction and building repair</p>
+                </div>
+                <div class="service-detail-content">
+                    <div class="service-price">
+                        <div class="price-label sw-content">Bei Kuanzia</div>
+                        <div class="price-label en-content">Starting From</div>
+                        <div class="price-value">TZS 40,000</div>
+                    </div>
+                    
+                    <div class="sw-content">
+                        <h3>Kuhusu Huduma</h3>
+                        <p>Huduma za ujenzi na ukarabati wa nyumba, ofisi, na majengo mengine:</p>
+                        <ul class="service-features">
+                            <li>Ujenzi wa nyumba na majengo</li>
+                            <li>Ukarabati wa kuta na dari</li>
+                            <li>Ufungaji wa madirisha na milango</li>
+                            <li>Ujenzi wa sakafu</li>
+                            <li>Matengenezo ya dari</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="en-content">
+                        <h3>About the Service</h3>
+                        <p>Construction and repair services for houses, offices, and other buildings:</p>
+                        <ul class="service-features">
+                            <li>House and building construction</li>
+                            <li>Wall and ceiling repair</li>
+                            <li>Window and door installation</li>
+                            <li>Floor construction</li>
+                            <li>Ceiling repairs</li>
+                        </ul>
+                    </div>
+                    
+                    <a href="contact.html" class="btn-primary">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span class="sw-content">Omba Huduma Sasa</span>
+                        <span class="en-content">Request Service Now</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <h2>Fixit<span style="color: #ffb000">TZ</span></h2>
+                        <div class="language-content sw-content active">
+                            <p>Sokoni la mafundi Tanzania. Tunaunganisha wateza na wafundi wenye ujuzi katika mikoa yote.</p>
+                        </div>
+                        <div class="language-content en-content">
+                            <p>Tanzania's handyman marketplace. We connect customers with skilled professionals across all regions.</p>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <div class="language-content sw-content active">
+                        <h3>Viungo Muhimu</h3>
+                        <ul class="footer-links">
+                            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Nyumbani</a></li>
+                            <li><a href="about.html"><i class="fas fa-chevron-right"></i> Kuhusu Sisi</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Huduma</a></li>
+                            <li><a href="blog.html"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                            <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Mawasiliano</a></li>
+                        </ul>
+                    </div>
+                    <div class="language-content en-content">
+                        <h3>Quick Links</h3>
+                        <ul class="footer-links">
+                            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                            <li><a href="about.html"><i class="fas fa-chevron-right"></i> About</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Services</a></li>
+                            <li><a href="blog.html"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                            <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <div class="language-content sw-content active">
+                        <h3>Huduma</h3>
+                        <ul class="footer-links">
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Fundi Maji</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Fundi Umeme</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Ujenzi</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Seremala</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Upakaji Rangi</a></li>
+                        </ul>
+                    </div>
+                    <div class="language-content en-content">
+                        <h3>Services</h3>
+                        <ul class="footer-links">
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Plumbing</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Electrical</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Construction</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Carpentry</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Painting</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <div class="language-content sw-content active">
+                        <h3>Mawasiliano</h3>
+                        <div class="footer-contact">
+                            <p><i class="fas fa-map-marker-alt"></i> Mikocheni, Dar es Salaam</p>
+                            <p><i class="fas fa-phone-alt"></i> +255 768 000 111</p>
+                            <p><i class="fas fa-envelope"></i> info@fixittz.co.tz</p>
+                        </div>
+                    </div>
+                    <div class="language-content en-content">
+                        <h3>Contact</h3>
+                        <div class="footer-contact">
+                            <p><i class="fas fa-map-marker-alt"></i> Mikocheni, Dar es Salaam</p>
+                            <p><i class="fas fa-phone-alt"></i> +255 768 000 111</p>
+                            <p><i class="fas fa-envelope"></i> info@fixittz.co.tz</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="language-content sw-content active">
+                    <p>© 2025 FixitTZ – Sokoni la Mafundi Tanzania • <a href="#">Sera ya Faragha</a> • <a href="#">Vigezo na Masharti</a></p>
+                </div>
+                <div class="language-content en-content">
+                    <p>© 2025 FixitTZ – Tanzania Handyman Marketplace • <a href="#">Privacy Policy</a> • <a href="#">Terms & Conditions</a></p>
+                </div>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem;">Namba ya usajili: 123456789 | TIN: 123-456-789</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
