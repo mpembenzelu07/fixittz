@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuhusu Sisi - FixitTZ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Additional styles for about page */
+        .about-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(0, 100, 0, 0.9) 0%, rgba(10, 140, 10, 0.8) 100%), 
+                        url('https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+            padding: 120px 0 4rem;
+        }
+        
+        .about-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+            color: var(--white);
+        }
+        
+        .about-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .about-content p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .mission-vision {
+            padding: 6rem 0;
+            background: var(--white);
+        }
+        
+        .mission-vision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 4rem auto 0;
+        }
+        
+        .mission-card, .vision-card {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            border-top: 5px solid var(--accent-yellow);
+        }
+        
+        .mission-card i, .vision-card i {
+            font-size: 3rem;
+            color: var(--primary-green);
+            margin-bottom: 2rem;
+        }
+        
+        .team-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 4rem auto 0;
+        }
+        
+        .team-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .team-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .team-info {
+            padding: 2rem;
+        }
+        
+        .team-info h4 {
+            color: var(--primary-green);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-role {
+            color: var(--secondary-green);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        
+        .team-info p {
+            color: #666;
+            line-height: 1.7;
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Tabs -->
+    <div class="language-tabs">
+        <button class="lang-tab active" data-lang="sw">
+            <i class="fas fa-language"></i>
+            <span>SW</span>
+        </button>
+        <button class="lang-tab" data-lang="en">
+            <i class="fas fa-language"></i>
+            <span>EN</span>
+        </button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <h1>Fixit<span>TZ</span></h1>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">
+                    <i class="fas fa-home"></i>
+                    <span class="sw-content">Nyumbani</span>
+                    <span class="en-content">Home</span>
+                </a></li>
+                <li><a href="about.html" class="active">
+                    <i class="fas fa-info-circle"></i>
+                    <span class="sw-content">Kuhusu Sisi</span>
+                    <span class="en-content">About</span>
+                </a></li>
+                <li><a href="services.html">
+                    <i class="fas fa-tools"></i>
+                    <span class="sw-content">Huduma</span>
+                    <span class="en-content">Services</span>
+                </a></li>
+                <li><a href="providers.html">
+                    <i class="fas fa-users"></i>
+                    <span class="sw-content">Wafundi</span>
+                    <span class="en-content">Providers</span>
+                </a></li>
+                <li><a href="blog.html">
+                    <i class="fas fa-blog"></i>
+                    <span class="sw-content">Blog</span>
+                    <span class="en-content">Blog</span>
+                </a></li>
+                <li><a href="contact.html">
+                    <i class="fas fa-address-book"></i>
+                    <span class="sw-content">Mawasiliano</span>
+                    <span class="en-content">Contact</span>
+                </a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="#" class="btn-login">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span class="sw-content">Ingia</span>
+                    <span class="en-content">Login</span>
+                </a>
+                <a href="#" class="btn-register">
+                    <i class="fas fa-user-plus"></i>
+                    <span class="sw-content">Jiandikishe</span>
+                    <span class="en-content">Register</span>
+                </a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Hero -->
+    <section class="about-hero">
+        <div class="container about-content">
+            <!-- Swahili Content -->
+            <div class="language-content sw-content active">
+                <h1>Kuhusu FixitTZ</h1>
+                <p>Tunakuunganisha na mafundi wa kuaminika katika mikoa yote ya Tanzania</p>
+            </div>
+            
+            <!-- English Content -->
+            <div class="language-content en-content">
+                <h1>About FixitTZ</h1>
+                <p>Connecting you with reliable handymen across all regions of Tanzania</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section class="mission-vision">
+        <div class="container">
+            <div class="section-header">
+                <!-- Swahili Content -->
+                <div class="language-content sw-content active">
+                    <h2 class="section-title">Dhamira na Maono Yetu</h2>
+                </div>
+                
+                <!-- English Content -->
+                <div class="language-content en-content">
+                    <h2 class="section-title">Our Mission & Vision</h2>
+                </div>
+            </div>
+            
+            <div class="mission-vision-grid">
+                <div class="mission-card">
+                    <i class="fas fa-bullseye"></i>
+                    <!-- Swahili Content -->
+                    <div class="language-content sw-content active">
+                        <h3>Dhamira Yetu</h3>
+                        <p>Kuwaunda uhusiano wa kuaminika kati ya wateza na wafundi wa Tanzania kwa kutoa jukwaa salama, la kina na lenye ufanisi.</p>
+                    </div>
+                    
+                    <!-- English Content -->
+                    <div class="language-content en-content">
+                        <h3>Our Mission</h3>
+                        <p>To build a reliable relationship between customers and Tanzanian handymen by providing a secure, comprehensive and efficient platform.</p>
+                    </div>
+                </div>
+                
+                <div class="vision-card">
+                    <i class="fas fa-eye"></i>
+                    <!-- Swahili Content -->
+                    <div class="language-content sw-content active">
+                        <h3>Maono Yetu</h3>
+                        <p>Kuwa jukwaa kuu la Afrika Mashariki la kuunganisha wateza na wafundi, kuboresha ubora wa huduma na kuunda ajira.</p>
+                    </div>
+                    
+                    <!-- English Content -->
+                    <div class="language-content en-content">
+                        <h3>Our Vision</h3>
+                        <p>To be the leading platform in East Africa connecting customers and handymen, improving service quality and creating employment.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="container">
+            <div class="section-header">
+                <!-- Swahili Content -->
+                <div class="language-content sw-content active">
+                    <h2 class="section-title">Timu Yetu</h2>
+                    <p class="section-subtitle">Watu nyuma ya mafanikio ya FixitTZ</p>
+                </div>
+                
+                <!-- English Content -->
+                <div class="language-content en-content">
+                    <h2 class="section-title">Our Team</h2>
+                    <p class="section-subtitle">The people behind FixitTZ's success</p>
+                </div>
+            </div>
+            
+            <div class="team-grid">
+                <!-- Team Member 1 -->
+                <div class="team-card">
+                    <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Team Member" class="team-img">
+                    <div class="team-info">
+                        <h4>John Mwakyusa</h4>
+                        <div class="team-role sw-content">Mkurugenzi Mtendaji</div>
+                        <div class="team-role en-content">CEO</div>
+                        <p class="sw-content">Mwanzilishi wa FixitTZ, ana uzoefu wa miaka 10 katika ukuzaji wa biashara.</p>
+                        <p class="en-content">Founder of FixitTZ, has 10 years experience in business development.</p>
+                    </div>
+                </div>
+                
+                <!-- Team Member 2 -->
+                <div class="team-card">
+                    <img src="https://randomuser.me/api/portraits/women/2.jpg" alt="Team Member" class="team-img">
+                    <div class="team-info">
+                        <h4>Sarah Juma</h4>
+                        <div class="team-role sw-content">Meneja wa Huduma</div>
+                        <div class="team-role en-content">Services Manager</div>
+                        <p class="sw-content">Anasimamia uzoefu wa wateza na uhakikisho wa ubora wa huduma.</p>
+                        <p class="en-content">Manages customer experience and service quality assurance.</p>
+                    </div>
+                </div>
+                
+                <!-- Team Member 3 -->
+                <div class="team-card">
+                    <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="Team Member" class="team-img">
+                    <div class="team-info">
+                        <h4>David Peter</h4>
+                        <div class="team-role sw-content">Mtaalamu wa Teknolojia</div>
+                        <div class="team-role en-content">Technology Expert</div>
+                        <p class="sw-content">Anahakikisha teknolojia yetu inaendeshwa vizuri na salama.</p>
+                        <p class="en-content">Ensures our technology runs smoothly and securely.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Same as homepage) -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <h2>Fixit<span style="color: #ffb000">TZ</span></h2>
+                        <!-- Swahili Content -->
+                        <div class="language-content sw-content active">
+                            <p>Sokoni la mafundi Tanzania. Tunaunganisha wateza na wafundi wenye ujuzi katika mikoa yote.</p>
+                        </div>
+                        
+                        <!-- English Content -->
+                        <div class="language-content en-content">
+                            <p>Tanzania's handyman marketplace. We connect customers with skilled professionals across all regions.</p>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <!-- Swahili Content -->
+                    <div class="language-content sw-content active">
+                        <h3>Viungo Muhimu</h3>
+                        <ul class="footer-links">
+                            <li><a href="index.html">
+                                <i class="fas fa-chevron-right"></i>
+                                Nyumbani
+                            </a></li>
+                            <li><a href="about.html">
+                                <i class="fas fa-chevron-right"></i>
+                                Kuhusu Sisi
+                            </a></li>
+                            <li><a href="services.html">
+                                <i class="fas fa-chevron-right"></i>
+                                Huduma
+                            </a></li>
+                            <li><a href="blog.html">
+                                <i class="fas fa-chevron-right"></i>
+                                Blog
+                            </a></li>
+                            <li><a href="contact.html">
+                                <i class="fas fa-chevron-right"></i>
+                                Mawasiliano
+                            </a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- English Content -->
+                    <div class="language-content en-content">
+                        <h3>Quick Links</h3>
+                        <ul class="footer-links">
+                            <li><a href="index.html">
+                                <i class="fas fa-chevron-right"></i>
+                                Home
+                            </a></li>
+                            <li><a href="about.html">
+                                <i class="fas fa-chevron-right"></i>
+                                About
+                            </a></li>
+                            <li><a href="services.html">
+                                <i class="fas fa-chevron-right"></i>
+                                Services
+                            </a></li>
+                            <li><a href="blog.html">
+                                <i class="fas fa-chevron-right"></i>
+                                Blog
+                            </a></li>
+                            <li><a href="contact.html">
+                                <i class="fas fa-chevron-right"></i>
+                                Contact
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <!-- Swahili Content -->
+                    <div class="language-content sw-content active">
+                        <h3>Huduma</h3>
+                        <ul class="footer-links">
+                            <li><a href="services.html">
+                                <i class="fas fa-chevron-right"></i>
+                                Fundi Maji
+                            </a></li>
+                            <li><a href="services.html">
+                                <i class="fas fa-chevron-right"></i>
+                                Fundi Umeme
+                            </a></li>
+                            <li><a href="services.html">
+                                <i class="fas fa-chevron-right"></i>
+                                Ujenzi
+                            </a></li>
+                            <li><a href="services.html">
+                                <i class="fas fa-chevron-right"></i>
+                                Seremala
+                            </a></li>
+                            <li><a href="services.html">
+                                <i class="fas fa-chevron-right"></i>
+                                Upakaji Rangi
+                            </a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- English Content -->
+                    <div class="language-content en-content">
+                        <h3>Services</h3>
+                        <ul class="footer-links">
+                            <li><a href="services.html">
+                                <i class="fas fa-chevron-right"></i>
+                                Plumbing
+                            </a></li>
+                            <li><a href="services.html">
+                                <i class="fas fa-chevron-right"></i>
+                                Electrical
+                            </a></li>
+                            <li><a href="services.html">
+                                <i class="fas fa-chevron-right"></i>
+                                Construction
+                            </a></li>
+                            <li><a href="services.html">
+                                <i class="fas fa-chevron-right"></i>
+                                Carpentry
+                            </a></li>
+                            <li><a href="services.html">
+                                <i class="fas fa-chevron-right"></i>
+                                Painting
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <!-- Swahili Content -->
+                    <div class="language-content sw-content active">
+                        <h3>Mawasiliano</h3>
+                        <div class="footer-contact">
+                            <p><i class="fas fa-map-marker-alt"></i> Mikocheni, Dar es Salaam</p>
+                            <p><i class="fas fa-phone-alt"></i> +255 768 000 111</p>
+                            <p><i class="fas fa-envelope"></i> info@fixittz.co.tz</p>
+                        </div>
+                    </div>
+                    
+                    <!-- English Content -->
+                    <div class="language-content en-content">
+                        <h3>Contact</h3>
+                        <div class="footer-contact">
+                            <p><i class="fas fa-map-marker-alt"></i> Mikocheni, Dar es Salaam</p>
+                            <p><i class="fas fa-phone-alt"></i> +255 768 000 111</p>
+                            <p><i class="fas fa-envelope"></i> info@fixittz.co.tz</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <!-- Swahili Content -->
+                <div class="language-content sw-content active">
+                    <p>© 2025 FixitTZ – Sokoni la Mafundi Tanzania • <a href="#">Sera ya Faragha</a> • <a href="#">Vigezo na Masharti</a></p>
+                </div>
+                
+                <!-- English Content -->
+                <div class="language-content en-content">
+                    <p>© 2025 FixitTZ – Tanzania Handyman Marketplace • <a href="#">Privacy Policy</a> • <a href="#">Terms & Conditions</a></p>
+                </div>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem;">Namba ya usajili: 123456789 | TIN: 123-456-789</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
