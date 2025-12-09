@@ -6,161 +6,886 @@
     <title>Blog - FixitTZ</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
     <style>
-        .blog-hero {
-            min-height: 60vh;
+        /* Base Styles */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #f59e0b;
+            --secondary-dark: #d97706;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --success: #10b981;
+            --danger: #ef4444;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .section-subtitle {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        /* Language Content */
+        .language-content {
+            display: none;
+        }
+
+        .language-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .en-content {
+            display: none;
+        }
+
+        .sw-content.active ~ .en-content {
+            display: none;
+        }
+
+        /* Language Tabs */
+        .language-tabs {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+            background: white;
+            border-radius: 50px;
+            padding: 5px;
+            box-shadow: var(--shadow);
+        }
+
+        .lang-tab {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: transparent;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            background: linear-gradient(135deg, rgba(0, 100, 0, 0.9) 0%, rgba(10, 140, 10, 0.8) 100%),
-                        url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--gray);
+            font-weight: 600;
+        }
+
+        .lang-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: white;
+            box-shadow: var(--shadow);
+            z-index: 999;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            text-decoration: none;
+            color: var(--dark);
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .nav-menu a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-login,
+        .btn-register {
+            text-decoration: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .btn-login {
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-login:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-register {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-register:hover {
+            background: var(--primary-dark);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--dark);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        /* Blog Hero */
+        .blog-hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.9) 0%, rgba(29, 78, 216, 0.8) 100%), 
+                        url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=2069&auto=format&fit=crop') center/cover no-repeat;
             padding: 120px 0 4rem;
+            position: relative;
+            overflow: hidden;
         }
-        
+
+        .blog-hero::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(to top, var(--light), transparent);
+            z-index: 1;
+        }
+
         .blog-hero-content {
-            max-width: 1400px;
-            margin: 0 auto;
+            position: relative;
+            z-index: 2;
             text-align: center;
-            color: var(--white);
-        }
-        
-        .blog-hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .blog-hero-content p {
-            font-size: 1.3rem;
+            color: white;
             max-width: 800px;
             margin: 0 auto;
-            color: rgba(255, 255, 255, 0.9);
         }
-        
+
+        .blog-hero-content h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .blog-hero-content p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .hero-search {
+            max-width: 600px;
+            margin: 2rem auto 0;
+        }
+
+        .hero-search input {
+            width: 100%;
+            padding: 1.2rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+        }
+
+        .hero-search input:focus {
+            outline: none;
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Blog Layout */
         .blog-section {
             padding: 6rem 0;
-            background: #f8f9fa;
+            background: var(--light);
         }
-        
+
+        .blog-layout {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 4rem;
+        }
+
+        /* Featured Post */
+        .featured-post {
+            margin-bottom: 4rem;
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+        }
+
+        .featured-post:hover {
+            transform: translateY(-5px);
+        }
+
+        .featured-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .featured-post:hover .featured-img {
+            transform: scale(1.05);
+        }
+
+        .featured-content {
+            padding: 3rem;
+            position: relative;
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: -20px;
+            left: 30px;
+            background: var(--secondary);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .featured-meta {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .featured-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .featured-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            line-height: 1.3;
+        }
+
+        .featured-content p {
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            padding: 0.8rem 1.5rem;
+            background: rgba(37, 99, 235, 0.1);
+            border-radius: var(--radius);
+        }
+
+        .read-more:hover {
+            background: var(--primary);
+            color: white;
+            gap: 1rem;
+        }
+
+        /* Blog Grid */
         .blog-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 3rem;
-            max-width: 1400px;
-            margin: 4rem auto 0;
+            gap: 2.5rem;
+            margin-bottom: 4rem;
         }
-        
+
         .blog-card {
-            background: var(--white);
+            background: white;
             border-radius: var(--radius);
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: var(--transition);
+            position: relative;
         }
-        
+
         .blog-card:hover {
             transform: translateY(-10px);
             box-shadow: var(--shadow-lg);
         }
-        
+
+        .blog-img-container {
+            position: relative;
+            overflow: hidden;
+            height: 250px;
+        }
+
         .blog-img {
             width: 100%;
-            height: 250px;
+            height: 100%;
             object-fit: cover;
+            transition: var(--transition);
         }
-        
+
+        .blog-card:hover .blog-img {
+            transform: scale(1.1);
+        }
+
+        .blog-category {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--primary);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            z-index: 2;
+        }
+
         .blog-content {
             padding: 2rem;
         }
-        
+
         .blog-meta {
             display: flex;
-            gap: 1rem;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 1rem;
-            color: #666;
+            color: var(--gray);
             font-size: 0.9rem;
         }
-        
-        .blog-meta span {
+
+        .blog-date {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 0.5rem;
         }
-        
+
+        .blog-read-time {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
         .blog-content h3 {
-            color: var(--primary-green);
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             margin-bottom: 1rem;
+            color: var(--dark);
             line-height: 1.4;
+            transition: var(--transition);
         }
-        
-        .blog-content p {
-            color: #666;
-            margin-bottom: 1.5rem;
+
+        .blog-card:hover .blog-content h3 {
+            color: var(--primary);
+        }
+
+        .blog-excerpt {
+            color: var(--gray);
             line-height: 1.7;
+            margin-bottom: 1.5rem;
         }
-        
-        .read-more {
-            color: var(--primary-green);
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
         }
-        
-        .read-more:hover {
-            color: var(--secondary-green);
-            gap: 10px;
-        }
-        
-        .categories-sidebar {
-            background: var(--white);
+
+        .sidebar-widget {
+            background: white;
             padding: 2rem;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
             margin-bottom: 2rem;
         }
-        
-        .categories-sidebar h3 {
-            color: var(--primary-green);
+
+        .widget-title {
+            font-size: 1.3rem;
             margin-bottom: 1.5rem;
             padding-bottom: 1rem;
-            border-bottom: 2px solid #f0f0f0;
+            border-bottom: 2px solid var(--gray-light);
+            color: var(--dark);
         }
-        
+
+        .category-list {
+            list-style: none;
+        }
+
         .category-list li {
-            margin-bottom: 1rem;
-            padding: 0.5rem;
-            border-radius: 8px;
+            margin-bottom: 0.8rem;
+            padding: 0.8rem;
+            border-radius: var(--radius);
             transition: var(--transition);
         }
-        
+
         .category-list li:hover {
-            background: #f8f9fa;
-            padding-left: 1rem;
+            background: var(--primary);
+            transform: translateX(5px);
         }
-        
+
+        .category-list li:hover a,
+        .category-list li:hover .category-count {
+            color: white;
+        }
+
         .category-list a {
-            color: #666;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 500;
         }
-        
-        .category-list a:hover {
-            color: var(--primary-green);
+
+        .category-count {
+            background: var(--gray-light);
+            color: var(--dark);
+            padding: 0.2rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            transition: var(--transition);
         }
-        
-        .blog-layout {
+
+        /* Newsletter Widget */
+        .newsletter-widget {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+        }
+
+        .newsletter-widget .widget-title {
+            color: white;
+            border-bottom-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .newsletter-text {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+
+        .newsletter-form input {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: var(--radius);
+            margin-bottom: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+        }
+
+        .newsletter-form button {
+            width: 100%;
+            padding: 1rem;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .newsletter-form button:hover {
+            background: var(--secondary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Popular Posts Widget */
+        .popular-post-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .popular-post-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .popular-post-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: var(--radius);
+        }
+
+        .popular-post-content h4 {
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .popular-post-content h4 a {
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .popular-post-content h4 a:hover {
+            color: var(--primary);
+        }
+
+        .popular-post-meta {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 4rem;
+        }
+
+        .pagination button {
+            width: 45px;
+            height: 45px;
+            border: 2px solid var(--gray-light);
+            background: white;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .pagination button:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .pagination button.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
             display: grid;
-            grid-template-columns: 1fr 300px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 3rem;
-            max-width: 1400px;
-            margin: 0 auto;
+            margin-bottom: 3rem;
         }
-        
+
+        .footer-logo h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo p {
+            color: #94a3b8;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: #334155;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .footer-contact p {
+            color: #94a3b8;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+        }
+
+        .footer-bottom a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-bottom a:hover {
+            color: white;
+        }
+
+        /* Responsive Design */
         @media (max-width: 992px) {
             .blog-layout {
                 grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+                margin-top: 3rem;
+            }
+            
+            .blog-hero-content h1 {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                flex-direction: column;
+                background: white;
+                width: 100%;
+                padding: 2rem;
+                box-shadow: var(--shadow);
+                transition: var(--transition);
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(6px, 6px);
+            }
+            
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(6px, -6px);
+            }
+            
+            .blog-hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .blog-hero-content p {
+                font-size: 1.1rem;
+            }
+            
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-content {
+                padding: 2rem;
+            }
+            
+            .featured-content h2 {
+                font-size: 1.6rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .section-padding {
+                padding: 60px 0;
+            }
+            
+            .featured-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .pagination button {
+                width: 40px;
+                height: 40px;
             }
         }
     </style>
@@ -242,163 +967,266 @@
             <!-- Swahili Content -->
             <div class="language-content sw-content active">
                 <h1>Blog Yetu</h1>
-                <p>Nasi kuhusu matengenezo, ukarabati na ushauri wa ujenzi</p>
+                <p>Jifunze vidokezo, ushauri na habari za kisasa kutoka kwa wataalamu wetu wa matengenezo na ujenzi.</p>
+                <div class="hero-search">
+                    <input type="text" placeholder="Tafuta makala...">
+                </div>
             </div>
             
             <!-- English Content -->
             <div class="language-content en-content">
                 <h1>Our Blog</h1>
-                <p>News about repairs, maintenance and construction advice</p>
+                <p>Learn tips, advice and latest news from our repair and construction experts.</p>
+                <div class="hero-search">
+                    <input type="text" placeholder="Search articles...">
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Blog Section -->
-    <section class="blog-section">
+    <section class="blog-section section-padding">
         <div class="container">
             <div class="section-header">
                 <!-- Swahili Content -->
                 <div class="language-content sw-content active">
                     <h2 class="section-title">Makala Zaidi</h2>
-                    <p class="section-subtitle">Soma ushauri na habari za kisasa katika ulimwengu wa matengenezo</p>
+                    <p class="section-subtitle">Jifunze na ujitolee na ushauri bora wa matengenezo</p>
                 </div>
                 
                 <!-- English Content -->
                 <div class="language-content en-content">
                     <h2 class="section-title">Latest Articles</h2>
-                    <p class="section-subtitle">Read advice and current news in the world of repairs</p>
+                    <p class="section-subtitle">Learn and empower yourself with the best repair advice</p>
                 </div>
             </div>
 
             <div class="blog-layout">
                 <div class="blog-main">
-                    <div class="blog-grid">
-                        <!-- Blog Post 1 -->
-                        <div class="blog-card">
-                            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop" alt="Blog" class="blog-img">
-                            <div class="blog-content">
-                                <div class="blog-meta">
-                                    <span><i class="far fa-calendar"></i> <span class="sw-content">Aprili 15, 2025</span><span class="en-content">April 15, 2025</span></span>
-                                    <span><i class="far fa-folder"></i> <span class="sw-content">Matengenezo</span><span class="en-content">Repairs</span></span>
-                                </div>
-                                <h3 class="sw-content">Jinsi ya Kutambua na Kurekebisha Mabomba Yanayovuja</h3>
-                                <h3 class="en-content">How to Identify and Fix Leaking Pipes</h3>
-                                <p class="sw-content">Jifunze dalili za mabomba yanayovuja na hatua za kurekebisha kabla ya kusababisha uharibifu mkubwa.</p>
-                                <p class="en-content">Learn signs of leaking pipes and repair steps before causing major damage.</p>
-                                <a href="#" class="read-more">
-                                    <span class="sw-content">Soma Zaidi</span>
-                                    <span class="en-content">Read More</span>
-                                    <i class="fas fa-arrow-right"></i>
-                                </a>
+                    <!-- Featured Post -->
+                    <div class="featured-post">
+                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop" alt="Featured" class="featured-img">
+                        <div class="featured-content">
+                            <div class="featured-badge sw-content">MAKALA MAALUM</div>
+                            <div class="featured-badge en-content">FEATURED</div>
+                            <div class="featured-meta">
+                                <span><i class="far fa-calendar"></i> <span class="sw-content">Aprili 20, 2025</span><span class="en-content">April 20, 2025</span></span>
+                                <span><i class="far fa-clock"></i> <span class="sw-content">Dakika 8</span><span class="en-content">8 Min Read</span></span>
+                                <span><i class="far fa-user"></i> <span class="sw-content">Juma Hassan</span><span class="en-content">Juma Hassan</span></span>
                             </div>
-                        </div>
-                        
-                        <!-- Blog Post 2 -->
-                        <div class="blog-card">
-                            <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=2069&auto=format&fit=crop" alt="Blog" class="blog-img">
-                            <div class="blog-content">
-                                <div class="blog-meta">
-                                    <span><i class="far fa-calendar"></i> <span class="sw-content">Aprili 10, 2025</span><span class="en-content">April 10, 2025</span></span>
-                                    <span><i class="far fa-folder"></i> <span class="sw-content">Umeme</span><span class="en-content">Electricity</span></span>
-                                </div>
-                                <h3 class="sw-content">Uokoaji wa Umeme Nyumbani: Mambo Muhimu Kujua</h3>
-                                <h3 class="en-content">Home Electrical Safety: Key Things to Know</h3>
-                                <p class="sw-content">Vidokezo vya usalama na jinsi ya kuepuka ajali za umeme katika nyumba yako.</p>
-                                <p class="en-content">Safety tips and how to avoid electrical accidents in your home.</p>
-                                <a href="#" class="read-more">
-                                    <span class="sw-content">Soma Zaidi</span>
-                                    <span class="en-content">Read More</span>
-                                    <i class="fas fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <!-- Blog Post 3 -->
-                        <div class="blog-card">
-                            <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=2070&auto=format&fit=crop" alt="Blog" class="blog-img">
-                            <div class="blog-content">
-                                <div class="blog-meta">
-                                    <span><i class="far fa-calendar"></i> <span class="sw-content">Aprili 5, 2025</span><span class="en-content">April 5, 2025</span></span>
-                                    <span><i class="far fa-folder"></i> <span class="sw-content">Upakaji Rangi</span><span class="en-content">Painting</span></span>
-                                </div>
-                                <h3 class="sw-content">Uchaguzi wa Rangi Bora kwa Nyumba Yako</h3>
-                                <h3 class="en-content">Choosing the Best Paint for Your Home</h3>
-                                <p class="sw-content">Jinsi ya kuchagua rangi inayofaa kwa kila chumba na hali ya hewa ya Tanzania.</p>
-                                <p class="en-content">How to choose the right paint for each room and Tanzania's weather conditions.</p>
-                                <a href="#" class="read-more">
-                                    <span class="sw-content">Soma Zaidi</span>
-                                    <span class="en-content">Read More</span>
-                                    <i class="fas fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <!-- Blog Post 4 -->
-                        <div class="blog-card">
-                            <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=1974&auto=format&fit=crop" alt="Blog" class="blog-img">
-                            <div class="blog-content">
-                                <div class="blog-meta">
-                                    <span><i class="far fa-calendar"></i> <span class="sw-content">Mach 28, 2025</span><span class="en-content">March 28, 2025</span></span>
-                                    <span><i class="far fa-folder"></i> <span class="sw-content">Magari</span><span class="en-content">Cars</span></span>
-                                </div>
-                                <h3 class="sw-content">Matengenezo ya Kawaida ya Gari Katika Hali ya Hewa ya Tropiki</h3>
-                                <h3 class="en-content">Regular Car Maintenance in Tropical Climate</h3>
-                                <p class="sw-content">Jifunze matengenezo muhimu ya gari kwa hali ya hewa ya joto na unyevu.</p>
-                                <p class="en-content">Learn essential car maintenance for hot and humid climate conditions.</p>
-                                <a href="#" class="read-more">
-                                    <span class="sw-content">Soma Zaidi</span>
-                                    <span class="en-content">Read More</span>
-                                    <i class="fas fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <!-- Blog Post 5 -->
-                        <div class="blog-card">
-                            <img src="https://images.unsplash.com/photo-1601409751314-6b62ea5d5e2d?q=80&w=2070&auto=format&fit=crop" alt="Blog" class="blog-img">
-                            <div class="blog-content">
-                                <div class="blog-meta">
-                                    <span><i class="far fa-calendar"></i> <span class="sw-content">Mach 20, 2025</span><span class="en-content">March 20, 2025</span></span>
-                                    <span><i class="far fa-folder"></i> <span class="sw-content">Mbao</span><span class="en-content">Wood</span></span>
-                                </div>
-                                <h3 class="sw-content">Kuhifadhi na Kutunza Vifaa vya Mbao Katika Msimu wa Mvua</h3>
-                                <h3 class="en-content">Preserving and Maintaining Wooden Furniture in Rainy Season</h3>
-                                <p class="sw-content">Namna bora ya kuhifadhi samani za mbao wakati wa msimu wa mvua.</p>
-                                <p class="en-content">Best ways to preserve wooden furniture during rainy season.</p>
-                                <a href="#" class="read-more">
-                                    <span class="sw-content">Soma Zaidi</span>
-                                    <span class="en-content">Read More</span>
-                                    <i class="fas fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <!-- Blog Post 6 -->
-                        <div class="blog-card">
-                            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2070&auto=format&fit=crop" alt="Blog" class="blog-img">
-                            <div class="blog-content">
-                                <div class="blog-meta">
-                                    <span><i class="far fa-calendar"></i> <span class="sw-content">Mach 15, 2025</span><span class="en-content">March 15, 2025</span></span>
-                                    <span><i class="far fa-folder"></i> <span class="sw-content">Ujenzi</span><span class="en-content">Construction</span></span>
-                                </div>
-                                <h3 class="sw-content">Vifaa Muhimu vya Kujenga Katika Maeneo ya Mvua Nyingi</h3>
-                                <h3 class="en-content">Essential Building Materials for High Rainfall Areas</h3>
-                                <p class="sw-content">Chaguzi bora za vifaa vya ujenzi kwa maeneo yenye mvua nyingi.</p>
-                                <p class="en-content">Best building material choices for areas with heavy rainfall.</p>
-                                <a href="#" class="read-more">
-                                    <span class="sw-content">Soma Zaidi</span>
-                                    <span class="en-content">Read More</span>
-                                    <i class="fas fa-arrow-right"></i>
-                                </a>
-                            </div>
+                            <h2 class="sw-content">Mpango Kamili wa Matengenezo ya Kila Mwaka kwa Nyumba Yako</h2>
+                            <h2 class="en-content">Complete Annual Home Maintenance Checklist for Your House</h2>
+                            <p class="sw-content">Jifunze hatua muhimu za matengenezo ya kila mwaka ili kuhifadhi thamani ya nyumba yako na kuepuka matengenezo makubwa ya baadaye.</p>
+                            <p class="en-content">Learn essential annual maintenance steps to preserve your home's value and avoid major future repairs.</p>
+                            <a href="#" class="read-more">
+                                <span class="sw-content">Soma Makala Kamili</span>
+                                <span class="en-content">Read Full Article</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
 
+                    <!-- Blog Grid -->
+                    <div class="blog-grid">
+                        <!-- Post 1 -->
+                        <article class="blog-card">
+                            <div class="blog-img-container">
+                                <div class="blog-category sw-content">Maji</div>
+                                <div class="blog-category en-content">Plumbing</div>
+                                <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075&auto=format&fit=crop" alt="Blog" class="blog-img">
+                            </div>
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <div class="blog-date">
+                                        <i class="far fa-calendar"></i>
+                                        <span class="sw-content">Aprili 15, 2025</span>
+                                        <span class="en-content">April 15, 2025</span>
+                                    </div>
+                                    <div class="blog-read-time">
+                                        <i class="far fa-clock"></i>
+                                        <span class="sw-content">5 min</span>
+                                        <span class="en-content">5 min</span>
+                                    </div>
+                                </div>
+                                <h3 class="sw-content">Jinsi ya Kutambua na Kurekebisha Mabomba Yanayovuja</h3>
+                                <h3 class="en-content">How to Identify and Fix Leaking Pipes</h3>
+                                <p class="blog-excerpt sw-content">Jifunze dalili za mabomba yanayovuja na hatua za kurekebisha kabla ya kusababisha uharibifu mkubwa.</p>
+                                <p class="blog-excerpt en-content">Learn signs of leaking pipes and repair steps before causing major damage.</p>
+                                <a href="#" class="read-more">
+                                    <span class="sw-content">Soma Zaidi</span>
+                                    <span class="en-content">Read More</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </article>
+                        
+                        <!-- Post 2 -->
+                        <article class="blog-card">
+                            <div class="blog-img-container">
+                                <div class="blog-category sw-content">Umeme</div>
+                                <div class="blog-category en-content">Electrical</div>
+                                <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=2069&auto=format&fit=crop" alt="Blog" class="blog-img">
+                            </div>
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <div class="blog-date">
+                                        <i class="far fa-calendar"></i>
+                                        <span class="sw-content">Aprili 10, 2025</span>
+                                        <span class="en-content">April 10, 2025</span>
+                                    </div>
+                                    <div class="blog-read-time">
+                                        <i class="far fa-clock"></i>
+                                        <span class="sw-content">6 min</span>
+                                        <span class="en-content">6 min</span>
+                                    </div>
+                                </div>
+                                <h3 class="sw-content">Uokoaji wa Umeme Nyumbani: Mambo Muhimu Kujua</h3>
+                                <h3 class="en-content">Home Electrical Safety: Key Things to Know</h3>
+                                <p class="blog-excerpt sw-content">Vidokezo vya usalama na jinsi ya kuepuka ajali za umeme katika nyumba yako.</p>
+                                <p class="blog-excerpt en-content">Safety tips and how to avoid electrical accidents in your home.</p>
+                                <a href="#" class="read-more">
+                                    <span class="sw-content">Soma Zaidi</span>
+                                    <span class="en-content">Read More</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </article>
+                        
+                        <!-- Post 3 -->
+                        <article class="blog-card">
+                            <div class="blog-img-container">
+                                <div class="blog-category sw-content">Ujenzi</div>
+                                <div class="blog-category en-content">Construction</div>
+                                <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=2070&auto=format&fit=crop" alt="Blog" class="blog-img">
+                            </div>
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <div class="blog-date">
+                                        <i class="far fa-calendar"></i>
+                                        <span class="sw-content">Aprili 5, 2025</span>
+                                        <span class="en-content">April 5, 2025</span>
+                                    </div>
+                                    <div class="blog-read-time">
+                                        <i class="far fa-clock"></i>
+                                        <span class="sw-content">7 min</span>
+                                        <span class="en-content">7 min</span>
+                                    </div>
+                                </div>
+                                <h3 class="sw-content">Uchaguzi wa Rangi Bora kwa Nyumba Yako</h3>
+                                <h3 class="en-content">Choosing the Best Paint for Your Home</h3>
+                                <p class="blog-excerpt sw-content">Jinsi ya kuchagua rangi inayofaa kwa kila chumba na hali ya hewa ya Tanzania.</p>
+                                <p class="blog-excerpt en-content">How to choose the right paint for each room and Tanzania's weather conditions.</p>
+                                <a href="#" class="read-more">
+                                    <span class="sw-content">Soma Zaidi</span>
+                                    <span class="en-content">Read More</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </article>
+                        
+                        <!-- Post 4 -->
+                        <article class="blog-card">
+                            <div class="blog-img-container">
+                                <div class="blog-category sw-content">Magari</div>
+                                <div class="blog-category en-content">Cars</div>
+                                <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=1974&auto=format&fit=crop" alt="Blog" class="blog-img">
+                            </div>
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <div class="blog-date">
+                                        <i class="far fa-calendar"></i>
+                                        <span class="sw-content">Mach 28, 2025</span>
+                                        <span class="en-content">March 28, 2025</span>
+                                    </div>
+                                    <div class="blog-read-time">
+                                        <i class="far fa-clock"></i>
+                                        <span class="sw-content">8 min</span>
+                                        <span class="en-content">8 min</span>
+                                    </div>
+                                </div>
+                                <h3 class="sw-content">Matengenezo ya Kawaida ya Gari Katika Hali ya Hewa ya Tropiki</h3>
+                                <h3 class="en-content">Regular Car Maintenance in Tropical Climate</h3>
+                                <p class="blog-excerpt sw-content">Jifunze matengenezo muhimu ya gari kwa hali ya hewa ya joto na unyevu.</p>
+                                <p class="blog-excerpt en-content">Learn essential car maintenance for hot and humid climate conditions.</p>
+                                <a href="#" class="read-more">
+                                    <span class="sw-content">Soma Zaidi</span>
+                                    <span class="en-content">Read More</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </article>
+                        
+                        <!-- Post 5 -->
+                        <article class="blog-card">
+                            <div class="blog-img-container">
+                                <div class="blog-category sw-content">Mbao</div>
+                                <div class="blog-category en-content">Wood</div>
+                                <img src="https://images.unsplash.com/photo-1601409751314-6b62ea5d5e2d?q=80&w=2070&auto=format&fit=crop" alt="Blog" class="blog-img">
+                            </div>
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <div class="blog-date">
+                                        <i class="far fa-calendar"></i>
+                                        <span class="sw-content">Mach 20, 2025</span>
+                                        <span class="en-content">March 20, 2025</span>
+                                    </div>
+                                    <div class="blog-read-time">
+                                        <i class="far fa-clock"></i>
+                                        <span class="sw-content">6 min</span>
+                                        <span class="en-content">6 min</span>
+                                    </div>
+                                </div>
+                                <h3 class="sw-content">Kuhifadhi na Kutunza Vifaa vya Mbao Katika Msimu wa Mvua</h3>
+                                <h3 class="en-content">Preserving and Maintaining Wooden Furniture in Rainy Season</h3>
+                                <p class="blog-excerpt sw-content">Namna bora ya kuhifadhi samani za mbao wakati wa msimu wa mvua.</p>
+                                <p class="blog-excerpt en-content">Best ways to preserve wooden furniture during rainy season.</p>
+                                <a href="#" class="read-more">
+                                    <span class="sw-content">Soma Zaidi</span>
+                                    <span class="en-content">Read More</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </article>
+                        
+                        <!-- Post 6 -->
+                        <article class="blog-card">
+                            <div class="blog-img-container">
+                                <div class="blog-category sw-content">Ujenzi</div>
+                                <div class="blog-category en-content">Construction</div>
+                                <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2070&auto=format&fit=crop" alt="Blog" class="blog-img">
+                            </div>
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <div class="blog-date">
+                                        <i class="far fa-calendar"></i>
+                                        <span class="sw-content">Mach 15, 2025</span>
+                                        <span class="en-content">March 15, 2025</span>
+                                    </div>
+                                    <div class="blog-read-time">
+                                        <i class="far fa-clock"></i>
+                                        <span class="sw-content">9 min</span>
+                                        <span class="en-content">9 min</span>
+                                    </div>
+                                </div>
+                                <h3 class="sw-content">Vifaa Muhimu vya Kujenga Katika Maeneo ya Mvua Nyingi</h3>
+                                <h3 class="en-content">Essential Building Materials for High Rainfall Areas</h3>
+                                <p class="blog-excerpt sw-content">Chaguzi bora za vifaa vya ujenzi kwa maeneo yenye mvua nyingi.</p>
+                                <p class="blog-excerpt en-content">Best building material choices for areas with heavy rainfall.</p>
+                                <a href="#" class="read-more">
+                                    <span class="sw-content">Soma Zaidi</span>
+                                    <span class="en-content">Read More</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </article>
+                    </div>
+
                     <!-- Pagination -->
-                    <div class="pagination" style="margin-top: 4rem;">
+                    <div class="pagination">
                         <button class="active">1</button>
                         <button>2</button>
                         <button>3</button>
+                        <button>4</button>
                         <button>
                             <i class="fas fa-chevron-right"></i>
                         </button>
@@ -407,67 +1235,107 @@
 
                 <!-- Sidebar -->
                 <div class="sidebar">
-                    <!-- Categories -->
-                    <div class="categories-sidebar">
-                        <h3 class="sw-content">Jamii</h3>
-                        <h3 class="en-content">Categories</h3>
+                    <!-- Categories Widget -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title sw-content">Jamii</h3>
+                        <h3 class="widget-title en-content">Categories</h3>
                         <ul class="category-list">
                             <li>
                                 <a href="#">
                                     <span class="sw-content">Matengenezo</span>
                                     <span class="en-content">Repairs</span>
-                                    <span>(12)</span>
+                                    <span class="category-count">12</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
                                     <span class="sw-content">Umeme</span>
                                     <span class="en-content">Electricity</span>
-                                    <span>(8)</span>
+                                    <span class="category-count">8</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
                                     <span class="sw-content">Ujenzi</span>
                                     <span class="en-content">Construction</span>
-                                    <span>(15)</span>
+                                    <span class="category-count">15</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
                                     <span class="sw-content">Maji</span>
                                     <span class="en-content">Plumbing</span>
-                                    <span>(6)</span>
+                                    <span class="category-count">6</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
                                     <span class="sw-content">Magari</span>
                                     <span class="en-content">Cars</span>
-                                    <span>(9)</span>
+                                    <span class="category-count">9</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
                                     <span class="sw-content">Mbao</span>
                                     <span class="en-content">Wood</span>
-                                    <span>(7)</span>
+                                    <span class="category-count">7</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="sw-content">Solar</span>
+                                    <span class="en-content">Solar</span>
+                                    <span class="category-count">5</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
 
-                    <!-- Newsletter -->
-                    <div class="categories-sidebar">
-                        <h3 class="sw-content">Jiandikishe kwa Habari</h3>
-                        <h3 class="en-content">Subscribe to Newsletter</h3>
-                        <p class="sw-content" style="margin-bottom: 1rem; color: #666;">Pata habari mpya moja kwa moja kwenye barua pepe yako.</p>
-                        <p class="en-content" style="margin-bottom: 1rem; color: #666;">Get latest news directly in your email.</p>
-                        <form style="margin-top: 1.5rem;">
-                            <input type="email" placeholder="Barua pepe yako" class="sw-content" style="width: 100%; padding: 1rem; border: 2px solid #e0e0e0; border-radius: 8px; margin-bottom: 1rem;">
-                            <input type="email" placeholder="Your email" class="en-content" style="width: 100%; padding: 1rem; border: 2px solid #e0e0e0; border-radius: 8px; margin-bottom: 1rem;">
-                            <button type="submit" class="btn-primary" style="width: 100%;">
-                                <i class="fas fa-envelope"></i>
+                    <!-- Popular Posts Widget -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title sw-content">Makala Maarufu</h3>
+                        <h3 class="widget-title en-content">Popular Posts</h3>
+                        <div class="popular-post-item">
+                            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop" alt="Popular" class="popular-post-img">
+                            <div class="popular-post-content">
+                                <h4><a href="#" class="sw-content">Jinsi ya Kurekebisha Bomba la Maji</a></h4>
+                                <h4><a href="#" class="en-content">How to Fix a Water Pipe</a></h4>
+                                <div class="popular-post-meta sw-content">Aprili 12, 2025</div>
+                                <div class="popular-post-meta en-content">April 12, 2025</div>
+                            </div>
+                        </div>
+                        <div class="popular-post-item">
+                            <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=2069&auto=format&fit=crop" alt="Popular" class="popular-post-img">
+                            <div class="popular-post-content">
+                                <h4><a href="#" class="sw-content">Uokoaji wa Umeme Nyumbani</a></h4>
+                                <h4><a href="#" class="en-content">Home Electrical Safety</a></h4>
+                                <div class="popular-post-meta sw-content">Aprili 10, 2025</div>
+                                <div class="popular-post-meta en-content">April 10, 2025</div>
+                            </div>
+                        </div>
+                        <div class="popular-post-item">
+                            <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=2070&auto=format&fit=crop" alt="Popular" class="popular-post-img">
+                            <div class="popular-post-content">
+                                <h4><a href="#" class="sw-content">Uchaguzi wa Rangi Bora</a></h4>
+                                <h4><a href="#" class="en-content">Choosing the Best Paint</a></h4>
+                                <div class="popular-post-meta sw-content">Aprili 5, 2025</div>
+                                <div class="popular-post-meta en-content">April 5, 2025</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Newsletter Widget -->
+                    <div class="sidebar-widget newsletter-widget">
+                        <h3 class="widget-title sw-content">Jiandikishe kwa Habari</h3>
+                        <h3 class="widget-title en-content">Subscribe to Newsletter</h3>
+                        <p class="newsletter-text sw-content">Pata habari mpya za matengenezo na ujenzi moja kwa moja kwenye barua pepe yako.</p>
+                        <p class="newsletter-text en-content">Get latest repair and construction news directly in your email.</p>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="Barua pepe yako" class="sw-content" required>
+                            <input type="email" placeholder="Your email" class="en-content" required>
+                            <button type="submit">
+                                <i class="fas fa-paper-plane"></i>
                                 <span class="sw-content">Jiandikishe</span>
                                 <span class="en-content">Subscribe</span>
                             </button>
@@ -484,7 +1352,7 @@
             <div class="footer-content">
                 <div class="footer-column">
                     <div class="footer-logo">
-                        <h2>Fixit<span style="color: #ffb000">TZ</span></h2>
+                        <h2>Fixit<span style="color: #f59e0b">TZ</span></h2>
                         <div class="language-content sw-content active">
                             <p>Sokoni la mafundi Tanzania. Tunaunganisha wateza na wafundi wenye ujuzi katika mikoa yote.</p>
                         </div>
@@ -579,6 +1447,105 @@
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
+    <script>
+        // Language Switching
+        document.addEventListener('DOMContentLoaded', function() {
+            const langTabs = document.querySelectorAll('.lang-tab');
+            
+            langTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const lang = this.dataset.lang;
+                    
+                    // Update active tab
+                    langTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show selected language content
+                    document.querySelectorAll('.sw-content').forEach(el => {
+                        el.style.display = lang === 'sw' ? 'block' : 'none';
+                    });
+                    document.querySelectorAll('.en-content').forEach(el => {
+                        el.style.display = lang === 'en' ? 'block' : 'none';
+                    });
+                    
+                    // Update language content sections
+                    document.querySelectorAll('.language-content').forEach(el => {
+                        el.classList.remove('active');
+                    });
+                    document.querySelectorAll(`.${lang}-content`).forEach(el => {
+                        el.classList.add('active');
+                    });
+                });
+            });
+            
+            // Mobile Navigation
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            hamburger.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking on link
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                });
+            });
+            
+            // Newsletter Form Submission
+            document.querySelectorAll('.newsletter-form').forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const email = this.querySelector('input[type="email"]').value;
+                    const lang = document.querySelector('.lang-tab.active').dataset.lang;
+                    
+                    if (lang === 'sw') {
+                        alert(`Asante kwa kujiandikisha! Tutakutumia habari mpya kwenye ${email}`);
+                    } else {
+                        alert(`Thank you for subscribing! We'll send you latest updates to ${email}`);
+                    }
+                    
+                    this.reset();
+                });
+            });
+            
+            // Pagination
+            document.querySelectorAll('.pagination button').forEach(button => {
+                button.addEventListener('click', function() {
+                    document.querySelectorAll('.pagination button').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    const lang = document.querySelector('.lang-tab.active').dataset.lang;
+                    if (lang === 'sw') {
+                        alert('Inapakia ukurasa mwingine...');
+                    } else {
+                        alert('Loading another page...');
+                    }
+                });
+            });
+            
+            // Blog Search
+            const searchInput = document.querySelector('.hero-search input');
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const query = this.value;
+                    const lang = document.querySelector('.lang-tab.active').dataset.lang;
+                    
+                    if (lang === 'sw') {
+                        alert(`Inatafuta "${query}"...`);
+                    } else {
+                        alert(`Searching for "${query}"...`);
+                    }
+                    
+                    this.value = '';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
