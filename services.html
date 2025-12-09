@@ -6,110 +6,1070 @@
     <title>Huduma - FixitTZ</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
     <style>
-        .services-hero {
-            min-height: 60vh;
+        /* Base Styles */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #f59e0b;
+            --secondary-dark: #d97706;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --success: #10b981;
+            --danger: #ef4444;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .section-subtitle {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        /* Language Content */
+        .language-content {
+            display: none;
+        }
+
+        .language-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .en-content {
+            display: none;
+        }
+
+        .sw-content.active ~ .en-content {
+            display: none;
+        }
+
+        /* Language Tabs */
+        .language-tabs {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+            background: white;
+            border-radius: 50px;
+            padding: 5px;
+            box-shadow: var(--shadow);
+        }
+
+        .lang-tab {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: transparent;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            background: linear-gradient(135deg, rgba(0, 100, 0, 0.9) 0%, rgba(10, 140, 10, 0.8) 100%),
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--gray);
+            font-weight: 600;
+        }
+
+        .lang-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: white;
+            box-shadow: var(--shadow);
+            z-index: 999;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            text-decoration: none;
+            color: var(--dark);
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .nav-menu a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-login,
+        .btn-register {
+            text-decoration: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .btn-login {
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-login:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-register {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-register:hover {
+            background: var(--primary-dark);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--dark);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        /* Services Hero */
+        .services-hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.9) 0%, rgba(29, 78, 216, 0.8) 100%), 
                         url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
             padding: 120px 0 4rem;
+            position: relative;
+            overflow: hidden;
         }
-        
+
+        .services-hero::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(to top, var(--light), transparent);
+            z-index: 1;
+        }
+
         .services-hero-content {
-            max-width: 1400px;
-            margin: 0 auto;
+            position: relative;
+            z-index: 2;
             text-align: center;
-            color: var(--white);
-        }
-        
-        .services-hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .services-hero-content p {
-            font-size: 1.3rem;
+            color: white;
             max-width: 800px;
             margin: 0 auto;
-            color: rgba(255, 255, 255, 0.9);
         }
-        
-        .service-detail-card {
-            background: var(--white);
+
+        .services-hero-content h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .services-hero-content p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        /* Service Stats */
+        .service-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            color: white;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .service-card {
+            background: white;
             border-radius: var(--radius);
             overflow: hidden;
             box-shadow: var(--shadow);
-            margin-bottom: 3rem;
-            border: 1px solid #f0f0f0;
             transition: var(--transition);
+            position: relative;
+            border: 1px solid var(--gray-light);
         }
-        
-        .service-detail-card:hover {
+
+        .service-card:hover {
             transform: translateY(-10px);
             box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
         }
-        
-        .service-detail-header {
-            background: var(--gradient-primary);
-            color: var(--white);
-            padding: 3rem;
-            text-align: center;
+
+        .service-card.featured::before {
+            content: '★ KUPENDWA';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--secondary);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
         }
-        
-        .service-detail-header i {
-            font-size: 4rem;
+
+        .service-card.featured .en-content::before {
+            content: '★ POPULAR';
+        }
+
+        .service-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .service-card:hover .service-img {
+            transform: scale(1.05);
+        }
+
+        .service-content {
+            padding: 2rem;
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin-bottom: 1.5rem;
         }
-        
-        .service-detail-header h2 {
-            font-size: 2.5rem;
+
+        .service-icon i {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .service-content h3 {
+            font-size: 1.5rem;
             margin-bottom: 1rem;
+            color: var(--dark);
         }
-        
-        .service-detail-content {
-            padding: 3rem;
+
+        .service-excerpt {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
         }
-        
-        .service-price {
-            background: var(--light-yellow);
-            padding: 1.5rem;
-            border-radius: var(--radius);
+
+        .service-features {
+            list-style: none;
             margin-bottom: 2rem;
-            border-left: 4px solid var(--accent-yellow);
         }
-        
+
+        .service-features li {
+            padding: 0.3rem 0;
+            color: var(--gray);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .service-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .service-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-service {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius);
+            font-weight: 500;
+            transition: var(--transition);
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn-service:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Service Detail Cards */
+        .service-detail-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        }
+
+        .service-detail-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 4rem;
+            transition: var(--transition);
+        }
+
+        .service-detail-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-detail-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 4rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-detail-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .service-detail-header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-detail-icon {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .service-detail-header h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .service-detail-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .service-detail-content {
+            padding: 4rem 3rem;
+        }
+
+        .price-section {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            padding: 2rem;
+            border-radius: var(--radius);
+            margin-bottom: 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .price-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .price-info p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .price-display {
+            text-align: right;
+        }
+
         .price-label {
             font-size: 0.9rem;
             color: #666;
             margin-bottom: 0.5rem;
+            display: block;
         }
-        
+
         .price-value {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary-green);
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: block;
         }
-        
-        .service-process {
+
+        .price-note {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-top: 0.5rem;
+            display: block;
+        }
+
+        .service-detail-content h3 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--dark);
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gray-light);
+        }
+
+        .detail-features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .detail-feature {
+            padding: 2rem;
+            background: var(--light);
+            border-radius: var(--radius);
+            border-left: 4px solid var(--primary);
+            transition: var(--transition);
+        }
+
+        .detail-feature:hover {
+            background: white;
+            transform: translateX(5px);
+            box-shadow: var(--shadow);
+        }
+
+        .detail-feature i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .detail-feature h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .detail-feature p {
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        .process-steps {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
-            margin: 2rem 0;
+            margin: 3rem 0;
         }
-        
+
         .process-step {
             text-align: center;
             padding: 2rem;
-            background: #f8f9fa;
+            background: white;
             border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
         }
-        
-        .process-step i {
+
+        .process-step:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .step-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .step-icon i {
             font-size: 2rem;
-            color: var(--primary-green);
+            color: white;
+        }
+
+        .process-step h4 {
+            font-size: 1.2rem;
             margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .process-step p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .btn-request {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem 3rem;
+            background: var(--secondary);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            margin-top: 2rem;
+        }
+
+        .btn-request:hover {
+            background: var(--secondary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Service Comparison */
+        .comparison-section {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .comparison-table {
+            overflow-x: auto;
+            margin-top: 3rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        thead {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+        }
+
+        th, td {
+            padding: 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        th {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        tbody tr:hover {
+            background: var(--light);
+        }
+
+        .check-icon {
+            color: var(--success);
+            font-size: 1.2rem;
+        }
+
+        .times-icon {
+            color: var(--danger);
+            font-size: 1.2rem;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        }
+
+        .faq-grid {
+            max-width: 800px;
+            margin: 3rem auto 0;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: var(--radius);
+            margin-bottom: 1rem;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            background: var(--light);
+        }
+
+        .faq-question i {
+            transition: var(--transition);
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 1.5rem;
+            max-height: 500px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-align: center;
+        }
+
+        .cta-content h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-content p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            opacity: 0.95;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 1rem 2.5rem;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: transparent;
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo p {
+            color: #94a3b8;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: #334155;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .footer-contact p {
+            color: #94a3b8;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+        }
+
+        .footer-bottom a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-bottom a:hover {
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .services-hero-content h1 {
+                font-size: 3rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .service-detail-header h2 {
+                font-size: 2.5rem;
+            }
+            
+            .price-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .price-display {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                flex-direction: column;
+                background: white;
+                width: 100%;
+                padding: 2rem;
+                box-shadow: var(--shadow);
+                transition: var(--transition);
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(6px, 6px);
+            }
+            
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(6px, -6px);
+            }
+            
+            .services-hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .services-hero-content p {
+                font-size: 1.1rem;
+            }
+            
+            .service-detail-content {
+                padding: 3rem 2rem;
+            }
+            
+            .cta-content h2 {
+                font-size: 2.5rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .section-padding {
+                padding: 60px 0;
+            }
+            
+            .service-stats {
+                gap: 2rem;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .service-detail-header {
+                padding: 3rem 2rem;
+            }
+            
+            .service-detail-icon {
+                font-size: 3.5rem;
+            }
         }
     </style>
 </head>
@@ -190,223 +1150,539 @@
             <!-- Swahili Content -->
             <div class="language-content sw-content active">
                 <h1>Huduma Zetu Zote</h1>
-                <p>Huduma zote za matengenezo na ujenzi zinazopatikana kupitia jukwaa letu</p>
+                <p>Pata huduma bora za matengenezo na ujenzi kutoka kwa wafundi waliohitimu katika mikoa yote ya Tanzania</p>
+                <div class="service-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">15+</span>
+                        <span class="stat-label">Aina za Huduma</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">2,000+</span>
+                        <span class="stat-label">Wafundi</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">25,000+</span>
+                        <span class="stat-label">Kazi Zilizokamilika</span>
+                    </div>
+                </div>
             </div>
             
             <!-- English Content -->
             <div class="language-content en-content">
                 <h1>All Our Services</h1>
-                <p>All repair and construction services available through our platform</p>
+                <p>Get the best repair and construction services from certified professionals across all regions of Tanzania</p>
+                <div class="service-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">15+</span>
+                        <span class="stat-label">Service Types</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">2,000+</span>
+                        <span class="stat-label">Handymen</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">25,000+</span>
+                        <span class="stat-label">Jobs Completed</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section class="services-section section-padding">
+    <!-- Services Grid -->
+    <section class="section-padding">
         <div class="container">
             <div class="section-header">
                 <!-- Swahili Content -->
                 <div class="language-content sw-content active">
-                    <h2 class="section-title">Aina Zote za Huduma</h2>
-                    <p class="section-subtitle">Chagua kutoka kwa huduma zetu zote za matengenezo na ujenzi</p>
+                    <h2 class="section-title">Chagua Huduma Yako</h2>
+                    <p class="section-subtitle">Huduma zote za matengenezo na ujenzi kwa bei nafuu na bora</p>
                 </div>
                 
                 <!-- English Content -->
                 <div class="language-content en-content">
-                    <h2 class="section-title">All Service Types</h2>
-                    <p class="section-subtitle">Choose from all our repair and construction services</p>
+                    <h2 class="section-title">Choose Your Service</h2>
+                    <p class="section-subtitle">All repair and construction services at affordable prices and quality</p>
                 </div>
             </div>
 
-            <!-- Plumbing Service -->
+            <div class="services-grid">
+                <!-- Plumbing Service -->
+                <div class="service-card featured">
+                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075&auto=format&fit=crop" alt="Plumbing" class="service-img">
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-faucet"></i>
+                        </div>
+                        <h3 class="sw-content">Fundi Maji</h3>
+                        <h3 class="en-content">Plumbing</h3>
+                        <p class="service-excerpt sw-content">Matengenezo ya mabomba, vyoo, bafu, tanki na mifumo yote ya maji.</p>
+                        <p class="service-excerpt en-content">Repair of pipes, toilets, bathrooms, tanks and all water systems.</p>
+                        <ul class="service-features">
+                            <li class="sw-content">Ufungaji na matengenezo ya bomba</li>
+                            <li class="en-content">Pipe installation and repair</li>
+                            <li class="sw-content">Kutengeneza vyoo na bafu</li>
+                            <li class="en-content">Toilet and bathroom repair</li>
+                            <li class="sw-content">Usafishaji wa mifumo ya maji</li>
+                            <li class="en-content">Water system cleaning</li>
+                        </ul>
+                        <div class="service-price sw-content">Kuanzia TZS 20,000</div>
+                        <div class="service-price en-content">From TZS 20,000</div>
+                        <a href="#plumbing" class="btn-service">
+                            <i class="fas fa-info-circle"></i>
+                            <span class="sw-content">Angalia Huduma</span>
+                            <span class="en-content">View Service</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Electrical Service -->
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=2069&auto=format&fit=crop" alt="Electrical" class="service-img">
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3 class="sw-content">Fundi Umeme</h3>
+                        <h3 class="en-content">Electrical</h3>
+                        <p class="service-excerpt sw-content">Ufungaji na matengenezo ya umeme, taa, wiring na mifumo ya solar.</p>
+                        <p class="service-excerpt en-content">Installation and repair of electricity, lights, wiring and solar systems.</p>
+                        <ul class="service-features">
+                            <li class="sw-content">Ufungaji wa mifumo ya umeme</li>
+                            <li class="en-content">Electrical system installation</li>
+                            <li class="sw-content">Matengenezo ya taa na wiring</li>
+                            <li class="en-content">Light and wiring repair</li>
+                            <li class="sw-content">Ufungaji wa solar na betri</li>
+                            <li class="en-content">Solar and battery installation</li>
+                        </ul>
+                        <div class="service-price sw-content">Kuanzia TZS 25,000</div>
+                        <div class="service-price en-content">From TZS 25,000</div>
+                        <a href="#electrical" class="btn-service">
+                            <i class="fas fa-info-circle"></i>
+                            <span class="sw-content">Angalia Huduma</span>
+                            <span class="en-content">View Service</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Construction Service -->
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2070&auto=format&fit=crop" alt="Construction" class="service-img">
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-hammer"></i>
+                        </div>
+                        <h3 class="sw-content">Ujenzi & Ukarabati</h3>
+                        <h3 class="en-content">Construction & Repair</h3>
+                        <p class="service-excerpt sw-content">Kazi za ujenzi, ukarabati wa nyumba, ofisi na majengo mengine.</p>
+                        <p class="service-excerpt en-content">Construction work, house repair, offices and other buildings.</p>
+                        <ul class="service-features">
+                            <li class="sw-content">Ujenzi wa nyumba na majengo</li>
+                            <li class="en-content">House and building construction</li>
+                            <li class="sw-content">Ukarabati wa kuta na dari</li>
+                            <li class="en-content">Wall and ceiling repair</li>
+                            <li class="sw-content">Ufungaji wa madirisha na milango</li>
+                            <li class="en-content">Window and door installation</li>
+                        </ul>
+                        <div class="service-price sw-content">Kuanzia TZS 40,000</div>
+                        <div class="service-price en-content">From TZS 40,000</div>
+                        <a href="#construction" class="btn-service">
+                            <i class="fas fa-info-circle"></i>
+                            <span class="sw-content">Angalia Huduma</span>
+                            <span class="en-content">View Service</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Carpentry Service -->
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1601409751314-6b62ea5d5e2d?q=80&w=2070&auto=format&fit=crop" alt="Carpentry" class="service-img">
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-ruler-combined"></i>
+                        </div>
+                        <h3 class="sw-content">Seremala</h3>
+                        <h3 class="en-content">Carpentry</h3>
+                        <p class="service-excerpt sw-content">Ujenzi wa samani, matengenezo ya mbao, na kazi zote za ufundi mbao.</p>
+                        <p class="service-excerpt en-content">Furniture construction, wood repairs, and all woodworking jobs.</p>
+                        <ul class="service-features">
+                            <li class="sw-content">Ujenzi wa samani za mbao</li>
+                            <li class="en-content">Wooden furniture construction</li>
+                            <li class="sw-content">Matengenezo ya milango na madirisha</li>
+                            <li class="en-content">Door and window repairs</li>
+                            <li class="sw-content">Ukarabati wa dari za mbao</li>
+                            <li class="en-content">Wood ceiling repairs</li>
+                        </ul>
+                        <div class="service-price sw-content">Kuanzia TZS 30,000</div>
+                        <div class="service-price en-content">From TZS 30,000</div>
+                        <a href="#carpentry" class="btn-service">
+                            <i class="fas fa-info-circle"></i>
+                            <span class="sw-content">Angalia Huduma</span>
+                            <span class="en-content">View Service</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Painting Service -->
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=2070&auto=format&fit=crop" alt="Painting" class="service-img">
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-paint-roller"></i>
+                        </div>
+                        <h3 class="sw-content">Upakaji Rangi</h3>
+                        <h3 class="en-content">Painting</h3>
+                        <p class="service-excerpt sw-content">Upakaji rangi wa ndani na nje, matengenezo na urembo wa kuta.</p>
+                        <p class="service-excerpt en-content">Interior and exterior painting, wall repairs and decoration.</p>
+                        <ul class="service-features">
+                            <li class="sw-content">Upakaji rangi wa ndani</li>
+                            <li class="en-content">Interior painting</li>
+                            <li class="sw-content">Upakaji rangi wa nje</li>
+                            <li class="en-content">Exterior painting</li>
+                            <li class="sw-content">Ukarabati na urembo wa kuta</li>
+                            <li class="en-content">Wall repair and decoration</li>
+                        </ul>
+                        <div class="service-price sw-content">Kuanzia TZS 35,000</div>
+                        <div class="service-price en-content">From TZS 35,000</div>
+                        <a href="#painting" class="btn-service">
+                            <i class="fas fa-info-circle"></i>
+                            <span class="sw-content">Angalia Huduma</span>
+                            <span class="en-content">View Service</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Car Mechanic Service -->
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=1974&auto=format&fit=crop" alt="Car Mechanic" class="service-img">
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <h3 class="sw-content">Fundi Gari</h3>
+                        <h3 class="en-content">Car Mechanic</h3>
+                        <p class="service-excerpt sw-content">Matengenezo ya magari, mitambo na huduma zote za ukarabati wa gari.</p>
+                        <p class="service-excerpt en-content">Car repairs, engines and all car repair services.</p>
+                        <ul class="service-features">
+                            <li class="sw-content">Matengenezo ya mitambo</li>
+                            <li class="en-content">Engine repairs</li>
+                            <li class="sw-content">Kurekebisha mifumo ya breki</li>
+                            <li class="en-content">Brake system repair</li>
+                            <li class="sw-content">Huduma za kawaida za gari</li>
+                            <li class="en-content">Regular car service</li>
+                        </ul>
+                        <div class="service-price sw-content">Kuanzia TZS 45,000</div>
+                        <div class="service-price en-content">From TZS 45,000</div>
+                        <a href="#car-mechanic" class="btn-service">
+                            <i class="fas fa-info-circle"></i>
+                            <span class="sw-content">Angalia Huduma</span>
+                            <span class="en-content">View Service</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Details Section - Plumbing -->
+    <section id="plumbing" class="service-detail-section">
+        <div class="container">
             <div class="service-detail-card">
                 <div class="service-detail-header">
-                    <i class="fas fa-faucet"></i>
-                    <h2 class="sw-content">Fundi Maji</h2>
-                    <h2 class="en-content">Plumbing</h2>
-                    <p class="sw-content">Huduma kamili za matengenezo ya mifumo ya maji</p>
-                    <p class="en-content">Complete water system repair services</p>
+                    <div class="service-detail-header-content">
+                        <i class="fas fa-faucet service-detail-icon"></i>
+                        <h2 class="sw-content">Huduma ya Fundi Maji</h2>
+                        <h2 class="en-content">Plumbing Service</h2>
+                        <p class="sw-content">Huduma kamili za matengenezo na ufungaji wa mifumo ya maji kwa nyumba na biashara</p>
+                        <p class="en-content">Complete water system repair and installation services for homes and businesses</p>
+                    </div>
                 </div>
                 <div class="service-detail-content">
-                    <div class="service-price">
-                        <div class="price-label sw-content">Bei Kuanzia</div>
-                        <div class="price-label en-content">Starting From</div>
-                        <div class="price-value">TZS 20,000</div>
+                    <div class="price-section">
+                        <div class="price-info">
+                            <h3 class="sw-content">Huduma Bora kwa Bei Nzuri</h3>
+                            <h3 class="en-content">Quality Service at Fair Price</h3>
+                            <p class="sw-content">Pata huduma bora ya matengenezo ya maji kutoka kwa wafundi waliohitimu</p>
+                            <p class="en-content">Get quality water repair service from certified professionals</p>
+                        </div>
+                        <div class="price-display">
+                            <span class="price-label sw-content">Bei Kuanzia</span>
+                            <span class="price-label en-content">Starting From</span>
+                            <span class="price-value">TZS 20,000</span>
+                            <span class="price-note sw-content">*Bei inategemea ukubwa wa kazi</span>
+                            <span class="price-note en-content">*Price depends on job size</span>
+                        </div>
                     </div>
+
+                    <h3 class="sw-content">Huduma Tunazotoa</h3>
+                    <h3 class="en-content">Services We Provide</h3>
                     
-                    <div class="sw-content">
-                        <h3>Kuhusu Huduma</h3>
-                        <p>Tunatoa huduma kamili za matengenezo ya mifumo ya maji kwa nyumba na biashara. Huduma zetu zinajumuisha:</p>
-                        <ul class="service-features">
-                            <li>Ufungaji na matengenezo ya bomba</li>
-                            <li>Kutengeneza vyoo na bafu</li>
-                            <li>Usafishaji wa mifumo ya maji</li>
-                            <li>Ufungaji wa vyombo vya maji</li>
-                            <li>Ukaguzi wa mifumo ya maji</li>
-                        </ul>
+                    <div class="detail-features-grid">
+                        <div class="detail-feature">
+                            <i class="fas fa-toolbox"></i>
+                            <h4 class="sw-content">Matengenezo ya Bomba</h4>
+                            <h4 class="en-content">Pipe Repairs</h4>
+                            <p class="sw-content">Tunarekebisha mabomba yote yanayovuja na kuharibika kwa ufundi na vifaa vya kisasa</p>
+                            <p class="en-content">We fix all leaking and damaged pipes professionally with modern equipment</p>
+                        </div>
+                        <div class="detail-feature">
+                            <i class="fas fa-toilet"></i>
+                            <h4 class="sw-content">Kutengeneza Vyoo</h4>
+                            <h4 class="en-content">Toilet Repair</h4>
+                            <p class="sw-content">Huduma za kurekebisha vyoo vilivyoharibika, kuziba na kufurika kwa ufanisi</p>
+                            <p class="en-content">Services to fix broken toilets, clogs and overflows efficiently</p>
+                        </div>
+                        <div class="detail-feature">
+                            <i class="fas fa-shower"></i>
+                            <h4 class="sw-content">Matengenezo ya Bafu</h4>
+                            <h4 class="en-content">Bathroom Repair</h4>
+                            <p class="sw-content">Ukarabati wa bafu, mikondo ya maji na mifumo yote ya maji ya bafuni</p>
+                            <p class="en-content">Repair of bathrooms, showers and all bathroom water systems</p>
+                        </div>
+                        <div class="detail-feature">
+                            <i class="fas fa-water"></i>
+                            <h4 class="sw-content">Ufungaji wa Mifumo</h4>
+                            <h4 class="en-content">System Installation</h4>
+                            <p class="sw-content">Ufungaji wa mifumo mipya ya maji na uboreshaji wa mifumo iliyopo</p>
+                            <p class="en-content">Installation of new water systems and upgrading existing ones</p>
+                        </div>
                     </div>
+
+                    <h3 class="sw-content">Jinsi Huduma Inavyofanya Kazi</h3>
+                    <h3 class="en-content">How the Service Works</h3>
                     
-                    <div class="en-content">
-                        <h3>About the Service</h3>
-                        <p>We provide complete water system repair services for homes and businesses. Our services include:</p>
-                        <ul class="service-features">
-                            <li>Pipe installation and repair</li>
-                            <li>Toilet and bathroom repair</li>
-                            <li>Water system cleaning</li>
-                            <li>Water fixture installation</li>
-                            <li>Water system inspection</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="service-process">
+                    <div class="process-steps">
                         <div class="process-step">
-                            <i class="fas fa-search"></i>
-                            <h4 class="sw-content">Ukaguzi</h4>
-                            <h4 class="en-content">Inspection</h4>
-                            <p class="sw-content">Tunakagua tatizo kwa kina</p>
-                            <p class="en-content">We inspect the problem thoroughly</p>
+                            <div class="step-number">1</div>
+                            <div class="step-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <h4 class="sw-content">Panga Muda</h4>
+                            <h4 class="en-content">Schedule Appointment</h4>
+                            <p class="sw-content">Panga muda na fundi kupitia mtandao wetu au simu</p>
+                            <p class="en-content">Schedule time with handyman through our platform or phone</p>
                         </div>
                         <div class="process-step">
-                            <i class="fas fa-tools"></i>
+                            <div class="step-number">2</div>
+                            <div class="step-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h4 class="sw-content">Ukaguzi wa Tatizo</h4>
+                            <h4 class="en-content">Problem Inspection</h4>
+                            <p class="sw-content">Fundi anakuja na kukagua tatizo kwa kina na kutoa makadirio</p>
+                            <p class="en-content">Handyman comes to inspect problem thoroughly and give estimate</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <div class="step-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
                             <h4 class="sw-content">Matengenezo</h4>
-                            <h4 class="en-content">Repair</h4>
-                            <p class="sw-content">Tunarekebisha tatizo kwa ujuzi</p>
-                            <p class="en-content">We fix the problem professionally</p>
+                            <h4 class="en-content">Repair Work</h4>
+                            <p class="sw-content">Fundi anafanya matengenezo kwa ujuzi na kutumia vifaa bora</p>
+                            <p class="en-content">Handyman performs repairs expertly using quality materials</p>
                         </div>
                         <div class="process-step">
-                            <i class="fas fa-check-circle"></i>
-                            <h4 class="sw-content">Uthibitisho</h4>
-                            <h4 class="en-content">Verification</h4>
-                            <p class="sw-content">Tunahakikisha kazi imekamilika</p>
-                            <p class="en-content">We ensure work is completed</p>
+                            <div class="step-number">4</div>
+                            <div class="step-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h4 class="sw-content">Uthibitisho wa Ubora</h4>
+                            <h4 class="en-content">Quality Verification</h4>
+                            <p class="sw-content">Tunahakikisha kazi imekamilika na inafanya kazi vyema</p>
+                            <p class="en-content">We verify work is completed and functioning properly</p>
                         </div>
                     </div>
-                    
-                    <a href="contact.html" class="btn-primary">
+
+                    <a href="contact.html" class="btn-request">
                         <i class="fas fa-calendar-alt"></i>
-                        <span class="sw-content">Omba Huduma Sasa</span>
-                        <span class="en-content">Request Service Now</span>
+                        <span class="sw-content">Omba Huduma ya Fundi Maji</span>
+                        <span class="en-content">Request Plumbing Service</span>
                     </a>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Electrical Service -->
-            <div class="service-detail-card">
-                <div class="service-detail-header">
-                    <i class="fas fa-bolt"></i>
-                    <h2 class="sw-content">Fundi Umeme</h2>
-                    <h2 class="en-content">Electrical</h2>
-                    <p class="sw-content">Huduma za umeme salama na za kisasa</p>
-                    <p class="en-content">Safe and modern electrical services</p>
+    <!-- Service Comparison -->
+    <section class="comparison-section section-padding">
+        <div class="container">
+            <div class="section-header">
+                <!-- Swahili Content -->
+                <div class="language-content sw-content active">
+                    <h2 class="section-title">Kulinganisha Huduma</h2>
+                    <p class="section-subtitle">Angalia tofauti kati ya huduma zetu kuu</p>
                 </div>
-                <div class="service-detail-content">
-                    <div class="service-price">
-                        <div class="price-label sw-content">Bei Kuanzia</div>
-                        <div class="price-label en-content">Starting From</div>
-                        <div class="price-value">TZS 25,000</div>
-                    </div>
-                    
-                    <div class="sw-content">
-                        <h3>Kuhusu Huduma</h3>
-                        <p>Wafundi wetu wa umeme wana ujuzi wa kufanya kazi kwenye mifumo yote ya umeme, ikiwa ni pamoja na:</p>
-                        <ul class="service-features">
-                            <li>Ufungaji wa wiring mpya</li>
-                            <li>Matengenezo ya taa na swichi</li>
-                            <li>Ufungaji wa mifumo ya solar</li>
-                            <li>Ukaguzi wa usalama wa umeme</li>
-                            <li>Ufungaji wa chuma cha kuzuia umeme</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="en-content">
-                        <h3>About the Service</h3>
-                        <p>Our electricians have expertise in working on all electrical systems, including:</p>
-                        <ul class="service-features">
-                            <li>New wiring installation</li>
-                            <li>Light and switch repairs</li>
-                            <li>Solar system installation</li>
-                            <li>Electrical safety inspection</li>
-                            <li>Lightning rod installation</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="service-process">
-                        <div class="process-step">
-                            <i class="fas fa-shield-alt"></i>
-                            <h4 class="sw-content">Usalama</h4>
-                            <h4 class="en-content">Safety</h4>
-                            <p class="sw-content">Tunazingatia usalama kabisa</p>
-                            <p class="en-content">We prioritize safety first</p>
-                        </div>
-                        <div class="process-step">
-                            <i class="fas fa-cogs"></i>
-                            <h4 class="sw-content">Ufundi</h4>
-                            <h4 class="en-content">Expertise</h4>
-                            <p class="sw-content">Tunatumia ujuzi wa kisasa</p>
-                            <p class="en-content">We use modern expertise</p>
-                        </div>
-                        <div class="process-step">
-                            <i class="fas fa-certificate"></i>
-                            <h4 class="sw-content">Udhamini</h4>
-                            <h4 class="en-content">Warranty</h4>
-                            <p class="sw-content">Kazi zetu zina udhamini</p>
-                            <p class="en-content">Our work has warranty</p>
-                        </div>
-                    </div>
-                    
-                    <a href="contact.html" class="btn-primary">
-                        <i class="fas fa-calendar-alt"></i>
-                        <span class="sw-content">Omba Huduma Sasa</span>
-                        <span class="en-content">Request Service Now</span>
-                    </a>
+                
+                <!-- English Content -->
+                <div class="language-content en-content">
+                    <h2 class="section-title">Service Comparison</h2>
+                    <p class="section-subtitle">See the differences between our main services</p>
                 </div>
             </div>
 
-            <!-- More services would follow the same pattern -->
-            <!-- Construction Service -->
-            <div class="service-detail-card">
-                <div class="service-detail-header">
-                    <i class="fas fa-hammer"></i>
-                    <h2 class="sw-content">Ujenzi na Ukarabati</h2>
-                    <h2 class="en-content">Construction & Repair</h2>
-                    <p class="sw-content">Ujenzi bora na ukarabati wa majengo</p>
-                    <p class="en-content">Quality construction and building repair</p>
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="sw-content">Kipengele</th>
+                            <th class="en-content">Feature</th>
+                            <th class="sw-content">Fundi Maji</th>
+                            <th class="en-content">Plumbing</th>
+                            <th class="sw-content">Fundi Umeme</th>
+                            <th class="en-content">Electrical</th>
+                            <th class="sw-content">Ujenzi</th>
+                            <th class="en-content">Construction</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="sw-content">Muda wa Matengenezo</td>
+                            <td class="en-content">Repair Time</td>
+                            <td>1-3 Saa</td>
+                            <td>2-4 Saa</td>
+                            <td>3-6 Saa</td>
+                        </tr>
+                        <tr>
+                            <td class="sw-content">Udhamini wa Kazi</td>
+                            <td class="en-content">Work Warranty</td>
+                            <td>Miezi 6</td>
+                            <td>Miezi 12</td>
+                            <td>Miezi 24</td>
+                        </tr>
+                        <tr>
+                            <td class="sw-content">Kutuma Mahali</td>
+                            <td class="en-content">On-site Service</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td class="sw-content">Msaada wa Dharura</td>
+                            <td class="en-content">Emergency Support</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-times times-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td class="sw-content">Vifaa Vyetu</td>
+                            <td class="en-content">Our Equipment</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-times times-icon"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section section-padding">
+        <div class="container">
+            <div class="section-header">
+                <!-- Swahili Content -->
+                <div class="language-content sw-content active">
+                    <h2 class="section-title">Maswali Yanayoulizwa Mara Kwa Mara</h2>
+                    <p class="section-subtitle">Majibu ya maswali yako kuhusu huduma zetu</p>
                 </div>
-                <div class="service-detail-content">
-                    <div class="service-price">
-                        <div class="price-label sw-content">Bei Kuanzia</div>
-                        <div class="price-label en-content">Starting From</div>
-                        <div class="price-value">TZS 40,000</div>
+                
+                <!-- English Content -->
+                <div class="language-content en-content">
+                    <h2 class="section-title">Frequently Asked Questions</h2>
+                    <p class="section-subtitle">Answers to your questions about our services</p>
+                </div>
+            </div>
+
+            <div class="faq-grid">
+                <!-- FAQ 1 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="sw-content">Je, naweza kupanga fundi kwa dharura?</span>
+                        <span class="en-content">Can I book a handyman for emergency?</span>
+                        <i class="fas fa-chevron-down"></i>
                     </div>
-                    
-                    <div class="sw-content">
-                        <h3>Kuhusu Huduma</h3>
-                        <p>Huduma za ujenzi na ukarabati wa nyumba, ofisi, na majengo mengine:</p>
-                        <ul class="service-features">
-                            <li>Ujenzi wa nyumba na majengo</li>
-                            <li>Ukarabati wa kuta na dari</li>
-                            <li>Ufungaji wa madirisha na milango</li>
-                            <li>Ujenzi wa sakafu</li>
-                            <li>Matengenezo ya dari</li>
-                        </ul>
+                    <div class="faq-answer">
+                        <p class="sw-content">Ndiyo! Tuna huduma ya dharura inayoweza kukutana nawe ndani ya masaa 2. Huduma hii inapatikana kwa huduma za maji na umeme.</p>
+                        <p class="en-content">Yes! We have emergency service that can meet you within 2 hours. This service is available for water and electrical services.</p>
                     </div>
-                    
-                    <div class="en-content">
-                        <h3>About the Service</h3>
-                        <p>Construction and repair services for houses, offices, and other buildings:</p>
-                        <ul class="service-features">
-                            <li>House and building construction</li>
-                            <li>Wall and ceiling repair</li>
-                            <li>Window and door installation</li>
-                            <li>Floor construction</li>
-                            <li>Ceiling repairs</li>
-                        </ul>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="sw-content">Je, huduma zenu zina udhamini?</span>
+                        <span class="en-content">Do your services have warranty?</span>
+                        <i class="fas fa-chevron-down"></i>
                     </div>
-                    
+                    <div class="faq-answer">
+                        <p class="sw-content">Ndiyo, huduma zote zetu zina udhamini. Huduma za maji zina udhamini wa miezi 6, umeme miezi 12, na ujenzi miezi 24.</p>
+                        <p class="en-content">Yes, all our services have warranty. Plumbing services have 6 months warranty, electrical 12 months, and construction 24 months.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="sw-content">Je, naweza kupata makadirio ya bei kabla ya kazi?</span>
+                        <span class="en-content">Can I get price estimate before work?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="sw-content">Ndiyo, fundi wetu atakupa makadirio sahihi ya bei kabla ya kuanza kazi yoyote. Huna malipo hadi makubaliano ya bei.</p>
+                        <p class="en-content">Yes, our handyman will give you accurate price estimate before starting any work. You don't pay until price agreement.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="sw-content">Je, wafundi wenu wana cheti?</span>
+                        <span class="en-content">Are your handymen certified?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="sw-content">Ndiyo, wafundi wote wana cheti na usajili halali. Tunaweka wafundi wenye uzoefu wa miaka 3+ na rating ya angalau 4.5.</p>
+                        <p class="en-content">Yes, all handymen have certificates and valid registration. We list handymen with 3+ years experience and at least 4.5 rating.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container cta-content">
+            <!-- Swahili Content -->
+            <div class="language-content sw-content active">
+                <h2>Tayari Kupata Huduma?</h2>
+                <p>Panga fundi wa kuaminika sasa na upate huduma bora ya matengenezo kwa bei nzuri.</p>
+                
+                <div class="cta-buttons">
                     <a href="contact.html" class="btn-primary">
                         <i class="fas fa-calendar-alt"></i>
-                        <span class="sw-content">Omba Huduma Sasa</span>
-                        <span class="en-content">Request Service Now</span>
+                        Panga Fundi Sasa
+                    </a>
+                    <a href="tel:+255768000111" class="btn-secondary">
+                        <i class="fas fa-phone-alt"></i>
+                        Tupigie Simu
+                    </a>
+                </div>
+            </div>
+            
+            <!-- English Content -->
+            <div class="language-content en-content">
+                <h2>Ready to Get Service?</h2>
+                <p>Book a reliable handyman now and get quality repair service at fair price.</p>
+                
+                <div class="cta-buttons">
+                    <a href="contact.html" class="btn-primary">
+                        <i class="fas fa-calendar-alt"></i>
+                        Book Handyman Now
+                    </a>
+                    <a href="tel:+255768000111" class="btn-secondary">
+                        <i class="fas fa-phone-alt"></i>
+                        Call Us Now
                     </a>
                 </div>
             </div>
@@ -419,7 +1695,7 @@
             <div class="footer-content">
                 <div class="footer-column">
                     <div class="footer-logo">
-                        <h2>Fixit<span style="color: #ffb000">TZ</span></h2>
+                        <h2>Fixit<span style="color: #f59e0b">TZ</span></h2>
                         <div class="language-content sw-content active">
                             <p>Sokoni la mafundi Tanzania. Tunaunganisha wateza na wafundi wenye ujuzi katika mikoa yote.</p>
                         </div>
@@ -514,6 +1790,95 @@
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
+    <script>
+        // Language Switching
+        document.addEventListener('DOMContentLoaded', function() {
+            const langTabs = document.querySelectorAll('.lang-tab');
+            
+            langTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const lang = this.dataset.lang;
+                    
+                    // Update active tab
+                    langTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show selected language content
+                    document.querySelectorAll('.sw-content').forEach(el => {
+                        el.style.display = lang === 'sw' ? 'block' : 'none';
+                    });
+                    document.querySelectorAll('.en-content').forEach(el => {
+                        el.style.display = lang === 'en' ? 'block' : 'none';
+                    });
+                    
+                    // Update language content sections
+                    document.querySelectorAll('.language-content').forEach(el => {
+                        el.classList.remove('active');
+                    });
+                    document.querySelectorAll(`.${lang}-content`).forEach(el => {
+                        el.classList.add('active');
+                    });
+                });
+            });
+            
+            // Mobile Navigation
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            hamburger.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking on link
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                });
+            });
+            
+            // FAQ Accordion
+            document.querySelectorAll('.faq-question').forEach(question => {
+                question.addEventListener('click', function() {
+                    const faqItem = this.parentElement;
+                    faqItem.classList.toggle('active');
+                });
+            });
+            
+            // Smooth scrolling for service links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if(targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Service Request Buttons
+            document.querySelectorAll('.btn-service, .btn-request').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    if(this.getAttribute('href') === '#') {
+                        e.preventDefault();
+                        const lang = document.querySelector('.lang-tab.active').dataset.lang;
+                        
+                        if(lang === 'sw') {
+                            alert('Inaongoza ukurasa wa ombi la huduma...');
+                        } else {
+                            alert('Redirecting to service request page...');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
