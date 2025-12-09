@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - FixitTZ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .blog-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(0, 100, 0, 0.9) 0%, rgba(10, 140, 10, 0.8) 100%),
+                        url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+            padding: 120px 0 4rem;
+        }
+        
+        .blog-hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+            color: var(--white);
+        }
+        
+        .blog-hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .blog-hero-content p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .blog-section {
+            padding: 6rem 0;
+            background: #f8f9fa;
+        }
+        
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 4rem auto 0;
+        }
+        
+        .blog-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .blog-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .blog-content {
+            padding: 2rem;
+        }
+        
+        .blog-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .blog-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .blog-content h3 {
+            color: var(--primary-green);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+        
+        .blog-content p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        
+        .read-more {
+            color: var(--primary-green);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .read-more:hover {
+            color: var(--secondary-green);
+            gap: 10px;
+        }
+        
+        .categories-sidebar {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+        
+        .categories-sidebar h3 {
+            color: var(--primary-green);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .category-list li {
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        
+        .category-list li:hover {
+            background: #f8f9fa;
+            padding-left: 1rem;
+        }
+        
+        .category-list a {
+            color: #666;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .category-list a:hover {
+            color: var(--primary-green);
+        }
+        
+        .blog-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 992px) {
+            .blog-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Tabs -->
+    <div class="language-tabs">
+        <button class="lang-tab active" data-lang="sw">
+            <i class="fas fa-language"></i>
+            <span>SW</span>
+        </button>
+        <button class="lang-tab" data-lang="en">
+            <i class="fas fa-language"></i>
+            <span>EN</span>
+        </button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <h1>Fixit<span>TZ</span></h1>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">
+                    <i class="fas fa-home"></i>
+                    <span class="sw-content">Nyumbani</span>
+                    <span class="en-content">Home</span>
+                </a></li>
+                <li><a href="about.html">
+                    <i class="fas fa-info-circle"></i>
+                    <span class="sw-content">Kuhusu Sisi</span>
+                    <span class="en-content">About</span>
+                </a></li>
+                <li><a href="services.html">
+                    <i class="fas fa-tools"></i>
+                    <span class="sw-content">Huduma</span>
+                    <span class="en-content">Services</span>
+                </a></li>
+                <li><a href="providers.html">
+                    <i class="fas fa-users"></i>
+                    <span class="sw-content">Wafundi</span>
+                    <span class="en-content">Providers</span>
+                </a></li>
+                <li><a href="blog.html" class="active">
+                    <i class="fas fa-blog"></i>
+                    <span class="sw-content">Blog</span>
+                    <span class="en-content">Blog</span>
+                </a></li>
+                <li><a href="contact.html">
+                    <i class="fas fa-address-book"></i>
+                    <span class="sw-content">Mawasiliano</span>
+                    <span class="en-content">Contact</span>
+                </a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="#" class="btn-login">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span class="sw-content">Ingia</span>
+                    <span class="en-content">Login</span>
+                </a>
+                <a href="#" class="btn-register">
+                    <i class="fas fa-user-plus"></i>
+                    <span class="sw-content">Jiandikishe</span>
+                    <span class="en-content">Register</span>
+                </a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Blog Hero -->
+    <section class="blog-hero">
+        <div class="container blog-hero-content">
+            <!-- Swahili Content -->
+            <div class="language-content sw-content active">
+                <h1>Blog Yetu</h1>
+                <p>Nasi kuhusu matengenezo, ukarabati na ushauri wa ujenzi</p>
+            </div>
+            
+            <!-- English Content -->
+            <div class="language-content en-content">
+                <h1>Our Blog</h1>
+                <p>News about repairs, maintenance and construction advice</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="blog-section">
+        <div class="container">
+            <div class="section-header">
+                <!-- Swahili Content -->
+                <div class="language-content sw-content active">
+                    <h2 class="section-title">Makala Zaidi</h2>
+                    <p class="section-subtitle">Soma ushauri na habari za kisasa katika ulimwengu wa matengenezo</p>
+                </div>
+                
+                <!-- English Content -->
+                <div class="language-content en-content">
+                    <h2 class="section-title">Latest Articles</h2>
+                    <p class="section-subtitle">Read advice and current news in the world of repairs</p>
+                </div>
+            </div>
+
+            <div class="blog-layout">
+                <div class="blog-main">
+                    <div class="blog-grid">
+                        <!-- Blog Post 1 -->
+                        <div class="blog-card">
+                            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop" alt="Blog" class="blog-img">
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <span><i class="far fa-calendar"></i> <span class="sw-content">Aprili 15, 2025</span><span class="en-content">April 15, 2025</span></span>
+                                    <span><i class="far fa-folder"></i> <span class="sw-content">Matengenezo</span><span class="en-content">Repairs</span></span>
+                                </div>
+                                <h3 class="sw-content">Jinsi ya Kutambua na Kurekebisha Mabomba Yanayovuja</h3>
+                                <h3 class="en-content">How to Identify and Fix Leaking Pipes</h3>
+                                <p class="sw-content">Jifunze dalili za mabomba yanayovuja na hatua za kurekebisha kabla ya kusababisha uharibifu mkubwa.</p>
+                                <p class="en-content">Learn signs of leaking pipes and repair steps before causing major damage.</p>
+                                <a href="#" class="read-more">
+                                    <span class="sw-content">Soma Zaidi</span>
+                                    <span class="en-content">Read More</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Blog Post 2 -->
+                        <div class="blog-card">
+                            <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=2069&auto=format&fit=crop" alt="Blog" class="blog-img">
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <span><i class="far fa-calendar"></i> <span class="sw-content">Aprili 10, 2025</span><span class="en-content">April 10, 2025</span></span>
+                                    <span><i class="far fa-folder"></i> <span class="sw-content">Umeme</span><span class="en-content">Electricity</span></span>
+                                </div>
+                                <h3 class="sw-content">Uokoaji wa Umeme Nyumbani: Mambo Muhimu Kujua</h3>
+                                <h3 class="en-content">Home Electrical Safety: Key Things to Know</h3>
+                                <p class="sw-content">Vidokezo vya usalama na jinsi ya kuepuka ajali za umeme katika nyumba yako.</p>
+                                <p class="en-content">Safety tips and how to avoid electrical accidents in your home.</p>
+                                <a href="#" class="read-more">
+                                    <span class="sw-content">Soma Zaidi</span>
+                                    <span class="en-content">Read More</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Blog Post 3 -->
+                        <div class="blog-card">
+                            <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=2070&auto=format&fit=crop" alt="Blog" class="blog-img">
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <span><i class="far fa-calendar"></i> <span class="sw-content">Aprili 5, 2025</span><span class="en-content">April 5, 2025</span></span>
+                                    <span><i class="far fa-folder"></i> <span class="sw-content">Upakaji Rangi</span><span class="en-content">Painting</span></span>
+                                </div>
+                                <h3 class="sw-content">Uchaguzi wa Rangi Bora kwa Nyumba Yako</h3>
+                                <h3 class="en-content">Choosing the Best Paint for Your Home</h3>
+                                <p class="sw-content">Jinsi ya kuchagua rangi inayofaa kwa kila chumba na hali ya hewa ya Tanzania.</p>
+                                <p class="en-content">How to choose the right paint for each room and Tanzania's weather conditions.</p>
+                                <a href="#" class="read-more">
+                                    <span class="sw-content">Soma Zaidi</span>
+                                    <span class="en-content">Read More</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Blog Post 4 -->
+                        <div class="blog-card">
+                            <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=1974&auto=format&fit=crop" alt="Blog" class="blog-img">
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <span><i class="far fa-calendar"></i> <span class="sw-content">Mach 28, 2025</span><span class="en-content">March 28, 2025</span></span>
+                                    <span><i class="far fa-folder"></i> <span class="sw-content">Magari</span><span class="en-content">Cars</span></span>
+                                </div>
+                                <h3 class="sw-content">Matengenezo ya Kawaida ya Gari Katika Hali ya Hewa ya Tropiki</h3>
+                                <h3 class="en-content">Regular Car Maintenance in Tropical Climate</h3>
+                                <p class="sw-content">Jifunze matengenezo muhimu ya gari kwa hali ya hewa ya joto na unyevu.</p>
+                                <p class="en-content">Learn essential car maintenance for hot and humid climate conditions.</p>
+                                <a href="#" class="read-more">
+                                    <span class="sw-content">Soma Zaidi</span>
+                                    <span class="en-content">Read More</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Blog Post 5 -->
+                        <div class="blog-card">
+                            <img src="https://images.unsplash.com/photo-1601409751314-6b62ea5d5e2d?q=80&w=2070&auto=format&fit=crop" alt="Blog" class="blog-img">
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <span><i class="far fa-calendar"></i> <span class="sw-content">Mach 20, 2025</span><span class="en-content">March 20, 2025</span></span>
+                                    <span><i class="far fa-folder"></i> <span class="sw-content">Mbao</span><span class="en-content">Wood</span></span>
+                                </div>
+                                <h3 class="sw-content">Kuhifadhi na Kutunza Vifaa vya Mbao Katika Msimu wa Mvua</h3>
+                                <h3 class="en-content">Preserving and Maintaining Wooden Furniture in Rainy Season</h3>
+                                <p class="sw-content">Namna bora ya kuhifadhi samani za mbao wakati wa msimu wa mvua.</p>
+                                <p class="en-content">Best ways to preserve wooden furniture during rainy season.</p>
+                                <a href="#" class="read-more">
+                                    <span class="sw-content">Soma Zaidi</span>
+                                    <span class="en-content">Read More</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Blog Post 6 -->
+                        <div class="blog-card">
+                            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2070&auto=format&fit=crop" alt="Blog" class="blog-img">
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <span><i class="far fa-calendar"></i> <span class="sw-content">Mach 15, 2025</span><span class="en-content">March 15, 2025</span></span>
+                                    <span><i class="far fa-folder"></i> <span class="sw-content">Ujenzi</span><span class="en-content">Construction</span></span>
+                                </div>
+                                <h3 class="sw-content">Vifaa Muhimu vya Kujenga Katika Maeneo ya Mvua Nyingi</h3>
+                                <h3 class="en-content">Essential Building Materials for High Rainfall Areas</h3>
+                                <p class="sw-content">Chaguzi bora za vifaa vya ujenzi kwa maeneo yenye mvua nyingi.</p>
+                                <p class="en-content">Best building material choices for areas with heavy rainfall.</p>
+                                <a href="#" class="read-more">
+                                    <span class="sw-content">Soma Zaidi</span>
+                                    <span class="en-content">Read More</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination" style="margin-top: 4rem;">
+                        <button class="active">1</button>
+                        <button>2</button>
+                        <button>3</button>
+                        <button>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <!-- Categories -->
+                    <div class="categories-sidebar">
+                        <h3 class="sw-content">Jamii</h3>
+                        <h3 class="en-content">Categories</h3>
+                        <ul class="category-list">
+                            <li>
+                                <a href="#">
+                                    <span class="sw-content">Matengenezo</span>
+                                    <span class="en-content">Repairs</span>
+                                    <span>(12)</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="sw-content">Umeme</span>
+                                    <span class="en-content">Electricity</span>
+                                    <span>(8)</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="sw-content">Ujenzi</span>
+                                    <span class="en-content">Construction</span>
+                                    <span>(15)</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="sw-content">Maji</span>
+                                    <span class="en-content">Plumbing</span>
+                                    <span>(6)</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="sw-content">Magari</span>
+                                    <span class="en-content">Cars</span>
+                                    <span>(9)</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="sw-content">Mbao</span>
+                                    <span class="en-content">Wood</span>
+                                    <span>(7)</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Newsletter -->
+                    <div class="categories-sidebar">
+                        <h3 class="sw-content">Jiandikishe kwa Habari</h3>
+                        <h3 class="en-content">Subscribe to Newsletter</h3>
+                        <p class="sw-content" style="margin-bottom: 1rem; color: #666;">Pata habari mpya moja kwa moja kwenye barua pepe yako.</p>
+                        <p class="en-content" style="margin-bottom: 1rem; color: #666;">Get latest news directly in your email.</p>
+                        <form style="margin-top: 1.5rem;">
+                            <input type="email" placeholder="Barua pepe yako" class="sw-content" style="width: 100%; padding: 1rem; border: 2px solid #e0e0e0; border-radius: 8px; margin-bottom: 1rem;">
+                            <input type="email" placeholder="Your email" class="en-content" style="width: 100%; padding: 1rem; border: 2px solid #e0e0e0; border-radius: 8px; margin-bottom: 1rem;">
+                            <button type="submit" class="btn-primary" style="width: 100%;">
+                                <i class="fas fa-envelope"></i>
+                                <span class="sw-content">Jiandikishe</span>
+                                <span class="en-content">Subscribe</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <h2>Fixit<span style="color: #ffb000">TZ</span></h2>
+                        <div class="language-content sw-content active">
+                            <p>Sokoni la mafundi Tanzania. Tunaunganisha wateza na wafundi wenye ujuzi katika mikoa yote.</p>
+                        </div>
+                        <div class="language-content en-content">
+                            <p>Tanzania's handyman marketplace. We connect customers with skilled professionals across all regions.</p>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <div class="language-content sw-content active">
+                        <h3>Viungo Muhimu</h3>
+                        <ul class="footer-links">
+                            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Nyumbani</a></li>
+                            <li><a href="about.html"><i class="fas fa-chevron-right"></i> Kuhusu Sisi</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Huduma</a></li>
+                            <li><a href="blog.html"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                            <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Mawasiliano</a></li>
+                        </ul>
+                    </div>
+                    <div class="language-content en-content">
+                        <h3>Quick Links</h3>
+                        <ul class="footer-links">
+                            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                            <li><a href="about.html"><i class="fas fa-chevron-right"></i> About</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Services</a></li>
+                            <li><a href="blog.html"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                            <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <div class="language-content sw-content active">
+                        <h3>Huduma</h3>
+                        <ul class="footer-links">
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Fundi Maji</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Fundi Umeme</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Ujenzi</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Seremala</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Upakaji Rangi</a></li>
+                        </ul>
+                    </div>
+                    <div class="language-content en-content">
+                        <h3>Services</h3>
+                        <ul class="footer-links">
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Plumbing</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Electrical</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Construction</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Carpentry</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Painting</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <div class="language-content sw-content active">
+                        <h3>Mawasiliano</h3>
+                        <div class="footer-contact">
+                            <p><i class="fas fa-map-marker-alt"></i> Mikocheni, Dar es Salaam</p>
+                            <p><i class="fas fa-phone-alt"></i> +255 768 000 111</p>
+                            <p><i class="fas fa-envelope"></i> info@fixittz.co.tz</p>
+                        </div>
+                    </div>
+                    <div class="language-content en-content">
+                        <h3>Contact</h3>
+                        <div class="footer-contact">
+                            <p><i class="fas fa-map-marker-alt"></i> Mikocheni, Dar es Salaam</p>
+                            <p><i class="fas fa-phone-alt"></i> +255 768 000 111</p>
+                            <p><i class="fas fa-envelope"></i> info@fixittz.co.tz</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="language-content sw-content active">
+                    <p>© 2025 FixitTZ – Sokoni la Mafundi Tanzania • <a href="#">Sera ya Faragha</a> • <a href="#">Vigezo na Masharti</a></p>
+                </div>
+                <div class="language-content en-content">
+                    <p>© 2025 FixitTZ – Tanzania Handyman Marketplace • <a href="#">Privacy Policy</a> • <a href="#">Terms & Conditions</a></p>
+                </div>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem;">Namba ya usajili: 123456789 | TIN: 123-456-789</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
