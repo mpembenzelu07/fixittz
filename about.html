@@ -6,117 +6,856 @@
     <title>Kuhusu Sisi - FixitTZ</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Additional styles for about page */
-        .about-hero {
-            min-height: 60vh;
+        /* Base Styles */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #f59e0b;
+            --secondary-dark: #d97706;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --success: #10b981;
+            --danger: #ef4444;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .section-subtitle {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        /* Language Content */
+        .language-content {
+            display: none;
+        }
+
+        .language-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .en-content {
+            display: none;
+        }
+
+        .sw-content.active ~ .en-content {
+            display: none;
+        }
+
+        /* Language Tabs */
+        .language-tabs {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+            background: white;
+            border-radius: 50px;
+            padding: 5px;
+            box-shadow: var(--shadow);
+        }
+
+        .lang-tab {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: transparent;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            background: linear-gradient(135deg, rgba(0, 100, 0, 0.9) 0%, rgba(10, 140, 10, 0.8) 100%), 
-                        url('https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--gray);
+            font-weight: 600;
+        }
+
+        .lang-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: white;
+            box-shadow: var(--shadow);
+            z-index: 999;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            text-decoration: none;
+            color: var(--dark);
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .nav-menu a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-login,
+        .btn-register {
+            text-decoration: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .btn-login {
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-login:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-register {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-register:hover {
+            background: var(--primary-dark);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--dark);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        /* About Hero */
+        .about-hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.9) 0%, rgba(29, 78, 216, 0.8) 100%), 
+                        url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
             padding: 120px 0 4rem;
+            position: relative;
+            overflow: hidden;
         }
-        
+
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to top, var(--light), transparent);
+            z-index: 1;
+        }
+
         .about-content {
-            max-width: 1400px;
-            margin: 0 auto;
+            position: relative;
+            z-index: 2;
             text-align: center;
-            color: var(--white);
-        }
-        
-        .about-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .about-content p {
-            font-size: 1.3rem;
+            color: white;
             max-width: 800px;
             margin: 0 auto;
-            color: rgba(255, 255, 255, 0.9);
         }
-        
+
+        .about-content h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .about-content p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        /* Mission & Vision */
         .mission-vision {
             padding: 6rem 0;
-            background: var(--white);
+            background: var(--light);
         }
-        
+
         .mission-vision-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 3rem;
-            max-width: 1400px;
-            margin: 4rem auto 0;
+            margin-top: 4rem;
         }
-        
+
         .mission-card, .vision-card {
-            background: var(--white);
+            background: white;
             padding: 3rem;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
             text-align: center;
-            border-top: 5px solid var(--accent-yellow);
-        }
-        
-        .mission-card i, .vision-card i {
-            font-size: 3rem;
-            color: var(--primary-green);
-            margin-bottom: 2rem;
-        }
-        
-        .team-section {
-            padding: 6rem 0;
-            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-        }
-        
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-            max-width: 1400px;
-            margin: 4rem auto 0;
-        }
-        
-        .team-card {
-            background: var(--white);
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            text-align: center;
+            border-top: 5px solid var(--secondary);
             transition: var(--transition);
+            position: relative;
+            overflow: hidden;
         }
-        
-        .team-card:hover {
+
+        .mission-card:hover, .vision-card:hover {
             transform: translateY(-10px);
             box-shadow: var(--shadow-lg);
         }
-        
+
+        .mission-card::before, .vision-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary), transparent);
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .mission-card > *, .vision-card > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .mission-card i, .vision-card i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            width: 80px;
+            height: 80px;
+            background: rgba(37, 99, 235, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mission-card h3, .vision-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .mission-card p, .vision-card p {
+            color: var(--gray);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        /* Story Section */
+        .story-section {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .story-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .story-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--dark);
+            line-height: 1.3;
+        }
+
+        .story-text p {
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .story-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 2rem;
+            background: var(--light);
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .stat-box:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .stat-box:hover .stat-number,
+        .stat-box:hover .stat-label {
+            color: white;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .team-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .team-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .team-img-container {
+            position: relative;
+            overflow: hidden;
+            height: 300px;
+        }
+
         .team-img {
             width: 100%;
-            height: 300px;
+            height: 100%;
             object-fit: cover;
+            transition: var(--transition);
         }
-        
+
+        .team-card:hover .team-img {
+            transform: scale(1.1);
+        }
+
+        .team-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: white;
+            transform: translateY(100%);
+            transition: var(--transition);
+        }
+
+        .team-card:hover .team-overlay {
+            transform: translateY(0);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            color: var(--secondary);
+        }
+
         .team-info {
             padding: 2rem;
         }
-        
+
         .team-info h4 {
-            color: var(--primary-green);
+            color: var(--primary);
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
         }
-        
+
         .team-role {
-            color: var(--secondary-green);
-            font-weight: 500;
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .team-info p {
+            color: var(--gray);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* Values Section */
+        .values-section {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .value-card {
+            text-align: center;
+            padding: 2.5rem 2rem;
+            background: var(--light);
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .value-card:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .value-card:hover h4,
+        .value-card:hover p {
+            color: white;
+        }
+
+        .value-card:hover .value-icon {
+            color: white;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .value-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 1.5rem;
+            transition: var(--transition);
+        }
+
+        .value-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .value-card p {
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-content h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-content p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            opacity: 0.95;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 1rem 2.5rem;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: transparent;
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo h2 {
+            font-size: 2rem;
             margin-bottom: 1rem;
         }
-        
-        .team-info p {
-            color: #666;
-            line-height: 1.7;
+
+        .footer-logo p {
+            color: #94a3b8;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: #334155;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .footer-contact p {
+            color: #94a3b8;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+        }
+
+        .footer-bottom a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-bottom a:hover {
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-content h1 {
+                font-size: 3rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .story-content {
+                gap: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                flex-direction: column;
+                background: white;
+                width: 100%;
+                padding: 2rem;
+                box-shadow: var(--shadow);
+                transition: var(--transition);
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(6px, 6px);
+            }
+            
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(6px, -6px);
+            }
+            
+            .about-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-content p {
+                font-size: 1.1rem;
+            }
+            
+            .cta-content h2 {
+                font-size: 2.5rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .section-padding {
+                padding: 60px 0;
+            }
+            
+            .mission-card, .vision-card {
+                padding: 2rem;
+            }
+            
+            .story-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     </style>
 </head>
@@ -197,29 +936,31 @@
             <!-- Swahili Content -->
             <div class="language-content sw-content active">
                 <h1>Kuhusu FixitTZ</h1>
-                <p>Tunakuunganisha na mafundi wa kuaminika katika mikoa yote ya Tanzania</p>
+                <p>Tunakuunganisha na mafundi wa kuaminika katika mikoa yote ya Tanzania. Tunaamini katika kuunda jukwaa ambalo linasaidia wateza kupata huduma bora na wafundi kupata fursa za kazi.</p>
             </div>
             
             <!-- English Content -->
             <div class="language-content en-content">
                 <h1>About FixitTZ</h1>
-                <p>Connecting you with reliable handymen across all regions of Tanzania</p>
+                <p>Connecting you with reliable handymen across all regions of Tanzania. We believe in creating a platform that helps customers get quality services and handymen get job opportunities.</p>
             </div>
         </div>
     </section>
 
     <!-- Mission & Vision -->
-    <section class="mission-vision">
+    <section class="mission-vision section-padding">
         <div class="container">
             <div class="section-header">
                 <!-- Swahili Content -->
                 <div class="language-content sw-content active">
                     <h2 class="section-title">Dhamira na Maono Yetu</h2>
+                    <p class="section-subtitle">Msingi wa kila tunachofanya</p>
                 </div>
                 
                 <!-- English Content -->
                 <div class="language-content en-content">
                     <h2 class="section-title">Our Mission & Vision</h2>
+                    <p class="section-subtitle">The foundation of everything we do</p>
                 </div>
             </div>
             
@@ -229,13 +970,13 @@
                     <!-- Swahili Content -->
                     <div class="language-content sw-content active">
                         <h3>Dhamira Yetu</h3>
-                        <p>Kuwaunda uhusiano wa kuaminika kati ya wateza na wafundi wa Tanzania kwa kutoa jukwaa salama, la kina na lenye ufanisi.</p>
+                        <p>Kuwaunda uhusiano wa kuaminika kati ya wateza na wafundi wa Tanzania kwa kutoa jukwaa salama, la kina na lenye ufanisi. Tunataka kurahisisha upatikanaji wa huduma za ufundi na kuboresha ubora wa maisha.</p>
                     </div>
                     
                     <!-- English Content -->
                     <div class="language-content en-content">
                         <h3>Our Mission</h3>
-                        <p>To build a reliable relationship between customers and Tanzanian handymen by providing a secure, comprehensive and efficient platform.</p>
+                        <p>To build a reliable relationship between customers and Tanzanian handymen by providing a secure, comprehensive and efficient platform. We aim to simplify access to handyman services and improve quality of life.</p>
                     </div>
                 </div>
                 
@@ -244,14 +985,131 @@
                     <!-- Swahili Content -->
                     <div class="language-content sw-content active">
                         <h3>Maono Yetu</h3>
-                        <p>Kuwa jukwaa kuu la Afrika Mashariki la kuunganisha wateza na wafundi, kuboresha ubora wa huduma na kuunda ajira.</p>
+                        <p>Kuwa jukwaa kuu la Afrika Mashariki la kuunganisha wateza na wafundi, kuboresha ubora wa huduma, kuunda fursa za ajira, na kuwa msukumo wa mageuzi ya kitaalamu katika sekta ya ufundi Tanzania.</p>
                     </div>
                     
                     <!-- English Content -->
                     <div class="language-content en-content">
                         <h3>Our Vision</h3>
-                        <p>To be the leading platform in East Africa connecting customers and handymen, improving service quality and creating employment.</p>
+                        <p>To be the leading platform in East Africa connecting customers and handymen, improving service quality, creating job opportunities, and inspiring professional transformation in Tanzania's handyman sector.</p>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="story-section">
+        <div class="container">
+            <div class="story-content">
+                <div class="story-text">
+                    <!-- Swahili Content -->
+                    <div class="language-content sw-content active">
+                        <h2>Hadithi Yetu</h2>
+                        <p>FixitTZ ilianzishwa mwaka 2023 kwa lengo la kutatua changamoto ya upatikanaji wa mafundi wa kuaminika katika Tanzania. Baada ya kusikiliza maswali mengi kutoka kwa marafiki na familia kuhusu ugumu wa kupata fundi mzuri, tuliamua kuunda suluhisho.</p>
+                        <p>Leo, tumekuwa jukwaa la kimsingi linalounganisha mamia ya wafundi wenye ujuzi na maelfu ya wateza waaminifu katika mikoa yote ya Tanzania.</p>
+                    </div>
+                    
+                    <!-- English Content -->
+                    <div class="language-content en-content">
+                        <h2>Our Story</h2>
+                        <p>FixitTZ was founded in 2023 with the goal of solving the challenge of finding reliable handymen in Tanzania. After hearing numerous complaints from friends and family about the difficulty of finding good handymen, we decided to create a solution.</p>
+                        <p>Today, we have become an essential platform connecting hundreds of skilled handymen with thousands of trusted customers across all regions of Tanzania.</p>
+                    </div>
+                    
+                    <div class="story-stats">
+                        <div class="stat-box">
+                            <span class="stat-number">2,000+</span>
+                            <span class="sw-content stat-label">Wafundi</span>
+                            <span class="en-content stat-label">Handymen</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">25,000+</span>
+                            <span class="sw-content stat-label">Kazi</span>
+                            <span class="en-content stat-label">Jobs</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">30+</span>
+                            <span class="sw-content stat-label">Mikoa</span>
+                            <span class="en-content stat-label">Regions</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">4.8★</span>
+                            <span class="sw-content stat-label">Tathmini</span>
+                            <span class="en-content stat-label">Rating</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="story-visual">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop" 
+                         alt="Our Story" 
+                         style="width:100%; border-radius: var(--radius); box-shadow: var(--shadow-lg);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values-section">
+        <div class="container">
+            <div class="section-header">
+                <!-- Swahili Content -->
+                <div class="language-content sw-content active">
+                    <h2 class="section-title">Maadili Yetu</h2>
+                    <p class="section-subtitle">Misingi ya jinsi tunavyofanya kazi</p>
+                </div>
+                
+                <!-- English Content -->
+                <div class="language-content en-content">
+                    <h2 class="section-title">Our Values</h2>
+                    <p class="section-subtitle">The foundation of how we operate</p>
+                </div>
+            </div>
+            
+            <div class="values-grid">
+                <!-- Value 1 -->
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4 class="sw-content">Uaminifu</h4>
+                    <h4 class="en-content">Trust</h4>
+                    <p class="sw-content">Tunaweka uaminifu kwa katikati ya mahusiano yetu na wateza na wafundi wote.</p>
+                    <p class="en-content">We place trust at the center of our relationships with all customers and handymen.</p>
+                </div>
+                
+                <!-- Value 2 -->
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4 class="sw-content">Ubora</h4>
+                    <h4 class="en-content">Quality</h4>
+                    <p class="sw-content">Tunahimiza na kuhakikisha ubora bora katika huduma zote zinazotolewa.</p>
+                    <p class="en-content">We encourage and ensure the highest quality in all services provided.</p>
+                </div>
+                
+                <!-- Value 3 -->
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h4 class="sw-content">Ushirikiano</h4>
+                    <h4 class="en-content">Collaboration</h4>
+                    <p class="sw-content">Tunaamini katika kujenga jamii ya wateza na wafundi wanaoshirikiana.</p>
+                    <p class="en-content">We believe in building a community of customers and handymen who collaborate.</p>
+                </div>
+                
+                <!-- Value 4 -->
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h4 class="sw-content">Uvumbuzi</h4>
+                    <h4 class="en-content">Innovation</h4>
+                    <p class="sw-content">Tunaboresha mfululizo ili kutoa suluhisho bora kwa wateza na wafundi.</p>
+                    <p class="en-content">We continuously improve to provide better solutions for customers and handymen.</p>
                 </div>
             </div>
         </div>
@@ -264,63 +1122,129 @@
                 <!-- Swahili Content -->
                 <div class="language-content sw-content active">
                     <h2 class="section-title">Timu Yetu</h2>
-                    <p class="section-subtitle">Watu nyuma ya mafanikio ya FixitTZ</p>
+                    <p class="section-subtitle">Watu wenye nguvu nyuma ya mafanikio ya FixitTZ</p>
                 </div>
                 
                 <!-- English Content -->
                 <div class="language-content en-content">
                     <h2 class="section-title">Our Team</h2>
-                    <p class="section-subtitle">The people behind FixitTZ's success</p>
+                    <p class="section-subtitle">The passionate people behind FixitTZ's success</p>
                 </div>
             </div>
             
             <div class="team-grid">
                 <!-- Team Member 1 -->
                 <div class="team-card">
-                    <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Team Member" class="team-img">
+                    <div class="team-img-container">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=2787&auto=format&fit=crop" alt="Team Member" class="team-img">
+                        <div class="team-overlay">
+                            <div class="social-icons">
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-facebook"></i></a>
+                            </div>
+                        </div>
+                    </div>
                     <div class="team-info">
                         <h4>John Mwakyusa</h4>
                         <div class="team-role sw-content">Mkurugenzi Mtendaji</div>
-                        <div class="team-role en-content">CEO</div>
-                        <p class="sw-content">Mwanzilishi wa FixitTZ, ana uzoefu wa miaka 10 katika ukuzaji wa biashara.</p>
-                        <p class="en-content">Founder of FixitTZ, has 10 years experience in business development.</p>
+                        <div class="team-role en-content">Chief Executive Officer</div>
+                        <p class="sw-content">Mwanzilishi na Mkurugenzi Mtendaji wa FixitTZ, ana uzoefu wa miaka 10 katika ukuzaji wa biashara na teknolojia.</p>
+                        <p class="en-content">Founder and CEO of FixitTZ, with 10 years experience in business and technology development.</p>
                     </div>
                 </div>
                 
                 <!-- Team Member 2 -->
                 <div class="team-card">
-                    <img src="https://randomuser.me/api/portraits/women/2.jpg" alt="Team Member" class="team-img">
+                    <div class="team-img-container">
+                        <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?q=80&w=2787&auto=format&fit=crop" alt="Team Member" class="team-img">
+                        <div class="team-overlay">
+                            <div class="social-icons">
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
                     <div class="team-info">
                         <h4>Sarah Juma</h4>
-                        <div class="team-role sw-content">Meneja wa Huduma</div>
-                        <div class="team-role en-content">Services Manager</div>
-                        <p class="sw-content">Anasimamia uzoefu wa wateza na uhakikisho wa ubora wa huduma.</p>
-                        <p class="en-content">Manages customer experience and service quality assurance.</p>
+                        <div class="team-role sw-content">Meneja wa Uzoefu wa Wateza</div>
+                        <div class="team-role en-content">Customer Experience Manager</div>
+                        <p class="sw-content">Anasimamia uzoefu wa wateza wote na uhakikisho wa ubora wa huduma katika jukwaa zima.</p>
+                        <p class="en-content">Manages all customer experience and service quality assurance across the entire platform.</p>
                     </div>
                 </div>
                 
                 <!-- Team Member 3 -->
                 <div class="team-card">
-                    <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="Team Member" class="team-img">
+                    <div class="team-img-container">
+                        <img src="https://images.unsplash.com/photo-1556157382-2eda2afc49d5?q=80&w=2787&auto=format&fit=crop" alt="Team Member" class="team-img">
+                        <div class="team-overlay">
+                            <div class="social-icons">
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-github"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
                     <div class="team-info">
                         <h4>David Peter</h4>
                         <div class="team-role sw-content">Mtaalamu wa Teknolojia</div>
                         <div class="team-role en-content">Technology Expert</div>
-                        <p class="sw-content">Anahakikisha teknolojia yetu inaendeshwa vizuri na salama.</p>
-                        <p class="en-content">Ensures our technology runs smoothly and securely.</p>
+                        <p class="sw-content">Anahakikisha teknolojia yetu inaendeshwa vizuri, salama na inakidhi mahitaji ya wateza wetu.</p>
+                        <p class="en-content">Ensures our technology runs smoothly, securely and meets our customers' needs.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer (Same as homepage) -->
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container cta-content">
+            <!-- Swahili Content -->
+            <div class="language-content sw-content active">
+                <h2>Jiunge na Safari Yetu</h2>
+                <p>Ikiwa wewe ni fundi mwenye ujuzi, jiandikishe sasa upate wateza wengi. Ikiwa unatafuta fundi wa kuaminika, tumia jukwaa letu kupata huduma bora leo.</p>
+                
+                <div class="cta-buttons">
+                    <a href="#" class="btn-primary">
+                        <i class="fas fa-user-plus"></i>
+                        Jiandikishe kama Fundi
+                    </a>
+                    <a href="contact.html" class="btn-secondary">
+                        <i class="fas fa-envelope"></i>
+                        Wasiliana Nasi
+                    </a>
+                </div>
+            </div>
+            
+            <!-- English Content -->
+            <div class="language-content en-content">
+                <h2>Join Our Journey</h2>
+                <p>If you are a skilled handyman, register now to get more customers. If you're looking for a reliable handyman, use our platform to get quality service today.</p>
+                
+                <div class="cta-buttons">
+                    <a href="#" class="btn-primary">
+                        <i class="fas fa-user-plus"></i>
+                        Register as Handyman
+                    </a>
+                    <a href="contact.html" class="btn-secondary">
+                        <i class="fas fa-envelope"></i>
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
                     <div class="footer-logo">
-                        <h2>Fixit<span style="color: #ffb000">TZ</span></h2>
+                        <h2>Fixit<span style="color: #f59e0b">TZ</span></h2>
                         <!-- Swahili Content -->
                         <div class="language-content sw-content active">
                             <p>Sokoni la mafundi Tanzania. Tunaunganisha wateza na wafundi wenye ujuzi katika mikoa yote.</p>
@@ -490,6 +1414,71 @@
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
+    <script>
+        // Language Switching
+        document.addEventListener('DOMContentLoaded', function() {
+            const langTabs = document.querySelectorAll('.lang-tab');
+            
+            langTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const lang = this.dataset.lang;
+                    
+                    // Update active tab
+                    langTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show selected language content
+                    document.querySelectorAll('.sw-content').forEach(el => {
+                        el.style.display = lang === 'sw' ? 'block' : 'none';
+                    });
+                    document.querySelectorAll('.en-content').forEach(el => {
+                        el.style.display = lang === 'en' ? 'block' : 'none';
+                    });
+                    
+                    // Update language content sections
+                    document.querySelectorAll('.language-content').forEach(el => {
+                        el.classList.remove('active');
+                    });
+                    document.querySelectorAll(`.${lang}-content`).forEach(el => {
+                        el.classList.add('active');
+                    });
+                });
+            });
+            
+            // Mobile Navigation
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            hamburger.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking on link
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                });
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if(targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
